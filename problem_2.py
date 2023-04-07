@@ -42,7 +42,7 @@ def solution_generator() -> int:
     return fib_sum
 
 
-
 if __name__ == "__main__":
     import runner
+
     runner.run(globals())

@@ -24,7 +24,7 @@ digits = "".join(
 )
 
 
-num_digits = 5
+num_digits = 13
 
 
 def solution_substrings() -> int:
