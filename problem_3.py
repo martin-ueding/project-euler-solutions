@@ -4,15 +4,16 @@ import itertools
 number = 600851475143
 
 
-def prime_generator() -> int:
-    primes = []
-    for candidate in itertools.count(2):
-        for prime in primes:
+def prime_generator(_primes=[]) -> int:
+    yield from _primes
+    start = 2 if not _primes else _primes[-1] + 1
+    for candidate in itertools.count(start):
+        for prime in _primes:
             if candidate % prime == 0:
                 break
         else:
             yield candidate
-            primes.append(candidate)
+            _primes.append(candidate)
 
 
 def _solution_naive() -> int:
@@ -39,4 +40,5 @@ def solution_reducing() -> int:
 
 if __name__ == "__main__":
     import runner
+
     runner.run(globals())
