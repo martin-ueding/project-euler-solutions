@@ -4,7 +4,7 @@ import datetime
 def make_timing(callable) -> float:
     runs = 1
     timing = datetime.timedelta(0)
-    callable()
+    result = callable()
     while timing < datetime.timedelta(milliseconds=100):
         runs *= 2
         start = datetime.datetime.now()
@@ -12,7 +12,7 @@ def make_timing(callable) -> float:
             callable()
         end = datetime.datetime.now()
         timing = end - start
-    return timing.total_seconds() / runs * 1000
+    return result, timing.total_seconds() / runs * 1000
 
 
 def run(module_dict=None) -> None:
@@ -21,8 +21,8 @@ def run(module_dict=None) -> None:
     }
 
     for solution_name, solution in solutions.items():
-        timing = make_timing(solution)
-        print(f"{solution()} from {solution_name} took {timing:.3f} ms")
+        result, timing = make_timing(solution)
+        print(f"{result} from {solution_name} took {timing:.3f} ms")
 
 
 def main() -> None:
