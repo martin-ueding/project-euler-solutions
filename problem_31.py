@@ -2,11 +2,8 @@ values = [200, 100, 50, 20, 10, 5, 2, 1]
 
 
 def count_partitions(used: tuple, remainder: int) -> int:
-    if len(used) == len(values):
-        if remainder == 0:
-            return 1
-        else:
-            return 0
+    if len(used) == len(values) - 1:
+        return 1
 
     current_value = values[len(used)]
 
