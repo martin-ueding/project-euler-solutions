@@ -1,3 +1,4 @@
+import itertools
 from problem_7 import prime_sieve
 
 
@@ -10,7 +11,9 @@ def is_pandigital(number: int) -> bool:
 
 
 def solution() -> int:
-    return max(filter(is_pandigital, prime_sieve(7_654_321)))
+    return max(
+        itertools.islice(filter(is_pandigital, reversed(prime_sieve(7_654_321))), 1)
+    )
 
 
 if __name__ == "__main__":
