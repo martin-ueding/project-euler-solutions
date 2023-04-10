@@ -1,4 +1,5 @@
 import itertools
+
 from problem_44 import is_pentagonal
 
 
