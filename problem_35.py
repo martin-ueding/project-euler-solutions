@@ -3,7 +3,6 @@ from typing import Iterator
 
 from tqdm import tqdm
 
-from problem_3 import prime_generator
 from problem_7 import prime_sieve
 
 
