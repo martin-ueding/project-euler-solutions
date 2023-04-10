@@ -1,9 +1,8 @@
 import functools
 import itertools
-
 from typing import Iterator
-from problem_3 import prime_generator
 
+from problem_3 import prime_generator
 from problem_5 import get_prime_factors
 
 

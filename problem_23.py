@@ -1,6 +1,6 @@
-from problem_21 import get_all_divisors
-
 import numpy as np
+
+from problem_21 import get_all_divisors
 
 
 def solution() -> int:
