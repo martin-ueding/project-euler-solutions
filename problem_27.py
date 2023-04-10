@@ -27,7 +27,7 @@ def solution() -> int:
     best = (None, None)
     prime_set = PrimeSet()
     for a in range(-999, 1000):
-        for b in range(-1000, 1001):
+        for b in range(2, 1001):
             n_end = 0
             for n in itertools.count():
                 candidate = n**2 + a * n + b
