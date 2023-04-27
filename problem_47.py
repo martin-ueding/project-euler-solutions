@@ -1,8 +1,6 @@
 import functools
 import itertools
 
-from tqdm import tqdm
-
 from problem_5 import get_prime_factors
 
 
