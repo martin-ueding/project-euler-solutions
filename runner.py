@@ -3,8 +3,10 @@ import datetime
 
 def make_timing(callable) -> float:
     runs = 1
-    timing = datetime.timedelta(0)
+    start = datetime.datetime.now()
     result = callable()
+    end = datetime.datetime.now()
+    timing = end - start
     while timing < datetime.timedelta(milliseconds=100):
         runs *= 2
         start = datetime.datetime.now()
