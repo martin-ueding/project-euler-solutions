@@ -1,8 +1,3 @@
-import itertools
-
-from tqdm import tqdm
-
-
 def collatz_length(start: int) -> int:
     steps = 0
     while start != 1:
@@ -17,7 +12,7 @@ def collatz_length(start: int) -> int:
 def _solution_naive() -> int:
     result = 0
     max_steps = 0
-    for start in tqdm(range(1, 1_000_000)):
+    for start in range(1, 1_000_000):
         steps = collatz_length(start)
         if steps > max_steps:
             max_steps = steps
@@ -77,7 +72,7 @@ def recursive_collatz_length(start: int) -> int:
 def _solution_recursive() -> int:
     result = 0
     max_steps = 0
-    for start in tqdm(range(1, 1_000_000)):
+    for start in range(1, 1_000_000):
         steps = collatz_length(start)
         if steps > max_steps:
             max_steps = steps

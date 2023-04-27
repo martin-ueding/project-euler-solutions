@@ -1,9 +1,6 @@
 import itertools
 import math
 from typing import Iterator
-from typing import Tuple
-
-from tqdm import tqdm
 
 
 def iter_pentagonal_numbers() -> Iterator[int]:
