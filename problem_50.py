@@ -1,16 +1,20 @@
-import collections
-
-from tqdm import tqdm
 from problem_7 import prime_sieve
+
+
+def get_max_sequence_length(primes: list[int]) -> int:
+    accumulator = 0
+    for i, prime in enumerate(primes, 1):
+        accumulator += prime
+        if accumulator > 1_000_000:
+            return i
 
 
 def solution() -> int:
     ceiling = 1_000_000
-    summands = collections.defaultdict(lambda: 0)
     primes = prime_sieve(ceiling)
     prime_set = set(primes)
     max_prime = primes[-1]
-    for length in tqdm(range(len(primes) - 1, 0, -1)):
+    for length in range(get_max_sequence_length(primes), 0, -1):
         rolling_sum = sum(primes[:length])
         for begin in range(len(primes) - length):
             end = begin + length

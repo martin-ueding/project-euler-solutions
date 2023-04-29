@@ -2,30 +2,41 @@ import itertools
 from problem_7 import prime_sieve
 
 
-def family_size(prime: int, prime_set: set[int]) -> int:
+def get_prime_family(digits: list[str], mask: tuple, prime_set: set[int]) -> list[int]:
+    new_numbers = [
+        int("".join(str(replacement) if m else digit for digit, m in zip(digits, mask)))
+        for replacement in range(1 if mask[0] else 0, 10)
+    ]
+    return [number for number in new_numbers if number in prime_set]
+
+
+def get_prime_families(prime: int, prime_set: set[int]) -> list[list[int]]:
     digits = list(str(prime))
-    result = 0
-    for positions in itertools.product(*[(i, None) for i in range(len(digits) - 1)]):
-        copy = list(digits)
-        for replacement in range(10):
-            for position in positions:
-                if position is None:
-                    continue
-                if position == 0 and replacement == 0:
-                    continue
-                copy[position] = str(replacement)
-                number = int("".join(copy))
-                if number in prime_set:
-                    result += 1
+    families = [
+        get_prime_family(digits, mask + (False,), prime_set)
+        for mask in itertools.product(*[(True, False) for i in range(len(digits) - 1)])
+    ]
+    result = [family for family in families if family]
+    result.sort()
     return result
 
 
-def solution() -> int:
+def test_get_prime_family() -> None:
     primes = prime_sieve(100000)
     prime_set = set(primes)
+    assert get_prime_family(
+        list("56003"), (False, False, True, True, False), prime_set
+    ) == [56003, 56113, 56333, 56443, 56663, 56773, 56993]
+
+
+def solution() -> int:
+    primes = prime_sieve(1000000)
+    prime_set = set(primes)
     for prime in primes:
-        if family_size(prime, prime_set) == 6:
-            return prime
+        families = get_prime_families(prime, prime_set)
+        for family in families:
+            if len(family) == 8:
+                return family[0]
 
 
 if __name__ == "__main__":
