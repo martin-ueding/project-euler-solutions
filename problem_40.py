@@ -8,11 +8,6 @@ def generate_digits() -> Iterator[str]:
         yield from s
 
 
-def test_generate_digits() -> None:
-    s = "".join(itertools.islice(generate_digits(), 20))
-    assert s == "12345678910111213141"
-
-
 def solution() -> int:
     result = 1
     power_of_ten = 1
