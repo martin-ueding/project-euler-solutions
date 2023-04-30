@@ -51,7 +51,8 @@ def is_three_of_a_kind(hand: list[tuple[int, str]]) -> list[int]:
 def is_straight(hand: list[tuple[int, str]]) -> list[int]:
     values = [value for value, suit in hand]
     values.sort(reverse=True)
-    if values == list(range(min(values), max(values) + 1)):
+    expected = list(reversed(range(min(values), max(values) + 1)))
+    if values == expected:
         return values
 
 
@@ -97,13 +98,15 @@ def rate_special_hand(hand: list[tuple[int, str]]) -> int:
     ]
     for index, predicate in reversed(list(enumerate(predicates))):
         if result := predicate(hand):
-            return [index] + result
+            return [index, predicate.__name__] + result
 
 
 def player_1_wins(line: str) -> bool:
     cards = parse_hand(line.strip())
     hand_1 = cards[:5]
     hand_2 = cards[5:]
+    hand_1.sort()
+    hand_2.sort()
     rating_1 = rate_special_hand(hand_1)
     rating_2 = rate_special_hand(hand_2)
     return rating_1 > rating_2

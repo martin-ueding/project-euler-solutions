@@ -1,10 +1,16 @@
-from problem_54 import parse_hand, player_1_wins
+from problem_54 import is_straight, parse_hand, player_1_wins
 
 
 def test_parse_hand() -> None:
     hand = "5H 5C 6S 7S KD"
     expected = [(5, "H"), (5, "C"), (6, "S"), (7, "S"), (13, "D")]
     assert parse_hand(hand) == expected
+
+
+def test_is_straight() -> None:
+    hand = [(2, "H"), (3, "H"), (4, "H"), (5, "C"), (6, "H")]
+    expected = [6, 5, 4, 3, 2]
+    assert is_straight(hand) == expected
 
 
 def test_with_examples() -> None:
