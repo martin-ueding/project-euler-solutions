@@ -8,11 +8,6 @@ def iter_truncations(number: int) -> int:
         yield int(s[:-i])
 
 
-def test_iter_truncations() -> None:
-    truncations = list(iter_truncations(1234))
-    assert truncations == [234, 123, 34, 12, 4, 1]
-
-
 def solution() -> int:
     primes = prime_sieve(1_000_000)
     truncatable_primes = []

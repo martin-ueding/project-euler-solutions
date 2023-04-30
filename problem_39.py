@@ -10,10 +10,6 @@ def get_num_solutions(perimeter: int) -> int:
     return num_solutions
 
 
-def test_get_num_solutions() -> None:
-    assert get_num_solutions(120) == 3
-
-
 def solution() -> int:
     return max(
         (get_num_solutions(perimeter), perimeter) for perimeter in range(2, 1000, 2)

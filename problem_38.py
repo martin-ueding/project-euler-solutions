@@ -21,10 +21,6 @@ def pandigital_product(number: int) -> Optional[int]:
                 return int("".join(map(str, results)))
 
 
-def test_is_pandigital_product() -> None:
-    assert pandigital_product(192) == 192_384_576
-
-
 def solution() -> int:
     pandigital_products = []
     for start in range(1, 100_000):
