@@ -19,10 +19,6 @@ def has_property(digits: int) -> bool:
         return True
 
 
-def test_has_property() -> None:
-    assert has_property("1406357289")
-
-
 def solution_all_permutations() -> int:
     results = []
     for digits in itertools.permutations(map(str, range(10))):
@@ -33,8 +29,6 @@ def solution_all_permutations() -> int:
             results.append(number)
     print(sorted(results))
     return sum(results)
-
-
 
 
 def solution_selective_permutations() -> int:

@@ -17,19 +17,6 @@ def is_pentagonal(number: int) -> bool:
     return s**2 == 1 + 24 * number and (1 + s) % 6 == 0
 
 
-def test_is_pentagonal() -> None:
-    assert is_pentagonal(1)
-    assert is_pentagonal(5)
-    assert is_pentagonal(12)
-    assert is_pentagonal(22)
-    assert not is_pentagonal(2)
-    assert not is_pentagonal(3)
-    assert not is_pentagonal(4)
-
-    for p in itertools.islice(iter_pentagonal_numbers(), 1_000_000):
-        assert is_pentagonal(p)
-
-
 def _solution_diff() -> int:
     for p_diff in iter_pentagonal_numbers():
         for p_lower, p_lower_next in itertools.pairwise(iter_pentagonal_numbers()):

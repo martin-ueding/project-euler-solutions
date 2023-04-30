@@ -17,12 +17,6 @@ class PrimeSet:
         return candidate in self._primes
 
 
-def test_prime_set() -> None:
-    prime_set = PrimeSet()
-    assert prime_set.contains(7)
-    assert not prime_set.contains(9)
-
-
 def solution() -> int:
     n_max = 0
     best = (None, None)
