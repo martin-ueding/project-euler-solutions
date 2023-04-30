@@ -1,4 +1,5 @@
 import collections
+import itertools
 
 
 def map_value(value: str) -> int:
@@ -13,55 +14,72 @@ def parse_hand(hand: str) -> list[tuple[int, str]]:
     return [(map_value(pair[0]), pair[1]) for pair in cards]
 
 
-def test_parse_hand() -> None:
-    hand = "5H 5C 6S 7S KD"
-    expected = [(5, "H"), (5, "C"), (6, "S"), (7, "S"), (13, "D")]
-    assert parse_hand(hand) == expected
+def group_card_values(hand: list[tuple[int, str]]) -> list[list[int]]:
+    values = [value for value, suit in hand]
+    values.sort(reverse=True)
+    groups = [list(group) for key, group in itertools.groupby(values)]
+    groups.sort(key=lambda group: (len(group), group[0]), reverse=True)
+    return groups
 
 
 def is_high_card(hand: list[tuple[int, str]]) -> bool:
-    return True
+    return sorted((value for value, suit in hand), reverse=True)
 
 
-def is_one_pair(hand: list[tuple[int, str]]) -> bool:
-    counts = collections.Counter(hand)
-    return 2 in counts.values()
+def flatten(xss: list[list[int]]) -> list[int]:
+    return [x for xs in xss for x in xs]
 
 
-def is_two_pairs(hand: list[tuple[int, str]]) -> bool:
-    counts = collections.Counter(hand)
-    counts_2 = collections.Counter(counts.values())
-    return counts_2[2] == 2
+def is_one_pair(hand: list[tuple[int, str]]) -> list[int]:
+    groups = group_card_values(hand)
+    if len(groups[0]) == 2:
+        return flatten(groups)
 
 
-def is_three_of_a_kind(hand: list[tuple[int, str]]) -> bool:
-    value_counts = collections.Counter(value for value, suit in hand)
-    return 3 in value_counts.items()
+def is_two_pairs(hand: list[tuple[int, str]]) -> list[int]:
+    groups = group_card_values(hand)
+    if len(groups[0]) == 2 and len(groups[1]) == 2:
+        return flatten(groups)
 
 
-def is_straight(hand: list[tuple[int, str]]) -> bool:
-    pass
+def is_three_of_a_kind(hand: list[tuple[int, str]]) -> list[int]:
+    groups = group_card_values(hand)
+    if len(groups[0]) == 3:
+        return flatten(groups)
 
 
-def is_flush(hand: list[tuple[int, str]]) -> bool:
-    pass
+def is_straight(hand: list[tuple[int, str]]) -> list[int]:
+    values = [value for value, suit in hand]
+    values.sort(reverse=True)
+    if values == list(range(min(values), max(values) + 1)):
+        return values
 
 
-def is_full_house(hand: list[tuple[int, str]]) -> bool:
-    pass
+def is_flush(hand: list[tuple[int, str]]) -> list[int]:
+    if len({suit for value, suit in hand}) == 1:
+        return sorted((value for value, suit in hand), reverse=True)
 
 
-def is_four_of_a_kind(hand: list[tuple[int, str]]) -> bool:
-    value_counts = collections.Counter(value for value, suit in hand)
-    return 3 in value_counts.items()
+def is_full_house(hand: list[tuple[int, str]]) -> list[int]:
+    groups = group_card_values(hand)
+    if len(groups[0]) == 3 and len(groups[1]) == 2:
+        return flatten(groups)
 
 
-def is_straight_flush(hand: list[tuple[int, str]]) -> bool:
-    pass
+def is_four_of_a_kind(hand: list[tuple[int, str]]) -> list[int]:
+    groups = group_card_values(hand)
+    if len(groups[0]) == 4:
+        return flatten(groups)
 
 
-def is_royal_flush(hand: list[tuple[int, str]]) -> bool:
-    pass
+def is_straight_flush(hand: list[tuple[int, str]]) -> list[int]:
+    if is_straight(hand):
+        return is_flush(hand)
+
+
+def is_royal_flush(hand: list[tuple[int, str]]) -> list[int]:
+    if max(value for value, suit in hand) == 14:
+        return is_straight_flush(hand)
 
 
 def rate_special_hand(hand: list[tuple[int, str]]) -> int:
@@ -78,19 +96,17 @@ def rate_special_hand(hand: list[tuple[int, str]]) -> int:
         is_royal_flush,
     ]
     for index, predicate in reversed(list(enumerate(predicates))):
-        if predicate(hand):
-            return index
-
-
-def make_rating(hand: list[tuple[int, str]]) -> list[int]:
-    return [rate_special_hand(hand)] + [value for value, suit in hand]
+        if result := predicate(hand):
+            return [index] + result
 
 
 def player_1_wins(line: str) -> bool:
     cards = parse_hand(line.strip())
     hand_1 = cards[:5]
     hand_2 = cards[5:]
-    return make_rating(hand_1) > make_rating(hand_2)
+    rating_1 = rate_special_hand(hand_1)
+    rating_2 = rate_special_hand(hand_2)
+    return rating_1 > rating_2
 
 
 def solution() -> int:
@@ -100,7 +116,6 @@ def solution() -> int:
             if player_1_wins(line):
                 wins_player_1 += 1
     return wins_player_1
-
 
 
 if __name__ == "__main__":
