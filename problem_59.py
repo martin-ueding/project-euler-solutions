@@ -1,4 +1,3 @@
-import collections
 import itertools
 import json
 import string
