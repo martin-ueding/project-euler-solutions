@@ -1,4 +1,5 @@
 import itertools
+from typing import Optional
 
 
 def map_value(value: str) -> int:
@@ -21,7 +22,7 @@ def group_card_values(hand: list[tuple[int, str]]) -> list[list[int]]:
     return groups
 
 
-def is_high_card(hand: list[tuple[int, str]]) -> bool:
+def is_high_card(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     return sorted((value for value, suit in hand), reverse=True)
 
 
@@ -29,25 +30,25 @@ def flatten(xss: list[list[int]]) -> list[int]:
     return [x for xs in xss for x in xs]
 
 
-def is_one_pair(hand: list[tuple[int, str]]) -> list[int]:
+def is_one_pair(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     groups = group_card_values(hand)
     if len(groups[0]) == 2:
         return flatten(groups)
 
 
-def is_two_pairs(hand: list[tuple[int, str]]) -> list[int]:
+def is_two_pairs(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     groups = group_card_values(hand)
     if len(groups[0]) == 2 and len(groups[1]) == 2:
         return flatten(groups)
 
 
-def is_three_of_a_kind(hand: list[tuple[int, str]]) -> list[int]:
+def is_three_of_a_kind(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     groups = group_card_values(hand)
     if len(groups[0]) == 3:
         return flatten(groups)
 
 
-def is_straight(hand: list[tuple[int, str]]) -> list[int]:
+def is_straight(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     values = [value for value, suit in hand]
     values.sort(reverse=True)
     expected = list(reversed(range(min(values), max(values) + 1)))
@@ -55,29 +56,29 @@ def is_straight(hand: list[tuple[int, str]]) -> list[int]:
         return values
 
 
-def is_flush(hand: list[tuple[int, str]]) -> list[int]:
+def is_flush(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     if len({suit for value, suit in hand}) == 1:
         return sorted((value for value, suit in hand), reverse=True)
 
 
-def is_full_house(hand: list[tuple[int, str]]) -> list[int]:
+def is_full_house(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     groups = group_card_values(hand)
     if len(groups[0]) == 3 and len(groups[1]) == 2:
         return flatten(groups)
 
 
-def is_four_of_a_kind(hand: list[tuple[int, str]]) -> list[int]:
+def is_four_of_a_kind(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     groups = group_card_values(hand)
     if len(groups[0]) == 4:
         return flatten(groups)
 
 
-def is_straight_flush(hand: list[tuple[int, str]]) -> list[int]:
+def is_straight_flush(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     if is_straight(hand):
         return is_flush(hand)
 
 
-def is_royal_flush(hand: list[tuple[int, str]]) -> list[int]:
+def is_royal_flush(hand: list[tuple[int, str]]) -> Optional[list[int]]:
     if max(value for value, suit in hand) == 14:
         return is_straight_flush(hand)
 
