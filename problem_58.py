@@ -1,9 +1,7 @@
 import itertools
 from typing import Iterator
 
-from problem_27 import PrimeSet
 from problem_3 import prime_generator
-from problem_7 import prime_sieve
 
 
 def iter_diagonals() -> Iterator[int]:
