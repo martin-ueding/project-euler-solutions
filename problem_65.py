@@ -1,7 +1,8 @@
 import itertools
-from typing import Iterator
+from typing import Callable, Iterator
 
 from problem_33 import greatest_common_denominator
+from problem_56 import digit_sum
 
 
 def continued_fraction_sqrt_2() -> Iterator[int]:
@@ -28,3 +29,23 @@ def convergent_from_sequence(coefficients: list[int]) -> tuple[int, int]:
     numerator //= gcd
     denominoator //= gcd
     return numerator, denominoator
+
+
+def convergents_series(coefficients: Iterator[int]) -> Iterator[int]:
+    coefficients_so_far = []
+    for coefficient in coefficients:
+        coefficients_so_far.append(coefficient)
+        yield convergent_from_sequence(coefficients_so_far)
+
+
+def solution() -> int:
+    fractions = list(
+        itertools.islice(convergents_series(continued_fraction_e()), 99, 100)
+    )
+    return digit_sum(fractions[0][0])
+
+
+if __name__ == "__main__":
+    import runner
+
+    runner.run(globals())
