@@ -17,12 +17,8 @@ def square_root_fraction_expansion(number: int) -> Iterator[int]:
         yield from period
 
 
-def square_root_convergents(number: int) -> Iterator[tuple[int, int]]:
-    yield from convergents_series(square_root_fraction_expansion(number))
-
-
 def minimal_solution(d: int) -> int:
-    for x, y in square_root_convergents(d):
+    for x, y in convergents_series(square_root_fraction_expansion(d)):
         if x == 1:
             continue
         if x**2 - d * y**2 == 1:
