@@ -30,8 +30,21 @@ def bisect_numerator(target: tuple[int, int], denominator: int) -> int:
     return lower
 
 
-def solution() -> int:
+def _solution() -> int:
     return find_next_smaller_fraction((3, 7), 1_000_000)[0]
+
+
+def solution_faster() -> int:
+    ceiling = 1_000_000
+    for difference_denominator in reversed(range(ceiling)):
+        numerator = 3 * difference_denominator
+        denominator = 7 * difference_denominator
+        numerator -= 1
+        gcd = greatest_common_denominator(numerator, denominator)
+        numerator //= gcd
+        denominator //= gcd
+        if denominator <= ceiling:
+            return numerator, denominator
 
 
 if __name__ == "__main__":
