@@ -9,9 +9,7 @@ def find_next_smaller_fraction(
     for denominator in range(1, ceiling + 1):
         numerator = bisect_numerator(target, denominator)
         if numerator * target_denominator < target_numerator * denominator:
-            gcd = greatest_common_denominator(numerator, denominator)
-            numerator //= gcd
-            denominator //= gcd
+            numerator, denominator = reduce_fraction(numerator, denominator)
             candidates.append((numerator / denominator, numerator, denominator))
     m = max(candidates)
     return m[1:]
@@ -34,15 +32,20 @@ def _solution() -> int:
     return find_next_smaller_fraction((3, 7), 1_000_000)[0]
 
 
+def reduce_fraction(numerator: int, denominator: int) -> tuple[int, int]:
+    gcd = greatest_common_denominator(numerator, denominator)
+    numerator //= gcd
+    denominator //= gcd
+    return numerator, denominator
+
+
 def solution_faster() -> int:
     ceiling = 1_000_000
     for difference_denominator in reversed(range(ceiling)):
         numerator = 3 * difference_denominator
         denominator = 7 * difference_denominator
         numerator -= 1
-        gcd = greatest_common_denominator(numerator, denominator)
-        numerator //= gcd
-        denominator //= gcd
+        numerator, denominator = reduce_fraction(numerator, denominator)
         if denominator <= ceiling:
             return numerator, denominator
 
