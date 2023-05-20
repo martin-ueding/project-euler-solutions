@@ -2,12 +2,11 @@ import json
 from typing import Iterator
 
 
-def read_file() -> list[list[int]]:
+def read_matrix(filename: str) -> list[list[int]]:
     result = []
-    with open("data/p081_matrix.txt") as f:
+    with open(filename) as f:
         for line in f:
             result.append(json.loads(f"[{line}]"))
-    assert len(result) == 80
     return result
 
 
@@ -29,7 +28,7 @@ def iter_diagonally(size: int) -> Iterator[tuple[int, int]]:
 
 
 def solution() -> None:
-    matrix = read_file()
+    matrix = read_matrix("data/p081_matrix.txt")
     size = 80
     for row, col in iter_diagonally(size):
         neighbors = []
