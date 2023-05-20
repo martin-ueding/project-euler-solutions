@@ -1,14 +1,4 @@
-import json
-import pprint
-
-
-def read_file() -> list[list[int]]:
-    result = []
-    with open("data/p082_matrix.txt") as f:
-        for line in f:
-            result.append(json.loads(f"[{line}]"))
-    assert len(result) == 80
-    return result
+from problem_81 import read_matrix
 
 
 def reduce_column(matrix: list[list[int]], col: int) -> None:
@@ -35,7 +25,7 @@ def three_way_path_sum(matrix: list[list[int]]) -> int:
 
 
 def solution() -> None:
-    matrix = read_file()
+    matrix = read_matrix("data/p082_matrix.txt")
     return three_way_path_sum(matrix)
 
 
