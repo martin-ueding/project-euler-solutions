@@ -31,7 +31,7 @@ def partitions(number: int, top: int) -> int:
 
 
 def solution() -> int:
-    prime_generator.__defaults__ = (prime_sieve(10_000),)
+    prime_generator.__defaults__ = (prime_sieve(72),)
     for i in itertools.count(10):
         if partitions(i, i) > 5_000:
             return i

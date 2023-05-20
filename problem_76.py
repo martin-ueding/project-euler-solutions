@@ -1,9 +1,6 @@
 import functools
 
 
-values = list(range(4, 0, -1))
-
-
 @functools.cache
 def partitions(number: int, top: int) -> int:
     if number == 0:
