@@ -1,20 +1,35 @@
+import functools
+
+
 values = list(range(4, 0, -1))
 
 
-def count_partitions(used: tuple, remainder: int) -> int:
-    if len(used) == len(values) - 1:
-        return 1
+@functools.cache
+def partitions(number: int, top: int) -> int:
+    if number == 0:
+        return []
+    if number == 1:
+        return [(1,)]
+    else:
+        result = [
+            (x,) + p
+            for x in range(1, top + 1)
+            for p in partitions(number - x, min(number - x, x))
+        ]
+        if number <= top:
+            result += [(number,)]
+        return result
 
-    current_value = values[len(used)]
 
-    return sum(
-        count_partitions(used + (usage,), remainder - current_value * usage)
-        for usage in range(remainder // current_value + 1)
-    )
+def num_partitions(number: int) -> int:
+    ps = partitions(number, number)
+    ps.sort()
+    print(number, ps)
+    return len(ps)
 
 
 def solution() -> int:
-    return count_partitions((), 5)
+    return num_partitions(100) - 1
 
 
 if __name__ == "__main__":
