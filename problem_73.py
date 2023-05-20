@@ -1,15 +1,22 @@
-from tqdm import tqdm
 from problem_33 import greatest_common_denominator
-from problem_71 import reduce_fraction
+from problem_72 import farey_sequence
 
 
-def solution_count_reduced() -> None:
+def solution_count_reduced() -> int:
     result = 0
-    for denominator in tqdm(range(1, 12_000 + 1)):
+    for denominator in range(1, 12_000 + 1):
         for numerator in range(1, denominator):
-            if 1 / 3 < numerator / denominator < 1 / 2:
+            if denominator < numerator * 3 and 2 * numerator < denominator:
                 if greatest_common_denominator(numerator, denominator) == 1:
                     result += 1
+    return result
+
+
+def solution_farey() -> int:
+    result = 0
+    for numerator, denominator in farey_sequence(12_000):
+        if denominator < numerator * 3 and 2 * numerator < denominator:
+            result += 1
     return result
 
 
