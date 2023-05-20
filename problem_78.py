@@ -1,9 +1,6 @@
 import functools
 import itertools
 
-from tqdm import tqdm
-from problem_76 import partitions
-
 
 @functools.cache
 def partitions(number: int) -> int:
@@ -24,7 +21,7 @@ def partitions(number: int) -> int:
 
 
 def solution() -> int:
-    for n in tqdm(itertools.count(5)):
+    for n in itertools.count(5):
         if partitions(n) % 1_000_000 == 0:
             return n
 
