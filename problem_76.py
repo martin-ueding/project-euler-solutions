@@ -7,25 +7,20 @@ values = list(range(4, 0, -1))
 @functools.cache
 def partitions(number: int, top: int) -> int:
     if number == 0:
-        return []
+        return 0
     if number == 1:
-        return [(1,)]
+        return 1
     else:
-        result = [
-            (x,) + p
-            for x in range(1, top + 1)
-            for p in partitions(number - x, min(number - x, x))
-        ]
+        result = sum(
+            partitions(number - x, min(number - x, x)) for x in range(1, top + 1)
+        )
         if number <= top:
-            result += [(number,)]
+            result += 1
         return result
 
 
 def num_partitions(number: int) -> int:
-    ps = partitions(number, number)
-    ps.sort()
-    print(number, ps)
-    return len(ps)
+    return partitions(number, number)
 
 
 def solution() -> int:
