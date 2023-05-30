@@ -1,24 +1,24 @@
-import math
+import bisect
+import functools
 
 
+@functools.cache
 def rectangles_along_axis(length: int) -> int:
     return sum((length - l + 1) for l in range(1, length + 1))
-
-
-def rectangles_in_area(height: int, width: int) -> int:
-    return rectangles_along_axis(height) * rectangles_along_axis(width)
 
 
 def solution() -> int:
     goal = 2_000_000
     results = {}
-    for width in range(1, 100):
-        for height in range(1, 100):
-            num = rectangles_in_area(height, width)
-            if num > 2_100_000:
-                break
-            results[abs(goal - num)] = (height, width, height * width)
-    return min(results.items())[1][2]
+    numbers = [rectangles_along_axis(length) for length in range(1, 100)]
+    for width, num_width in enumerate(numbers, 1):
+        j = bisect.bisect_left(numbers, goal // num_width)
+        for height in [j + 1, j + 2]:
+            if 0 <= height - 1 < len(numbers):
+                num_height = numbers[height - 1]
+                num = num_height * num_width
+                results[abs(goal - num)] = height * width
+    return min(results.items())[1]
 
 
 if __name__ == "__main__":
