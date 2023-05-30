@@ -1,12 +1,12 @@
 import math
 
 
+def rectangles_along_axis(length: int) -> int:
+    return sum((length - l + 1) for l in range(1, length + 1))
+
+
 def rectangles_in_area(height: int, width: int) -> int:
-    result = 0
-    for h in range(1, height + 1):
-        for w in range(1, width + 1):
-            result += (height - h + 1) * (width - w + 1)
-    return result
+    return rectangles_along_axis(height) * rectangles_along_axis(width)
 
 
 def solution() -> int:
