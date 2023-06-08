@@ -4,6 +4,7 @@ from typing import Optional
 
 from tqdm import tqdm
 
+from solution_66 import is_square
 
 
 def integer_root(radicand: int) -> Optional[int]:
@@ -21,23 +22,26 @@ def integer_root(radicand: int) -> Optional[int]:
             result = new
 
 
-@functools.cache
 def shortest_path_is_integer(a, b_plus_c) -> bool:
-    return integer_root(a**2 + b_plus_c**2) is not None
+    return is_square(a**2 + b_plus_c**2)
+
+
+def multiplicity(a: int, b_plus_c: int) -> int:
+    if b_plus_c <= a + 1:
+        return b_plus_c // 2
+    else:
+        return (2 * a - b_plus_c + 2) // 2
 
 
 def solution() -> int:
     ceiling = 1_000_000
     result = 0
-    with tqdm(total=ceiling) as pbar:
-        for a in itertools.count(1):
-            for b_plus_c in range(2, 2*a + 1):
-                if shortest_path_is_integer(a, b_plus_c):
-                    num_b_c = b_plus_c // 2
-                    result += num_b_c
-                    pbar.update(num_b_c)
-                    if result > ceiling:
-                        return a
+    for a in itertools.count(1):
+        for b_plus_c in range(1, 2 * a + 1):
+            if shortest_path_is_integer(a, b_plus_c):
+                result += multiplicity(a, b_plus_c)
+                if result > ceiling:
+                    return a
 
 
 if __name__ == "__main__":
