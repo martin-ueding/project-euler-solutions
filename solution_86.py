@@ -1,3 +1,4 @@
+import functools
 import itertools
 import math
 from typing import Optional
@@ -27,14 +28,12 @@ def integer_root(radicand: int) -> Optional[int]:
 
 
 def shortest_path_is_integer(a, b, c) -> bool:
-    numerator_1 = a**2 + (b + c) ** 2
-    sqrt_1 = int(math.sqrt(numerator_1))
-    if sqrt_1**2 != numerator_1:
-        return False
-    numerator_2 = (a * (b + c) - a * b) ** 2 + c**2 * (b + c) ** 2
-    sqrt_2 = int(math.sqrt(numerator_2))
-    denominator = b + c
-    return sqrt_2**2 == numerator_2 and (b * sqrt_1 + sqrt_2) % denominator == 0
+    return shortest_path_cache(a, b + c)
+
+
+@functools.cache
+def shortest_path_cache(a, bc) -> bool:
+    return integer_root(a**2 + bc**2) is not None
 
 
 def solution() -> int:
