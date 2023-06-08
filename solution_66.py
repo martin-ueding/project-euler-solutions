@@ -6,6 +6,7 @@ from solution_65 import convergents_series
 
 
 def is_square(number: int) -> bool:
+    assert number < 1e18
     floor = int(math.sqrt(number))
     return floor**2 == number
 
