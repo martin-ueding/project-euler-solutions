@@ -1,6 +1,27 @@
 import datetime
 
 
+def format_timing(seconds: float) -> str:
+    if seconds > 60:
+        m = int(seconds) // 60
+        s = int(seconds) % 60
+        return f"{m}:{s:02d} min"
+    elif seconds > 10:
+        return f"{int(seconds):d} s"
+    elif seconds > 1:
+        return f"{seconds:.1f} s"
+    elif seconds > 0.010:
+        return f"{int(seconds*1000)} ms"
+    elif seconds > 0.001:
+        return f"{seconds*1000:.1f} ms"
+    elif seconds > 0.000_010:
+        return f"{int(seconds*1000_000)} µs"
+    elif seconds > 0.000_001:
+        return f"{seconds*1000_000:.1f} ms"
+    elif seconds > 0.000_000_010:
+        return f"{int(seconds*1000_000_000)} ns"
+
+
 def make_timing(callable) -> float:
     runs = 1
     start = datetime.datetime.now()
@@ -14,7 +35,7 @@ def make_timing(callable) -> float:
             callable()
         end = datetime.datetime.now()
         timing = end - start
-    return result, timing.total_seconds() / runs * 1000
+    return result, timing.total_seconds() / runs
 
 
 def run(module_dict=None) -> None:
@@ -24,7 +45,7 @@ def run(module_dict=None) -> None:
 
     for solution_name, solution in solutions.items():
         result, timing = make_timing(solution)
-        print(f"{result} from {solution_name} took {timing:.3f} ms")
+        print(f"{result} from {solution_name} took {format_timing(timing)}")
 
 
 def main() -> None:
