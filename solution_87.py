@@ -1,8 +1,5 @@
-import itertools
 import math
 from typing import Iterator
-
-from tqdm import tqdm
 
 from solution_7 import prime_sieve
 
@@ -16,7 +13,7 @@ def solution() -> int:
     ceiling = 50_000_000
     primes = prime_sieve(int(math.sqrt(ceiling)))
     numbers = set()
-    for square in tqdm(powers(primes, 2)):
+    for square in powers(primes, 2):
         if square > ceiling:
             break
         for cube in powers(primes, 3):
