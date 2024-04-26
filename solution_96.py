@@ -42,41 +42,53 @@ def get_possibilities(grid: Grid, row: int, col: int) -> set[int]:
 
 
 def print_grid(grid) -> None:
-    print('┌───────┬───────┬───────┐')
+    print("┌───────┬───────┬───────┐")
     for rb in range(3):
         if rb > 0:
-            print('├───────┼───────┼───────┤')
+            print("├───────┼───────┼───────┤")
         for r in range(3):
             for cb in range(3):
-                print('│', end='')
+                print("│", end="")
                 for c in range(3):
-                    print(' ', end='')
-                    print(grid[rb *3 + r][cb * 3 + c] or ' ', end='')
-                print(' ', end='')
-            print('│')
-    print('└───────┴───────┴───────┘')
+                    print(" ", end="")
+                    print(grid[rb * 3 + r][cb * 3 + c] or " ", end="")
+                print(" ", end="")
+            print("│")
+    print("└───────┴───────┴───────┘")
+
+
+def fill_in(grid: Grid, row: int, col: int):
+    if row >= 9:
+        return True
+
+    if grid[row][col]:
+        return fill_in(grid, row + 1 if col == 8 else row, (col + 1) % 9)
+
+    possibilities = get_possibilities(grid, row, col)
+    for possibility in possibilities:
+        grid[row][col] = possibility
+        if fill_in(grid, row + 1 if col == 8 else row, (col + 1) % 9):
+            return True
+        grid[row][col] = 0
+    return False
+
+
+def grid_number(grid) -> int:
+    for row in range(9):
+        for col in range(9):
+            assert grid[row][col], grid
+    return int("".join(map(str, grid[0][0:3])))
+
 
 def solution() -> int:
+    s = 0
     for grid in iter_problems():
-        print(grid)
-        print_grid(grid)
-
-        print(
-            sorted(
-                collections.Counter(
-                    len(get_possibilities(grid, row, col))
-                    for row in range(9)
-                    for col in range(9)
-                ).items()
-            )
-        )
-
-        return 0
+        assert fill_in(grid, 0, 0)
+        s += grid_number(grid)
+    return s
 
 
 if __name__ == "__main__":
     import runner
 
-    solution()
-
-    # runner.run(globals())
+    runner.run(globals())
