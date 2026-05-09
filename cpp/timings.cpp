@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+std::chrono::time_point<std::chrono::high_resolution_clock> now() {
+  return std::chrono::high_resolution_clock::now();
+}
+
 void report_duration(
     std::chrono::time_point<std::chrono::high_resolution_clock> const &start) {
   auto const end = std::chrono::high_resolution_clock::now();
