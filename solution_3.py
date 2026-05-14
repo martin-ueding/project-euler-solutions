@@ -8,10 +8,14 @@ def prime_generator(_primes=[]) -> int:
     yield from _primes
     start = 2 if not _primes else _primes[-1] + 1
     for candidate in itertools.count(start):
+        is_prime = True
         for prime in _primes:
-            if candidate % prime == 0:
+            if prime * prime > candidate:
                 break
-        else:
+            if candidate % prime == 0:
+                is_prime = False
+                break
+        if is_prime:
             yield candidate
             _primes.append(candidate)
 
