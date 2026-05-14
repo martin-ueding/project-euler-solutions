@@ -1,10 +1,11 @@
+from collections.abc import Iterator
 import itertools
 
 
 number = 600851475143
 
 
-def prime_generator(_primes=[]) -> int:
+def prime_generator(_primes=[]) -> Iterator[int]:
     yield from _primes
     start = 2 if not _primes else _primes[-1] + 1
     for candidate in itertools.count(start):
