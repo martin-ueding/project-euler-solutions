@@ -8,7 +8,6 @@ pub fn solution() -> i64 {
     for prime in PrimeIterator::new(&mut primes) {
         while remainder % prime == 0 {
             remainder = remainder / prime;
-            solution = prime;
         }
         if remainder == 1 {
             solution = prime;
