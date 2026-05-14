@@ -31,6 +31,6 @@ fn format_duration(seconds: f64) -> String {
 }
 
 fn main() {
-    let solution = measure(solutions::s1::solution_1);
+    let solution = measure(solutions::s2::solution);
     println!("Solution: {solution}");
 }
