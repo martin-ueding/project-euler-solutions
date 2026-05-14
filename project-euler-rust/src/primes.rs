@@ -34,6 +34,9 @@ impl<'a> Iterator for PrimeIterator<'a> {
             loop {
                 let mut is_prime = true;
                 for prime in self.primes.iter() {
+                    if prime * prime > candidate {
+                        break;
+                    }
                     if candidate % *prime == 0 {
                         is_prime = false;
                         break;
