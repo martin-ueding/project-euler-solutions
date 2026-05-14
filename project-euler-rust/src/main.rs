@@ -1,3 +1,4 @@
+mod primes;
 mod registry;
 mod solutions;
 
