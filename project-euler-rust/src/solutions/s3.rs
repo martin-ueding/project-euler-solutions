@@ -46,7 +46,10 @@ impl<'a> Iterator for PrimeIterator<'a> {
                 }
             }
             if is_prime {
-                self.primes.push(candidate);
+                self.index += 1;
+                if self.index == self.primes.len() {
+                    self.primes.push(candidate);
+                }
                 return Some(candidate);
             }
             candidate += 1;
