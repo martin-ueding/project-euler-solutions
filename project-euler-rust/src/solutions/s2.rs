@@ -17,3 +17,10 @@ pub fn solution() -> i32 {
 
     sum
 }
+
+inventory::submit! {
+    crate::registry::SolutionEntry {
+        id: 2,
+        solve: solution,
+    }
+}

@@ -7,3 +7,10 @@ pub fn solution() -> i32 {
     }
     sum_of_multiples
 }
+
+inventory::submit! {
+    crate::registry::SolutionEntry {
+        id: 1,
+        solve: solution,
+    }
+}

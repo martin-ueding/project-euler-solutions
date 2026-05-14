@@ -1,8 +1,28 @@
+mod registry;
 mod solutions;
 
 use std::time::Instant;
 
-fn measure<F>(f: F) -> i32
+fn main() {
+    let id: u32 = std::env::args()
+        .nth(1)
+        .expect("missing id")
+        .parse()
+        .expect("invalid id");
+
+    for entry in inventory::iter::<registry::SolutionEntry> {
+        if entry.id == id {
+            let (solution, duration) = measure(entry.solve);
+            let duration_str = format_duration(duration);
+            println!("Problem:  {id}");
+            println!("Solution: {solution}");
+            println!("Duration: {duration_str}");
+            return;
+        }
+    }
+}
+
+fn measure<F>(f: F) -> (i32, f64)
 where
     F: Fn() -> i32,
 {
@@ -10,10 +30,7 @@ where
     let result = f();
     let elapsed = start.elapsed();
 
-    let duration = format_duration(elapsed.as_secs_f64());
-    println!("Duration: {duration}");
-
-    result
+    (result, elapsed.as_secs_f64())
 }
 
 fn format_duration(seconds: f64) -> String {
@@ -28,9 +45,4 @@ fn format_duration(seconds: f64) -> String {
     } else {
         format!("{ns:.3} ns")
     }
-}
-
-fn main() {
-    let solution = measure(solutions::s2::solution);
-    println!("Solution: {solution}");
 }
