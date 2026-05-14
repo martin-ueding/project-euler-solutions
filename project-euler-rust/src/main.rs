@@ -4,7 +4,7 @@ mod solutions;
 use std::time::Instant;
 
 fn main() {
-    let id: u32 = std::env::args()
+    let id: i32 = std::env::args()
         .nth(1)
         .expect("missing id")
         .parse()
@@ -22,9 +22,9 @@ fn main() {
     }
 }
 
-fn measure<F>(f: F) -> (i32, f64)
+fn measure<F>(f: F) -> (i64, f64)
 where
-    F: Fn() -> i32,
+    F: Fn() -> i64,
 {
     let start = Instant::now();
     let result = f();
