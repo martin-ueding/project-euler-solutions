@@ -5,13 +5,14 @@ pub fn solution() -> i64 {
 
     let mut remainder = number;
     let mut solution: i64 = 1;
-    while remainder != 1 {
-        for prime in PrimeIterator::new(&mut primes) {
-            if remainder % prime == 0 {
-                remainder = remainder / prime;
-                solution = prime;
-                break;
-            }
+    for prime in PrimeIterator::new(&mut primes) {
+        while remainder % prime == 0 {
+            remainder = remainder / prime;
+            solution = prime;
+        }
+        if remainder == 1 {
+            solution = prime;
+            break;
         }
     }
     solution
