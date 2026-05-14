@@ -35,24 +35,29 @@ impl<'a> Iterator for PrimeIterator<'a> {
     type Item = i64;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let mut candidate = self.primes[self.index];
+        if self.index < self.primes.len() {
+            let result = self.primes[self.index];
+            self.index += 1;
+            return Some(result);
+        } else {
+            let mut candidate = self.primes.last()? + 1;
 
-        loop {
-            let mut is_prime = true;
-            for prime in self.primes.iter() {
-                if candidate % *prime == 0 {
-                    is_prime = false;
-                    break;
+            loop {
+                let mut is_prime = true;
+                for prime in self.primes.iter() {
+                    if candidate % *prime == 0 {
+                        is_prime = false;
+                        break;
+                    }
                 }
-            }
-            if is_prime {
-                self.index += 1;
-                if self.index == self.primes.len() {
+                if is_prime {
                     self.primes.push(candidate);
+                    // println!("{0:?}", self.primes);
+                    self.index += 1;
+                    return Some(candidate);
                 }
-                return Some(candidate);
+                candidate += 1;
             }
-            candidate += 1;
         }
     }
 }
