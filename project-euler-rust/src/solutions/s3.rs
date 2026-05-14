@@ -1,11 +1,11 @@
 pub fn solution() -> i64 {
     let number: i64 = 600_851_475_143;
 
-    let mut primes: Vec<i64> = vec![2];
+    let mut prime_generator = PrimeGenerator::new();
 
     let mut remainder = number;
     let mut solution: i64 = 1;
-    for prime in PrimeIterator::new(&mut primes) {
+    for prime in prime_generator.iter() {
         while remainder % prime == 0 {
             remainder = remainder / prime;
         }
@@ -17,18 +17,26 @@ pub fn solution() -> i64 {
     solution
 }
 
-struct PrimeIterator<'a> {
-    primes: &'a mut Vec<i64>,
-    index: usize,
+struct PrimeGenerator {
+    primes: Vec<i64>,
 }
 
-impl<'a> PrimeIterator<'a> {
-    fn new(primes: &'a mut Vec<i64>) -> Self {
+impl PrimeGenerator {
+    fn new() -> Self {
+        PrimeGenerator { primes: vec![2] }
+    }
+
+    fn iter(&mut self) -> PrimeIterator<'_> {
         PrimeIterator {
-            primes: primes,
+            primes: &mut self.primes,
             index: 0,
         }
     }
+}
+
+struct PrimeIterator<'a> {
+    primes: &'a mut Vec<i64>,
+    index: usize,
 }
 
 impl<'a> Iterator for PrimeIterator<'a> {
