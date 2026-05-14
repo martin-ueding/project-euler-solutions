@@ -28,13 +28,13 @@ def make_timing(callable) -> float:
     result = callable()
     end = datetime.datetime.now()
     timing = end - start
-    while timing < datetime.timedelta(milliseconds=100):
-        runs *= 2
-        start = datetime.datetime.now()
-        for _ in range(runs):
-            callable()
-        end = datetime.datetime.now()
-        timing = end - start
+    # while timing < datetime.timedelta(milliseconds=100):
+    #     runs *= 2
+    #     start = datetime.datetime.now()
+    #     for _ in range(runs):
+    #         callable()
+    #     end = datetime.datetime.now()
+    #     timing = end - start
     return result, timing.total_seconds() / runs
 
 
