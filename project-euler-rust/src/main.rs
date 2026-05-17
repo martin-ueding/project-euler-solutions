@@ -10,28 +10,40 @@ fn main() {
         .expect("missing id")
         .parse()
         .expect("invalid id");
+    println!("Problem: {id}");
 
     for entry in inventory::iter::<registry::SolutionEntry> {
         if entry.id == id {
-            let (solution, duration) = measure(entry.solve);
-            let duration_str = format_duration(duration);
-            println!("Problem:  {id}");
-            println!("Solution: {solution}");
-            println!("Duration: {duration_str}");
+            measure(entry.solve);
             return;
         }
     }
 }
 
-fn measure<F>(f: F) -> (i64, f64)
+fn measure<F>(f: F)
 where
     F: Fn() -> i64,
 {
-    let start = Instant::now();
-    let result = f();
-    let elapsed = start.elapsed();
+    let benchmark_start = Instant::now();
+    let mut result = 0;
+    let mut timings_s = Vec::<f64>::new();
+    while benchmark_start.elapsed().as_secs_f64() < 1.0 && timings_s.len() < 100 {
+        let start = Instant::now();
+        result = f();
+        timings_s.push(start.elapsed().as_secs_f64())
+    }
+    timings_s.sort_by(|a, b| a.total_cmp(b));
 
-    (result, elapsed.as_secs_f64())
+    println!("Solution: {result}");
+    println!(
+        "Timings: {} | {} | {} | {} | {} | {} iterations",
+        format_duration(timings_s[0]),
+        format_duration(timings_s[timings_s.len() / 4]),
+        format_duration(timings_s[timings_s.len() / 2]),
+        format_duration(timings_s[timings_s.len() * 3 / 4]),
+        format_duration(timings_s[timings_s.len() - 1]),
+        timings_s.len()
+    );
 }
 
 fn format_duration(seconds: f64) -> String {
