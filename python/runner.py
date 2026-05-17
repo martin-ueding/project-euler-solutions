@@ -7,13 +7,15 @@ def format_timing(seconds: float) -> str:
         s = int(seconds) % 60
         return f"{m}:{s:02d} min"
     elif seconds > 10:
-        return f"{int(seconds):d} s"
+        return f"{seconds:.0f} s"
     elif seconds > 1:
         return f"{seconds:.1f} s"
+    elif seconds > 0.100:
+        return f"{seconds*1000:.0f} ms"
     elif seconds > 0.010:
-        return f"{int(seconds*1000)} ms"
-    elif seconds > 0.001:
         return f"{seconds*1000:.1f} ms"
+    elif seconds > 0.001:
+        return f"{seconds*1000:.2f} ms"
     elif seconds > 0.000_010:
         return f"{int(seconds*1000_000)} µs"
     elif seconds > 0.000_001:
@@ -22,20 +24,23 @@ def format_timing(seconds: float) -> str:
         return f"{int(seconds*1000_000_000)} ns"
 
 
-def make_timing(callable) -> float:
-    runs = 1
-    start = datetime.datetime.now()
-    result = callable()
-    end = datetime.datetime.now()
-    timing = end - start
-    # while timing < datetime.timedelta(milliseconds=100):
-    #     runs *= 2
-    #     start = datetime.datetime.now()
-    #     for _ in range(runs):
-    #         callable()
-    #     end = datetime.datetime.now()
-    #     timing = end - start
-    return result, timing.total_seconds() / runs
+def make_timing(callable) -> None:
+    benchmark_start = datetime.datetime.now()
+    timings_s = []
+    result = None
+    while datetime.datetime.now() - benchmark_start < datetime.timedelta(seconds=1) and len(timings_s) < 100:
+        begin = datetime.datetime.now()
+        result = callable()
+        end = datetime.datetime.now()
+        timings_s.append((end - begin).total_seconds())
+    timings_s.sort()
+    p0 = format_timing(timings_s[0])
+    p25 = format_timing(timings_s[len(timings_s) // 4])
+    p50 =  format_timing(timings_s[len(timings_s) // 2])
+    p75 = format_timing(timings_s[len(timings_s) *3 // 4])
+    p100 = format_timing(timings_s[-1])
+    print(f"Solution: {result}")
+    print(f"Timings: {p0} | {p25} | {p50} | {p75} | {p100} | {len(timings_s)} iterations")
 
 
 def run(module_dict=None) -> None:
@@ -43,13 +48,15 @@ def run(module_dict=None) -> None:
         key: value for key, value in module_dict.items() if key.startswith("solution")
     }
 
+    print("Language: Python")
+
     for solution_name, solution in solutions.items():
-        result, timing = make_timing(solution)
-        print(f"{result} from {solution_name} took {format_timing(timing)}")
+        print(f"Implementation: {solution_name}")
+        make_timing(solution)
 
 
 def main() -> None:
-    import problem_3 as problem
+    import solution_3 as problem
 
     run(problem.__dict__)
 
