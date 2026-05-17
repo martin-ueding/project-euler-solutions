@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 pub struct PrimeGenerator {
     primes: Vec<i64>,
 }
@@ -53,6 +55,37 @@ impl<'a> Iterator for PrimeIterator<'a> {
     }
 }
 
+pub fn get_prime_factors(
+    mut number: i64,
+    prime_generator: &mut PrimeGenerator,
+) -> HashMap<i64, i64> {
+    let mut factors: HashMap<i64, i64> = HashMap::new();
+    for prime in prime_generator.iter() {
+        while number % prime == 0 {
+            if !factors.contains_key(&prime) {
+                factors.insert(prime, 0);
+            }
+            let count = factors.get_mut(&prime).unwrap();
+            *count += 1;
+            number /= prime;
+        }
+        if number == 1 {
+            break;
+        }
+    }
+    factors
+}
+
+// def get_prime_factors(number: int) -> dict[int, int]:
+//     factors = collections.defaultdict(lambda: 0)
+//     for prime in prime_generator():
+//         while number % prime == 0:
+//             factors[prime] += 1
+//             number /= prime
+//         if number == 1:
+//             break
+//     return factors
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -71,6 +104,14 @@ mod tests {
         let _: Vec<i64> = pg.iter().take(5).collect();
         let actual: Vec<i64> = pg.iter().take(5).collect();
         let expected = vec![2, 3, 5, 7, 11];
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn test_get_prime_factors() {
+        let mut pg = PrimeGenerator::new();
+        let actual = get_prime_factors(12, &mut pg);
+        let expected = HashMap::from([(2, 2), (3, 1)]);
         assert_eq!(actual, expected);
     }
 }
