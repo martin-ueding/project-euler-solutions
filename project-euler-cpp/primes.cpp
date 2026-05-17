@@ -5,6 +5,9 @@
 #include <vector>
 
 void PrimeGenerator::advance(size_t const index) {
+    if (primes.size() > index) {
+        return;
+    }
     if (primes.empty()) {
         primes.push_back(2);
     }
