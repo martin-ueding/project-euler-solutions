@@ -1,4 +1,4 @@
-pub fn solution() -> i64 {
+fn solution() -> i64 {
     let mut sum_of_multiples = 0;
     for i in 1..1000 {
         if i % 3 == 0 || i % 5 == 0 {

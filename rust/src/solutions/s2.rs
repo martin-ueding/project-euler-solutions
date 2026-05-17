@@ -1,4 +1,4 @@
-pub fn solution() -> i64 {
+fn solution() -> i64 {
     let mut sum = 0;
     let mut a = 1;
     let mut b = 1;

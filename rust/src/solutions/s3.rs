@@ -1,6 +1,6 @@
 use crate::primes::PrimeGenerator;
 
-pub fn solution() -> i64 {
+fn solution() -> i64 {
     let number: i64 = 600_851_475_143;
 
     let mut prime_generator = PrimeGenerator::new();
