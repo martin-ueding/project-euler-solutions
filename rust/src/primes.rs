@@ -37,14 +37,13 @@ impl<'a> Iterator for PrimeIterator<'a> {
                     if prime * prime > candidate {
                         break;
                     }
-                    if candidate % *prime == 0 {
+                    if candidate % prime == 0 {
                         is_prime = false;
                         break;
                     }
                 }
                 if is_prime {
                     self.primes.push(candidate);
-                    // println!("{0:?}", self.primes);
                     self.index += 1;
                     return Some(candidate);
                 }
