@@ -52,3 +52,25 @@ impl<'a> Iterator for PrimeIterator<'a> {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn prime_generator() {
+        let mut pg = PrimeGenerator::new();
+        let actual: Vec<i64> = pg.iter().take(5).collect();
+        let expected = vec![2, 3, 5, 7, 11];
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn prime_generator_reuse() {
+        let mut pg = PrimeGenerator::new();
+        let _: Vec<i64> = pg.iter().take(5).collect();
+        let actual: Vec<i64> = pg.iter().take(5).collect();
+        let expected = vec![2, 3, 5, 7, 11];
+        assert_eq!(actual, expected);
+    }
+}
