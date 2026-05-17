@@ -11,6 +11,7 @@ fn main() {
         .parse()
         .expect("invalid id");
     println!("Problem: {id}");
+    println!("Language: Rust");
 
     for entry in inventory::iter::<registry::SolutionEntry> {
         if entry.id == id {
