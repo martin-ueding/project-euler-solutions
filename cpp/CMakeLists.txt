@@ -12,6 +12,8 @@ add_executable(main
     primes.hpp primes.cpp
     timings.hpp timings.cpp
 
-    solution_1.cpp
-    solution_3.cpp
+    solutions/solution_1.cpp
+    solutions/solution_3.cpp
 )
+
+target_include_directories(main PRIVATE .)
