@@ -21,20 +21,31 @@ def prime_generator(_primes=[]) -> Iterator[int]:
             _primes.append(candidate)
 
 
-def _solution_naive() -> int:
-    factor = None
-    for prime in prime_generator():
-        if number % prime == 0:
-            factor = prime
-        if prime > number:
-            break
-    return factor
+
+class PrimeList:
+    def __init__(self) -> None:
+        self._primes = []
+
+    def __iter__(self) -> Iterator[int]:
+        yield from self._primes
+        start = 2 if not self._primes else self._primes[-1] + 1
+        for candidate in itertools.count(start):
+            is_prime = True
+            for prime in self._primes:
+                if prime * prime > candidate:
+                    break
+                if candidate % prime == 0:
+                    is_prime = False
+                    break
+            if is_prime:
+                yield candidate
+                self._primes.append(candidate)
 
 
 def solution_reducing() -> int:
     remainder = number
     last_factor = None
-    for prime in prime_generator():
+    for prime in PrimeList():
         while remainder % prime == 0:
             last_factor = prime
             remainder /= prime
