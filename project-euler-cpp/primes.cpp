@@ -35,7 +35,7 @@ PrimeIterator PrimeIterator::operator++() {
 }
 
 std::generator<long long> primes() {
-    static std::vector<long long> known;
+    std::vector<long long> known;
     for (long long candidate = 2;; ++candidate) {
         bool is_prime =
             std::ranges::none_of(known | std::views::take_while([&](auto p) {

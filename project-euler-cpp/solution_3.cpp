@@ -4,7 +4,7 @@
 int solution_3() {
     long const number = 600851475143L;
     long remainder = number;
-    for (auto prime : primes()) {
+    for (auto prime : PrimeGenerator()) {
         while (remainder % prime == 0) {
             remainder /= prime;
         }
