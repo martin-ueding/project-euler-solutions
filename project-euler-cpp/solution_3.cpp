@@ -5,10 +5,9 @@ int main() {
     auto const start = now();
 
     long const number = 600851475143L;
-    PrimeGenerator pg;
     long remainder = number;
     long solution = 1;
-    for (auto prime : pg) {
+    for (auto prime : primes()) {
         while (remainder % prime == 0) {
             remainder /= prime;
         }

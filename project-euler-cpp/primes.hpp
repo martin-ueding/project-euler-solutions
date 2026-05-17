@@ -1,5 +1,6 @@
 #pragma once
 
+#include <generator>
 #include <vector>
 
 class PrimeGenerator;
@@ -37,3 +38,5 @@ class PrimeGenerator {
 
     std::vector<int> primes;
 };
+
+std::generator<long long> primes();

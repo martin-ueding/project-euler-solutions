@@ -1,5 +1,9 @@
 #include "primes.hpp"
 
+#include <algorithm>
+#include <ranges>
+#include <vector>
+
 void PrimeGenerator::advance(size_t const index) {
     if (primes.empty()) {
         primes.push_back(2);
@@ -28,4 +32,19 @@ int PrimeIterator::operator*() { return prime_generator.get(index); }
 PrimeIterator PrimeIterator::operator++() {
     ++index;
     return *this;
+}
+
+std::generator<long long> primes() {
+    static std::vector<long long> known;
+    for (long long candidate = 2;; ++candidate) {
+        bool is_prime =
+            std::ranges::none_of(known | std::views::take_while([&](auto p) {
+                                     return p * p <= candidate;
+                                 }),
+                                 [&](auto p) { return candidate % p == 0; });
+        if (is_prime) {
+            known.push_back(candidate);
+            co_yield candidate;
+        }
+    }
 }
