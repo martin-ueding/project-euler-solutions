@@ -1,13 +1,13 @@
-#include "timings.hpp"
+#include "registry.hpp"
 
-int main() {
-    auto const start = now();
+int solution_1() {
     int sum = 0;
     for (int i = 0; i < 1000; ++i) {
         if (i % 3 == 0 || i % 5 == 0) {
             sum += i;
         }
     }
-    report_duration(start);
-    report_solution(sum);
+    return sum;
 }
+
+static Registration registration(1, solution_1);

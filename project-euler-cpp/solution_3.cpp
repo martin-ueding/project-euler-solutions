@@ -1,7 +1,7 @@
 #include "primes.hpp"
-#include "timings.hpp"
+#include "registry.hpp"
 
-int solution() {
+int solution_3() {
     long const number = 600851475143L;
     long remainder = number;
     for (auto prime : primes()) {
@@ -12,6 +12,7 @@ int solution() {
             return prime;
         }
     }
+    throw std::runtime_error("Unreachable.");
 }
 
-int main() { run_solution(solution); }
+static Registration registration(3, solution_3);
