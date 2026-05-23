@@ -35,9 +35,3 @@ def solution_substrings() -> int:
             product *= int(char)
         largest = max(largest, product)
     return largest
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())
