@@ -1,14 +1,4 @@
-fn is_palindrome(number: i64) -> bool {
-    let mut reversed: i64 = 0;
-    let mut remainder = number;
-    while remainder > 0 {
-        reversed *= 10;
-        let last_digit = remainder % 10;
-        reversed += last_digit;
-        remainder /= 10;
-    }
-    number == reversed
-}
+use crate::specnum::is_palindrome;
 
 fn solution() -> i64 {
     let mut result: i64 = 0;

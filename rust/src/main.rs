@@ -1,6 +1,7 @@
 mod primes;
 mod registry;
 mod solutions;
+mod specnum;
 
 use std::time::Instant;
 
