@@ -25,17 +25,15 @@ DIGIT_STRING = "".join(
 71636269561882670428252483600823257530420752963450
 """.strip().split()
 )
-
-
-num_digits = 13
+NUM_DIGITS = 13
 
 
 def solution_procedural() -> int:
     digits = [int(c) for c in DIGIT_STRING]
     largest = 0
-    for start in range(len(digits) - num_digits):
+    for start in range(len(digits) - NUM_DIGITS):
         product = 1
-        for char in digits[start : start + num_digits]:
+        for char in digits[start : start + NUM_DIGITS]:
             product *= char
         largest = max(largest, product)
     return largest
@@ -47,8 +45,8 @@ def solution_functional() -> int:
     return max(
         map(
             lambda start: functools.reduce(
-                lambda a, b: a * b, digits[start : start + num_digits]
+                lambda a, b: a * b, digits[start : start + NUM_DIGITS]
             ),
-            range(len(digits) - num_digits),
+            range(len(digits) - NUM_DIGITS),
         )
     )
