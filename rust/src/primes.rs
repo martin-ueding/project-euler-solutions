@@ -84,7 +84,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn prime_generator() {
+    fn test_prime_list_first_elements() {
         let mut pg = PrimeList::new();
         let actual: Vec<i64> = pg.iter().take(5).collect();
         let expected = vec![2, 3, 5, 7, 11];
@@ -92,7 +92,7 @@ mod tests {
     }
 
     #[test]
-    fn prime_generator_reuse() {
+    fn test_prime_list_reuse() {
         let mut pg = PrimeList::new();
         let _: Vec<i64> = pg.iter().take(5).collect();
         let actual: Vec<i64> = pg.iter().take(5).collect();
