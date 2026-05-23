@@ -29,7 +29,7 @@ num_digits = 13
 
 def solution_substrings_converted() -> int:
     digits = [int(c) for c in DIGIT_STRING]
-    largest = 1
+    largest = 0
     for start in range(len(digits) - num_digits):
         product = 1
         for char in digits[start : start + num_digits]:
