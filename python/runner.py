@@ -1,5 +1,6 @@
 import datetime
-
+import importlib
+import argparse
 
 def format_timing(seconds: float) -> str:
     if seconds > 60:
@@ -56,9 +57,15 @@ def run(module_dict=None) -> None:
 
 
 def main() -> None:
-    import solution_3 as problem
+    parser = argparse.ArgumentParser()
+    parser.add_argument('problem_id', type=int)
+    options = parser.parse_args()
+    problem_id: int = options.problem_id
+    print(f"Problem: {problem_id}")
 
-    run(problem.__dict__)
+    solution_x = importlib.import_module(f"solution_{problem_id}")
+    
+    run(solution_x.__dict__)
 
 
 if __name__ == "__main__":
