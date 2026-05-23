@@ -1,3 +1,4 @@
+/// Checks whether a number is a palindrome.
 pub fn is_palindrome(number: i64) -> bool {
     let mut reversed: i64 = 0;
     let mut remainder = number;
