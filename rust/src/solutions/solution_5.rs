@@ -1,9 +1,9 @@
 use std::{cmp::max, collections::HashMap};
 
-use crate::primes::{PrimeGenerator, get_prime_factors};
+use crate::primes::{PrimeList, get_prime_factors};
 
 fn solution() -> i64 {
-    let mut prime_generator = PrimeGenerator::new();
+    let mut prime_generator = PrimeList::new();
     let mut factors: HashMap<i64, i64> = HashMap::new();
     for i in 1..21 {
         let new_factors = get_prime_factors(i, &mut prime_generator);

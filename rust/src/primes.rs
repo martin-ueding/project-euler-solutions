@@ -3,13 +3,13 @@ use std::collections::HashMap;
 /// Computes prime numbers as they are iterated.
 ///
 /// The iterator will always start from the beginning. Already computed primes will be iterated first, afterwards new primes are computed using all previous primes.
-pub struct PrimeGenerator {
+pub struct PrimeList {
     primes: Vec<i64>,
 }
 
-impl PrimeGenerator {
+impl PrimeList {
     pub fn new() -> Self {
-        PrimeGenerator { primes: vec![2] }
+        PrimeList { primes: vec![2] }
     }
 
     pub fn iter(&mut self) -> PrimeIterator<'_> {
@@ -61,10 +61,7 @@ impl<'a> Iterator for PrimeIterator<'a> {
 /// Factor a number into its prime factor.
 ///
 /// The result maps prime factors to their multiples.
-pub fn get_prime_factors(
-    mut number: i64,
-    prime_generator: &mut PrimeGenerator,
-) -> HashMap<i64, i64> {
+pub fn get_prime_factors(mut number: i64, prime_generator: &mut PrimeList) -> HashMap<i64, i64> {
     let mut factors: HashMap<i64, i64> = HashMap::new();
     for prime in prime_generator.iter() {
         while number % prime == 0 {
@@ -88,7 +85,7 @@ mod tests {
 
     #[test]
     fn prime_generator() {
-        let mut pg = PrimeGenerator::new();
+        let mut pg = PrimeList::new();
         let actual: Vec<i64> = pg.iter().take(5).collect();
         let expected = vec![2, 3, 5, 7, 11];
         assert_eq!(actual, expected);
@@ -96,7 +93,7 @@ mod tests {
 
     #[test]
     fn prime_generator_reuse() {
-        let mut pg = PrimeGenerator::new();
+        let mut pg = PrimeList::new();
         let _: Vec<i64> = pg.iter().take(5).collect();
         let actual: Vec<i64> = pg.iter().take(5).collect();
         let expected = vec![2, 3, 5, 7, 11];
@@ -105,7 +102,7 @@ mod tests {
 
     #[test]
     fn test_get_prime_factors() {
-        let mut pg = PrimeGenerator::new();
+        let mut pg = PrimeList::new();
         let actual = get_prime_factors(12, &mut pg);
         let expected = HashMap::from([(2, 2), (3, 1)]);
         assert_eq!(actual, expected);

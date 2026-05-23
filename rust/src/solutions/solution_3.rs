@@ -1,9 +1,9 @@
-use crate::primes::PrimeGenerator;
+use crate::primes::PrimeList;
 
 fn solution() -> i64 {
     let number: i64 = 600_851_475_143;
 
-    let mut prime_generator = PrimeGenerator::new();
+    let mut prime_generator = PrimeList::new();
 
     let mut remainder = number;
     let mut solution: i64 = 1;
