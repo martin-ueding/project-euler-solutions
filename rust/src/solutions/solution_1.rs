@@ -11,6 +11,8 @@ fn solution() -> i64 {
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 1,
+        name: Some("division check"),
         solve: solution,
+        solution: Some(233168),
     }
 }

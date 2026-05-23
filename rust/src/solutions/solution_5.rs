@@ -26,6 +26,8 @@ fn merge_factors(factors_1: &mut HashMap<i64, i64>, factors_2: HashMap<i64, i64>
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 5,
+        name: None,
         solve: solution,
+        solution: None,
     }
 }

@@ -16,27 +16,37 @@ fn main() {
 
     for entry in inventory::iter::<registry::SolutionEntry> {
         if entry.id == id {
-            measure(entry.solve);
-            return;
+            measure(entry);
         }
     }
 }
 
-fn measure<F>(f: F)
-where
-    F: Fn() -> i64,
-{
+fn measure(entry: &registry::SolutionEntry) {
+    if let Some(name) = entry.name {
+        println!("Implementation: {name}");
+    }
     let benchmark_start = Instant::now();
     let mut result = 0;
     let mut timings_s = Vec::<f64>::new();
     while benchmark_start.elapsed().as_secs_f64() < 1.0 && timings_s.len() < 100 {
         let start = Instant::now();
-        result = f();
+        result = (entry.solve)();
         timings_s.push(start.elapsed().as_secs_f64())
     }
     timings_s.sort_by(|a, b| a.total_cmp(b));
 
-    println!("Solution: {result}");
+    let emoji = match entry.solution {
+        Some(target) => {
+            if target == result {
+                "✔️"
+            } else {
+                "❌"
+            }
+        }
+        None => "❔",
+    };
+
+    println!("Solution: {result} {emoji}");
     println!(
         "Timings: {} | {} | {} | {} | {} | {} iterations",
         format_duration(timings_s[0]),
