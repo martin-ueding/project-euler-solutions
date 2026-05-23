@@ -1,3 +1,6 @@
+import functools
+
+
 DIGIT_STRING = "".join(
     """
 73167176531330624919225119674426574742355349194934
@@ -36,3 +39,16 @@ def solution_substrings_converted() -> int:
             product *= int(char)
         largest = max(largest, product)
     return largest
+
+
+def solution_functional() -> int:
+    digits = list(map(int, DIGIT_STRING))
+
+    return max(
+        map(
+            lambda start: functools.reduce(
+                lambda a, b: a * b, digits[start : start + num_digits]
+            ),
+            range(len(digits) - num_digits),
+        )
+    )
