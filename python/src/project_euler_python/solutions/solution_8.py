@@ -36,7 +36,7 @@ def solution_substrings_converted() -> int:
     for start in range(len(digits) - num_digits):
         product = 1
         for char in digits[start : start + num_digits]:
-            product *= int(char)
+            product *= char
         largest = max(largest, product)
     return largest
 
