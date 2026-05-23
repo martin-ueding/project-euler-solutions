@@ -1,0 +1,26 @@
+import itertools
+from typing import Iterator
+
+
+def generate_digits() -> Iterator[str]:
+    for number in itertools.count(1):
+        s = str(number)
+        yield from s
+
+
+def solution() -> int:
+    result = 1
+    power_of_ten = 1
+    for i, digit in enumerate(generate_digits(), start=1):
+        if i == power_of_ten:
+            result *= int(digit)
+            power_of_ten *= 10
+            if power_of_ten > 1_000_000:
+                break
+    return result
+
+
+if __name__ == "__main__":
+    import python.src.project_euler_python.runner as runner
+
+    runner.run(globals())
