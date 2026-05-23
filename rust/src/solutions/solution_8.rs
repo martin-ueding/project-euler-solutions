@@ -4,27 +4,52 @@ const DIGIT_STRING: &'static str = "73167176531330624919225119674426574742355349
 
 const NUM_DIGITS: usize = 13;
 
-fn solution() -> i64 {
+fn solution_procedural() -> i64 {
+    let mut digits: Vec<u32> = Vec::new();
+    for char in DIGIT_STRING.chars() {
+        digits.push(char.to_digit(10).unwrap_or_default());
+    }
+    let mut largest: i64 = 0;
+    for start in 0..digits.len() - NUM_DIGITS {
+        let mut product: i64 = 1;
+        for d in digits[start..start + NUM_DIGITS].iter() {
+            product *= *d as i64;
+        }
+        largest = max(largest, product as i64);
+    }
+    largest
+}
+
+fn solution_functional() -> i64 {
     let digits: Vec<u32> = DIGIT_STRING
         .chars()
         .map(|char| char.to_digit(10))
         .flatten()
         .collect();
-    let mut largest: i64 = 0;
-    for start in 0..digits.len() - NUM_DIGITS {
-        let product = digits[start..start + NUM_DIGITS]
-            .iter()
-            .fold(1 as i64, |a, &b| a * (b as i64));
-        largest = max(largest, product);
-    }
-    largest
+    (0..digits.len() - NUM_DIGITS)
+        .map(|start| {
+            digits[start..start + NUM_DIGITS]
+                .iter()
+                .fold(1 as i64, |a, &b| a * (b as i64))
+        })
+        .max()
+        .unwrap_or_default()
 }
 
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 8,
-        name: None,
-        solve: solution,
+        name: Some("procedural"),
+        solve: solution_procedural,
+        solution: Some(23514624000),
+    }
+}
+
+inventory::submit! {
+    crate::registry::SolutionEntry {
+        id: 8,
+        name: Some("functional"),
+        solve: solution_functional,
         solution: Some(23514624000),
     }
 }
