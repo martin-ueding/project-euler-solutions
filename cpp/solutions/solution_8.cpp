@@ -60,4 +60,6 @@ int64_t solution_8_ranges() {
         products, 0LL, [](int64_t a, int64_t b) { return std::max(a, b); });
 }
 
-static Registration registration(8, solution_8_procedural);
+static Registration registration_procedural(8, "procedural",
+                                            solution_8_procedural);
+static Registration registration_ranges(8, "ranges", solution_8_ranges);

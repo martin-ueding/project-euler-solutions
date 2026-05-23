@@ -9,7 +9,8 @@ int main(int const argc, char const* const* const argv) {
     std::cout << "Problem: " << id << std::endl;
     std::cout << "Language: C++" << std::endl;
 
-    auto const solution = solutions.at(id);
-
-    run_solution(solution);
+    for (auto const& [name, callable] : solutions.at(id)) {
+        std::cout << "Implementation: " << name << std::endl;
+        run_solution(callable);
+    }
 }

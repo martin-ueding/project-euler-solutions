@@ -10,4 +10,4 @@ int64_t solution_1() {
     return sum;
 }
 
-static Registration registration(1, solution_1);
+static Registration registration(1, "", solution_1);

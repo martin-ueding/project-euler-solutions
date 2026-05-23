@@ -15,4 +15,4 @@ int64_t solution_3() {
     throw std::runtime_error("Unreachable.");
 }
 
-static Registration registration(3, solution_3);
+static Registration registration(3, "", solution_3);
