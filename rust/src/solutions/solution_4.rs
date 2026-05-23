@@ -1,6 +1,13 @@
 fn is_palindrome(number: i64) -> bool {
-    let reversed: String = number.to_string().chars().rev().collect();
-    number.to_string() == reversed
+    let mut reversed: i64 = 0;
+    let mut remainder = number;
+    while remainder > 0 {
+        reversed *= 10;
+        let last_digit = remainder % 10;
+        reversed += last_digit;
+        remainder /= 10;
+    }
+    number == reversed
 }
 
 fn solution() -> i64 {
