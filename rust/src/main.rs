@@ -51,13 +51,31 @@ where
 fn format_duration(seconds: f64) -> String {
     let ms = seconds * 1_000.0;
     let us = seconds * 1_000_000.0;
-    let ns = seconds * 1_000_000_000.0;
+    let ns: f64 = seconds * 1_000_000_000.0;
 
-    if ms > 1.0 {
-        format!("{ms:.3} ms")
-    } else if us > 1.0 {
-        format!("{us:.3} µs")
+    if seconds >= 10.0 {
+        format!("{seconds:.1} s")
+    } else if seconds >= 1.0 {
+        format!("{seconds:.2} s")
+    } else if ms >= 100.0 {
+        format!("{ms:.0} ms")
+    } else if ms >= 10.0 {
+        format!("{ms:.1} ms")
+    } else if ms >= 1.0 {
+        format!("{ms:.2} ms")
+    } else if us >= 100.0 {
+        format!("{us:.0} µs")
+    } else if us >= 10.0 {
+        format!("{us:.1} µs")
+    } else if us >= 1.0 {
+        format!("{us:.2} µs")
+    } else if ns >= 100.0 {
+        format!("{ns:.0} ns")
+    } else if ns >= 10.0 {
+        format!("{ns:.1} ns")
+    } else if ns >= 1.0 {
+        format!("{ns:.2} ns")
     } else {
-        format!("{ns:.3} ns")
+        format!("{ns:.6} ns")
     }
 }
