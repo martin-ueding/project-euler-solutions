@@ -1,7 +1,9 @@
 import math
 from typing import Iterator
 
-from python.src.project_euler_python.solutions.solution_33 import greatest_common_denominator
+from python.src.project_euler_python.solutions.solution_33 import (
+    greatest_common_denominator,
+)
 
 
 def expand_root(number: int) -> tuple[list[int], list[int]]:

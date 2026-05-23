@@ -1,4 +1,8 @@
-from python.src.project_euler_python.solutions.solution_86 import integer_root, multiplicity, shortest_path_is_integer
+from python.src.project_euler_python.solutions.solution_86 import (
+    integer_root,
+    multiplicity,
+    shortest_path_is_integer,
+)
 
 
 def test_shortest_path_is_integer() -> None:

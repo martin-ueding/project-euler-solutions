@@ -1,12 +1,7 @@
-
-
 from ..primes import PrimeList
 
 
 number = 600851475143
-
-
-
 
 
 def solution_reducing() -> int:

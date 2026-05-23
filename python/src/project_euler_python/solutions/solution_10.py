@@ -8,6 +8,4 @@ def solution_generator() -> int:
 
 
 def solution_sieve() -> int:
-    primes = prime_sieve(2_000_000)
-    return sum(primes)
-
+    return sum(prime_sieve(2_000_000))

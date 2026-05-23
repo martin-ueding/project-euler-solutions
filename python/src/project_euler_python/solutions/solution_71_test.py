@@ -1,4 +1,7 @@
-from python.src.project_euler_python.solutions.solution_71 import bisect_numerator, find_next_smaller_fraction
+from python.src.project_euler_python.solutions.solution_71 import (
+    bisect_numerator,
+    find_next_smaller_fraction,
+)
 
 
 def test_find_next_smaller_fraction() -> None:

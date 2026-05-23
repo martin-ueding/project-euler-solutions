@@ -1,4 +1,7 @@
-from python.src.project_euler_python.solutions.solution_89 import parse_roman_numeral, write_as_roman
+from python.src.project_euler_python.solutions.solution_89 import (
+    parse_roman_numeral,
+    write_as_roman,
+)
 
 
 def test_parse_roman_numeral() -> None:

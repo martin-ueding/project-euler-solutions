@@ -1,4 +1,8 @@
-from python.src.project_euler_python.solutions.solution_54 import is_straight, parse_hand, player_1_wins
+from python.src.project_euler_python.solutions.solution_54 import (
+    is_straight,
+    parse_hand,
+    player_1_wins,
+)
 
 
 def test_parse_hand() -> None:

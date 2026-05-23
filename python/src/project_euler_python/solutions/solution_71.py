@@ -1,4 +1,6 @@
-from python.src.project_euler_python.solutions.solution_33 import greatest_common_denominator
+from python.src.project_euler_python.solutions.solution_33 import (
+    greatest_common_denominator,
+)
 
 
 def find_next_smaller_fraction(

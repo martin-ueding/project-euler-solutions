@@ -1,4 +1,8 @@
-from python.src.project_euler_python.solutions.solution_60 import find_tuple_of, has_property, ceiling
+from python.src.project_euler_python.solutions.solution_60 import (
+    find_tuple_of,
+    has_property,
+    ceiling,
+)
 from python.src.project_euler_python.primes import prime_sieve
 
 

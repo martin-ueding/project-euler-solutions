@@ -1,7 +1,9 @@
 import itertools
 from typing import Iterator
 
-from python.src.project_euler_python.solutions.solution_33 import greatest_common_denominator
+from python.src.project_euler_python.solutions.solution_33 import (
+    greatest_common_denominator,
+)
 
 
 def square_root_sequence() -> Iterator[tuple[int, int]]:

@@ -56,14 +56,18 @@ def split_numbers(numbers: list[int]) -> dict[str, list[str]]:
 def solution() -> int:
     all_numbers = [
         generate_numbers(iterator)
-        for iterator in list(reversed([
-            iter_triangular(),
-            iter_square(),
-            iter_pentagonal(),
-            iter_hexagonal(),
-            iter_heptagonal(),
-            iter_octogonal(),
-        ]))
+        for iterator in list(
+            reversed(
+                [
+                    iter_triangular(),
+                    iter_square(),
+                    iter_pentagonal(),
+                    iter_hexagonal(),
+                    iter_heptagonal(),
+                    iter_octogonal(),
+                ]
+            )
+        )
     ]
 
     splits = [split_numbers(numbers) for numbers in all_numbers]

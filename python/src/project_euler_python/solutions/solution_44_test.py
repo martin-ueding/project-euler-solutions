@@ -1,5 +1,8 @@
 import itertools
-from python.src.project_euler_python.solutions.solution_44 import is_pentagonal, iter_pentagonal_numbers
+from python.src.project_euler_python.solutions.solution_44 import (
+    is_pentagonal,
+    iter_pentagonal_numbers,
+)
 
 
 def test_is_pentagonal() -> None:

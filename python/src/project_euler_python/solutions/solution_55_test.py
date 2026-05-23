@@ -1,4 +1,7 @@
-from python.src.project_euler_python.solutions.solution_55 import is_lychrel, reverse_and_add
+from python.src.project_euler_python.solutions.solution_55 import (
+    is_lychrel,
+    reverse_and_add,
+)
 
 
 def test_reverse_and_add() -> None:

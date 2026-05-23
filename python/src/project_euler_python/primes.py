@@ -18,7 +18,6 @@ def prime_generator(_primes=[]) -> Iterator[int]:
             _primes.append(candidate)
 
 
-
 class PrimeList:
     def __init__(self) -> None:
         self._primes = []

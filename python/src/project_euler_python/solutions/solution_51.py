@@ -21,7 +21,6 @@ def get_prime_families(prime: int, prime_set: set[int]) -> list[list[int]]:
     return result
 
 
-
 def solution() -> int:
     primes = prime_sieve(1000000)
     prime_set = set(primes)

@@ -1,4 +1,7 @@
-from python.src.project_euler_python.solutions.solution_76 import num_partitions, partitions
+from python.src.project_euler_python.solutions.solution_76 import (
+    num_partitions,
+    partitions,
+)
 
 
 def test_partitions() -> None:
