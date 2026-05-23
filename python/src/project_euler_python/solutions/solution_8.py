@@ -30,7 +30,7 @@ DIGIT_STRING = "".join(
 num_digits = 13
 
 
-def solution_substrings_converted() -> int:
+def solution_procedural() -> int:
     digits = [int(c) for c in DIGIT_STRING]
     largest = 0
     for start in range(len(digits) - num_digits):
