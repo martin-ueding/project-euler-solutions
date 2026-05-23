@@ -6,9 +6,8 @@
 std::chrono::time_point<std::chrono::high_resolution_clock> now();
 
 void report_duration(
-    std::chrono::time_point<std::chrono::high_resolution_clock> const &start);
+    std::chrono::time_point<std::chrono::high_resolution_clock> const& start);
 
 void report_solution(int const solution);
 
-
-void run_solution(std::function<int(void)> const &solution);
+void run_solution(std::function<int64_t(void)> const& solution);

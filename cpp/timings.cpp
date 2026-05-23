@@ -40,10 +40,10 @@ std::string format_duration(double const duration_ms) {
     return ss.str();
 }
 
-void run_solution(std::function<int(void)> const& solution) {
+void run_solution(std::function<int64_t(void)> const& solution) {
     auto const begin_benchmark = std::chrono::high_resolution_clock::now();
     std::vector<double> timings_ms;
-    int result;
+    int64_t result;
     while (static_cast<std::chrono::duration<double, std::milli>>(
                std::chrono::high_resolution_clock::now() - begin_benchmark)
                    .count() < 1000 &&

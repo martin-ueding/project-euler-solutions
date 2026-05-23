@@ -1,9 +1,9 @@
 #include "primes.hpp"
 #include "registry.hpp"
 
-int solution_3() {
-    long const number = 600851475143L;
-    long remainder = number;
+int64_t solution_3() {
+    int64_t const number = 600851475143L;
+    int64_t remainder = number;
     for (auto prime : PrimeGenerator()) {
         while (remainder % prime == 0) {
             remainder /= prime;

@@ -14,6 +14,7 @@ add_executable(main
 
     solutions/solution_1.cpp
     solutions/solution_3.cpp
+    solutions/solution_8.cpp
 )
 
 target_include_directories(main PRIVATE .)
