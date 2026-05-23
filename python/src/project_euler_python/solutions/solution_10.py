@@ -1,21 +1,13 @@
-from python.src.project_euler_python.solutions.solution_3 import prime_generator
-from python.src.project_euler_python.primes import prime_sieve
+import itertools
+
+from project_euler_python.primes import prime_sieve, PrimeList
 
 
-def _solution_generator() -> int:
-    prime_sum = 0
-    for prime in prime_generator():
-        if prime < 2_000_000:
-            prime_sum += prime
-    return prime_sum
+def solution_generator() -> int:
+    return sum(itertools.takewhile(lambda prime: prime < 2_000_000, PrimeList()))
 
 
 def solution_sieve() -> int:
     primes = prime_sieve(2_000_000)
     return sum(primes)
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())
