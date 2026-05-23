@@ -50,12 +50,11 @@ int64_t solution_8_procedural() {
 
 int64_t solution_8_ranges() {
     auto const digits = get_digits();
-    auto const products =
-        digits | std::views::slide(NUM_DIGITS) |
-        std::views::transform([](auto window) {
-            return std::accumulate(window.begin(), window.end(), 1LL,
-                                   std::multiplies<int64_t>());
-        });
+    auto const products = digits | std::views::slide(NUM_DIGITS) |
+                          std::views::transform([](auto window) {
+                              return std::ranges::fold_left(
+                                  window, 1LL, std::multiplies<int64_t>());
+                          });
 
     return std::ranges::fold_left(
         products, 0LL, [](int64_t a, int64_t b) { return std::max(a, b); });
