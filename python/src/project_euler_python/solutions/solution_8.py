@@ -1,4 +1,4 @@
-digits = "".join(
+DIGIT_STRING = "".join(
     """
 73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
@@ -27,7 +27,8 @@ digits = "".join(
 num_digits = 13
 
 
-def solution_substrings() -> int:
+def solution_substrings_converted() -> int:
+    digits = [int(c) for c in DIGIT_STRING]
     largest = 1
     for start in range(len(digits) - num_digits):
         product = 1
