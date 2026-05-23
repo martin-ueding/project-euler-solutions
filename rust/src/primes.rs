@@ -76,16 +76,6 @@ pub fn get_prime_factors(
     factors
 }
 
-// def get_prime_factors(number: int) -> dict[int, int]:
-//     factors = collections.defaultdict(lambda: 0)
-//     for prime in prime_generator():
-//         while number % prime == 0:
-//             factors[prime] += 1
-//             number /= prime
-//         if number == 1:
-//             break
-//     return factors
-
 #[cfg(test)]
 mod tests {
     use super::*;
