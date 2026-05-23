@@ -81,6 +81,7 @@ pub fn get_prime_factors(mut number: i64, prime_generator: &mut PrimeList) -> Ha
 
 /// Use the Sieve of Eratosthenes to compute a list of primes up to a ceiling.
 pub fn sieve_primes(end: i64) -> Vec<i64> {
+    let end = end + 1;
     let mut sieve: Vec<bool> = Vec::new();
     sieve.resize(end as usize, true);
     sieve[0] = false;
@@ -129,7 +130,7 @@ mod tests {
 
     #[test]
     fn test_prime_sieve() {
-        let actual = sieve_primes(12);
+        let actual = sieve_primes(11);
         let expected = vec![2, 3, 5, 7, 11];
         assert_eq!(actual, expected);
     }
