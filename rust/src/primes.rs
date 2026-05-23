@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 /// Computes prime numbers as they are iterated.
-/// 
+///
 /// The iterator will always start from the beginning. Already computed primes will be iterated first, afterwards new primes are computed using all previous primes.
 pub struct PrimeGenerator {
     primes: Vec<i64>,
@@ -58,6 +58,9 @@ impl<'a> Iterator for PrimeIterator<'a> {
     }
 }
 
+/// Factor a number into its prime factor.
+///
+/// The result maps prime factors to their multiples.
 pub fn get_prime_factors(
     mut number: i64,
     prime_generator: &mut PrimeGenerator,
