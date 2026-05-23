@@ -1,5 +1,5 @@
 from python.src.project_euler_python.solutions.solution_51 import get_prime_family
-from python.src.project_euler_python.solutions.solution_7 import prime_sieve
+from python.src.project_euler_python.primes import prime_sieve
 
 
 def test_get_prime_family() -> None:

@@ -3,7 +3,7 @@ import itertools
 
 from tqdm import tqdm
 from python.src.project_euler_python.solutions.solution_58 import is_prime_accelerated
-from python.src.project_euler_python.solutions.solution_7 import prime_sieve
+from python.src.project_euler_python.primes import prime_sieve
 
 ceiling = 1000
 

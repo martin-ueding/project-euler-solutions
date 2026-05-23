@@ -1,7 +1,7 @@
 from typing import Iterator
 from python.src.project_euler_python.solutions.solution_3 import prime_generator
 from python.src.project_euler_python.solutions.solution_5 import get_prime_factors
-from python.src.project_euler_python.solutions.solution_7 import prime_sieve
+from python.src.project_euler_python.primes import prime_sieve
 
 
 def farey_sequence(n: int) -> Iterator[tuple[int, int]]:

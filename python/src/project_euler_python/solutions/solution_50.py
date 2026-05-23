@@ -1,4 +1,4 @@
-from python.src.project_euler_python.solutions.solution_7 import prime_sieve
+from python.src.project_euler_python.primes import prime_sieve
 
 
 def get_max_sequence_length(primes: list[int]) -> int:

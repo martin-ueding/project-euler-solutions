@@ -1,5 +1,5 @@
 import itertools
-from python.src.project_euler_python.solutions.solution_7 import prime_sieve
+from python.src.project_euler_python.primes import prime_sieve
 
 
 def get_prime_family(digits: list[str], mask: tuple, prime_set: set[int]) -> list[int]:
