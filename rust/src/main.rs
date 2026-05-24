@@ -22,13 +22,29 @@ fn measure(entry: &registry::SolutionEntry) {
     if let Some(name) = entry.name {
         println!("Implementation: {name}");
     }
+
+    let mut batch_size = 1;
+    loop {
+        let benchmark_start = Instant::now();
+        for _ in 0..batch_size {
+            (entry.solve)();
+        }
+        if benchmark_start.elapsed().as_secs_f64() < 0.001 {
+            batch_size *= 10;
+        } else {
+            break;
+        }
+    }
+
     let benchmark_start = Instant::now();
-    let mut result = 0;
+    let result = (entry.solve)();
     let mut timings_s = Vec::<f64>::new();
     while benchmark_start.elapsed().as_secs_f64() < 1.0 && timings_s.len() < 100 {
         let start = Instant::now();
-        result = (entry.solve)();
-        timings_s.push(start.elapsed().as_secs_f64())
+        for _ in 0..batch_size {
+            (entry.solve)();
+        }
+        timings_s.push(start.elapsed().as_secs_f64() / batch_size as f64)
     }
     timings_s.sort_by(|a, b| a.total_cmp(b));
 
@@ -45,13 +61,14 @@ fn measure(entry: &registry::SolutionEntry) {
 
     println!("Solution: {result} {emoji}");
     println!(
-        "Timings: {} | {} | {} | {} | {} | {} iterations",
+        "Timings: {} | {} | {} | {} | {} | {} batches of {} iterations",
         format_duration(timings_s[0]),
         format_duration(timings_s[timings_s.len() / 4]),
         format_duration(timings_s[timings_s.len() / 2]),
         format_duration(timings_s[timings_s.len() * 3 / 4]),
         format_duration(timings_s[timings_s.len() - 1]),
-        timings_s.len()
+        timings_s.len(),
+        batch_size,
     );
 }
 
