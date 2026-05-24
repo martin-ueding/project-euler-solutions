@@ -1,7 +1,4 @@
-mod primes;
-mod registry;
-mod solutions;
-mod specnum;
+use project_euler_rust::registry;
 
 use std::time::Instant;
 

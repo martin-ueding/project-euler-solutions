@@ -4,7 +4,7 @@ const DIGIT_STRING: &'static str = "73167176531330624919225119674426574742355349
 
 const NUM_DIGITS: usize = 13;
 
-fn solution_procedural() -> i64 {
+pub fn solution_8_procedural() -> i64 {
     let mut digits: Vec<u32> = Vec::new();
     for char in DIGIT_STRING.chars() {
         digits.push(char.to_digit(10).unwrap_or_default());
@@ -20,7 +20,7 @@ fn solution_procedural() -> i64 {
     largest
 }
 
-fn solution_functional() -> i64 {
+pub fn solution_8_functional() -> i64 {
     let digits: Vec<u32> = DIGIT_STRING
         .chars()
         .map(|char| char.to_digit(10))
@@ -40,7 +40,7 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 8,
         name: Some("procedural"),
-        solve: solution_procedural,
+        solve: solution_8_procedural,
         solution: Some(23514624000),
     }
 }
@@ -49,7 +49,7 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 8,
         name: Some("functional"),
-        solve: solution_functional,
+        solve: solution_8_functional,
         solution: Some(23514624000),
     }
 }
