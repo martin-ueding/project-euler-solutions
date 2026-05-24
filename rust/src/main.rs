@@ -15,13 +15,14 @@ fn main() {
         if entry.id == id {
             for (name, implementation) in entry.implementations {
                 println!("Implementation: {name}");
-                measure(entry, implementation);
+                check_solution(implementation(), entry.solution);
+                measure(implementation);
             }
         }
     }
 }
 
-fn measure(entry: &registry::SolutionEntry, implementation: &fn() -> i64) {
+fn find_batch_size(implementation: &fn() -> i64) -> i32 {
     let mut batch_size = 1;
     loop {
         let benchmark_start = Instant::now();
@@ -34,22 +35,13 @@ fn measure(entry: &registry::SolutionEntry, implementation: &fn() -> i64) {
             break;
         }
     }
+    batch_size
+}
 
-    let benchmark_start = Instant::now();
-    let result = implementation();
-    let mut timings_s = Vec::<f64>::new();
-    while benchmark_start.elapsed().as_secs_f64() < 1.0 && timings_s.len() < 100 {
-        let start = Instant::now();
-        for _ in 0..batch_size {
-            implementation();
-        }
-        timings_s.push(start.elapsed().as_secs_f64() / batch_size as f64)
-    }
-    timings_s.sort_by(|a, b| a.total_cmp(b));
-
-    let emoji = match entry.solution {
-        Some(target) => {
-            if target == result {
+fn check_solution(actual: i64, solution: Option<i64>) {
+    let emoji = match solution {
+        Some(expected) => {
+            if actual == expected {
                 "✔️"
             } else {
                 "❌"
@@ -58,16 +50,38 @@ fn measure(entry: &registry::SolutionEntry, implementation: &fn() -> i64) {
         None => "❔",
     };
 
-    println!("Solution: {result} {emoji}");
+    println!("Solution: {actual} {emoji}");
+}
+
+fn measure(implementation: &fn() -> i64) {
+    let batch_size = find_batch_size(implementation);
+    let benchmark_start = Instant::now();
+    let mut timings_s = Vec::<f64>::new();
+    while benchmark_start.elapsed().as_secs_f64() < 1.0 && timings_s.len() < 100 {
+        let start = Instant::now();
+        for _ in 0..batch_size {
+            implementation();
+        }
+        timings_s.push(start.elapsed().as_secs_f64() / batch_size as f64)
+    }
+
+    timings_s.sort_by(|a, b| a.total_cmp(b));
+    report_timing_distribution(&timings_s);
     println!(
-        "Timings: {} | {} | {} | {} | {} | {} batches of {} iterations",
+        "Batching: {} batches of {} iterations",
+        timings_s.len(),
+        batch_size
+    );
+}
+
+fn report_timing_distribution(timings_s: &[f64]) {
+    println!(
+        "Timings: {} | {} | {} | {} | {}",
         format_duration(timings_s[0]),
         format_duration(timings_s[timings_s.len() / 4]),
         format_duration(timings_s[timings_s.len() / 2]),
         format_duration(timings_s[timings_s.len() * 3 / 4]),
         format_duration(timings_s[timings_s.len() - 1]),
-        timings_s.len(),
-        batch_size,
     );
 }
 
