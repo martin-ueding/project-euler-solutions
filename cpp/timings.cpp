@@ -40,7 +40,31 @@ std::string format_duration(double const duration_ms) {
     return ss.str();
 }
 
+int find_batch_size(std::function<int64_t(void)> const& solution) {
+    int batch_size = 1;
+
+    while (true) {
+        auto benchmark_start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < batch_size; ++i) {
+            solution();
+        }
+        auto const elapsed =
+            std::chrono::high_resolution_clock::now() - benchmark_start;
+        double const seconds = std::chrono::duration<double>(elapsed).count();
+
+        if (seconds < 0.001) {
+            batch_size *= 10;
+        } else {
+            break;
+        }
+    }
+    std::cout << "Batch Size: " << batch_size << std::endl;
+
+    return batch_size;
+}
+
 void run_solution(std::function<int64_t(void)> const& solution) {
+    auto const batch_size = find_batch_size(solution);
     auto const begin_benchmark = std::chrono::high_resolution_clock::now();
     std::vector<double> timings_ms;
     int64_t result;
@@ -49,11 +73,14 @@ void run_solution(std::function<int64_t(void)> const& solution) {
                    .count() < 1000 &&
            timings_ms.size() < 100) {
         auto const begin = std::chrono::high_resolution_clock::now();
-        result = solution();
+        for (int i = 0; i < batch_size; ++i) {
+            result = solution();
+        }
         auto const end = std::chrono::high_resolution_clock::now();
         timings_ms.push_back(
             static_cast<std::chrono::duration<double, std::milli>>(end - begin)
-                .count());
+                .count() /
+            batch_size);
     }
     std::sort(timings_ms.begin(), timings_ms.end());
 
