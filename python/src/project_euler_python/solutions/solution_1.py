@@ -24,4 +24,3 @@ def solution_closed_form() -> int:
         + sum_of_natural_numbers(999, 5)
         - sum_of_natural_numbers(999, 15)
     )
-

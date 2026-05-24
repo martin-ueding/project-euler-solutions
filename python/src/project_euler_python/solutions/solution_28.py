@@ -6,9 +6,3 @@ def solution() -> int:
             number += 2 * loop
             accumulator += number
     return accumulator
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

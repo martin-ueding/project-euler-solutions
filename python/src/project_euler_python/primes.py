@@ -63,3 +63,34 @@ def get_prime_factors(number: int) -> dict[int, int]:
         if number == 1:
             break
     return factors
+
+
+def get_all_divisors(number: int) -> set[int]:
+    prime_factors = get_prime_factors(number)
+    pairs = [
+        (1, factor)
+        for factor, multiplicity in prime_factors.items()
+        for _ in range(multiplicity)
+    ]
+    if not pairs:
+        return {1}
+    divisors = {
+        functools.reduce(lambda a, b: a * b, combination)
+        for combination in itertools.product(*pairs)
+    }
+    divisors.remove(number)
+    return divisors
+
+
+class PrimeSet:
+    def __init__(self) -> None:
+        self._primes: set[int] = []
+        self._largest: int = 0
+        self._prime_iterator = prime_generator()
+
+    def contains(self, candidate: int) -> bool:
+        while self._largest < candidate:
+            new_prime = next(self._prime_iterator)
+            self._largest = new_prime
+            self._primes.append(new_prime)
+        return candidate in self._primes

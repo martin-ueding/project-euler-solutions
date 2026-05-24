@@ -1,6 +1,6 @@
 import itertools
 
-from python.src.project_euler_python.primes import prime_sieve
+from ..primes import prime_sieve
 
 
 def is_pandigital(number: int) -> bool:
@@ -30,9 +30,3 @@ def solution_permutations() -> int:
         number = int("".join(digits))
         if is_prime(number):
             return number
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

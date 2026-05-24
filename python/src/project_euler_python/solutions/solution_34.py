@@ -23,9 +23,3 @@ def solution() -> int:
         for number in range(3, upper_limit())
         if number == digit_factorial_sum(number)
     )
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

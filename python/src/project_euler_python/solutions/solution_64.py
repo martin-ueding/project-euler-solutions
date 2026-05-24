@@ -1,7 +1,7 @@
 import math
 from typing import Iterator
 
-from python.src.project_euler_python.solutions.solution_33 import (
+from project_euler_python.specnum import (
     greatest_common_denominator,
 )
 

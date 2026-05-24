@@ -46,4 +46,3 @@ def solution_bottom_up() -> int:
                 triangle[row_i + 1][col_i], triangle[row_i + 1][col_i + 1]
             )
     return triangle[0][0]
-

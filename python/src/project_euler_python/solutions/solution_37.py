@@ -1,4 +1,4 @@
-from python.src.project_euler_python.primes import prime_sieve
+from ..primes import prime_sieve
 
 
 def iter_truncations(number: int) -> int:
@@ -24,9 +24,3 @@ def solution() -> int:
             if len(truncatable_primes) == 11:
                 break
     return sum(truncatable_primes)
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

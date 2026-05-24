@@ -1,6 +1,6 @@
 from typing import Iterator
 
-from python.src.project_euler_python.primes import prime_sieve
+from ..primes import prime_sieve
 
 
 def iter_cycles(n: int) -> Iterator[int]:
@@ -22,9 +22,3 @@ def solution() -> int:
         else:
             num_cyclic_primes += 1
     return num_cyclic_primes
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

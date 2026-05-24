@@ -1,4 +1,4 @@
-from .solution_21 import get_all_divisors
+from ..primes import get_all_divisors
 
 import numpy as np
 
@@ -18,4 +18,3 @@ def solution() -> int:
     not_viable = np.array([s for s in set(sums.flatten()) if s < 28125])
     is_viable[not_viable] = 0
     return sum(np.arange(len(is_viable))[is_viable == 1].tolist())
-

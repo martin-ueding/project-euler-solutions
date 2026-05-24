@@ -1,7 +1,4 @@
-def greatest_common_denominator(a: int, b: int) -> int:
-    while b != 0:
-        b, a = a % b, b
-    return a
+from ..specnum import greatest_common_denominator
 
 
 def solution() -> int:
@@ -23,9 +20,3 @@ def solution() -> int:
                     result_denominator *= denominator
     gcd = greatest_common_denominator(result_numerator, result_denominator)
     return result_denominator // gcd
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

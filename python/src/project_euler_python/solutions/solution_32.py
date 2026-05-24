@@ -12,9 +12,3 @@ def solution() -> int:
                 if factor_1 * factor_2 == product:
                     results.add(product)
     return sum(results)
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

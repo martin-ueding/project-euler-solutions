@@ -11,4 +11,3 @@ def solution_generator() -> int:
 def solution_sieve() -> int:
     primes = prime_sieve(110_000)
     return primes[10000]
-

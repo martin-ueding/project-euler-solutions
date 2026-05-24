@@ -27,9 +27,3 @@ def solution_long_division() -> int:
         for denominator in range(1, 1000)
     }
     return sorted(cycle_lengths.items(), key=lambda item: item[1])[-1][0]
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

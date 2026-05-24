@@ -6,4 +6,3 @@ def solution_itertools() -> int:
     permutations = itertools.permutations(digits)
     millionth = next(itertools.islice(permutations, 999_999, 1_000_000))
     return int("".join(map(str, millionth)))
-

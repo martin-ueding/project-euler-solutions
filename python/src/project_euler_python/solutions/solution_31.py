@@ -29,9 +29,3 @@ def count_partitions(used: tuple, remainder: int) -> int:
 
 def solution() -> int:
     return count_partitions((), 200)
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

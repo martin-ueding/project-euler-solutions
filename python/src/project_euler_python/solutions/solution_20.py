@@ -15,4 +15,3 @@ def solution_procedural() -> int:
         digit_sum += int(digit_char)
 
     return digit_sum
-

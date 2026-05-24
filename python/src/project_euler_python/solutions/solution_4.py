@@ -6,4 +6,3 @@ def solution_grid_search() -> int:
             if product > largest and str(product) == str(product)[::-1]:
                 largest = product
     return largest
-

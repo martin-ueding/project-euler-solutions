@@ -27,9 +27,3 @@ def solution() -> int:
         if product := pandigital_product(start):
             pandigital_products.append(product)
     return max(pandigital_products)
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

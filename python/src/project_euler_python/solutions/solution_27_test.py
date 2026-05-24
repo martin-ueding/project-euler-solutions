@@ -1,4 +1,4 @@
-from python.src.project_euler_python.solutions.solution_27 import PrimeSet
+from ..primes import PrimeSet
 
 
 def test_prime_set() -> None:

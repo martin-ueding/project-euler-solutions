@@ -1,6 +1,4 @@
-def is_palindrome(n: int) -> bool:
-    s = str(n)
-    return s == s[::-1]
+from ..specnum import is_palindrome
 
 
 def is_palindrome_base_2(n: int) -> bool:
@@ -21,9 +19,3 @@ def solution_procedural() -> int:
             continue
         result += candidate
     return result
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

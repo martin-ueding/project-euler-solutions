@@ -14,9 +14,3 @@ def solution() -> int:
     return max(
         (get_num_solutions(perimeter), perimeter) for perimeter in range(2, 1000, 2)
     )[1]
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

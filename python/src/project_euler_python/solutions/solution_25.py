@@ -1,6 +1,4 @@
-
-
-from .solution_2 import fibonacci_generator
+from ..specnum import fibonacci_generator
 
 
 def solution_iterative() -> int:

@@ -119,4 +119,3 @@ def solution_float() -> int:
 def solution_truncate() -> int:
     truncated = [number // 10**39 for number in get_numbers()]
     return int(str(sum(truncated))[:10])
-

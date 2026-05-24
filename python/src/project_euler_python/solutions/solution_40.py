@@ -18,9 +18,3 @@ def solution() -> int:
             if power_of_ten > 1_000_000:
                 break
     return result
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

@@ -42,4 +42,3 @@ def solution_coprime() -> int:
             num_divisors = get_num_divisors((n + 1) // 2) * get_num_divisors(n)
         if num_divisors > 500:
             return triangle_number
-

@@ -1,20 +1,6 @@
 import itertools
 
-from python.src.project_euler_python.solutions.solution_3 import prime_generator
-
-
-class PrimeSet:
-    def __init__(self) -> None:
-        self._primes: set[int] = []
-        self._largest: int = 0
-        self._prime_iterator = prime_generator()
-
-    def contains(self, candidate: int) -> bool:
-        while self._largest < candidate:
-            new_prime = next(self._prime_iterator)
-            self._largest = new_prime
-            self._primes.append(new_prime)
-        return candidate in self._primes
+from ..primes import PrimeSet
 
 
 def solution() -> int:
@@ -35,9 +21,3 @@ def solution() -> int:
                 best = (a, b)
                 n_max = n_end
     return best[0] * best[1]
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

@@ -1,5 +1,6 @@
 import itertools
-from typing import Iterator
+
+from ..specnum import fibonacci_generator
 
 
 def fibonacci_recursive(n) -> int:
@@ -22,16 +23,6 @@ def solution_naive() -> int:
     return fib_sum
 
 
-def fibonacci_generator() -> Iterator[int]:
-    yield 1
-    yield 2
-    previous = 1
-    current = 2
-    while True:
-        previous, current = current, current + previous
-        yield current
-
-
 def solution_generator() -> int:
     fib_sum = 0
     for fib_i in fibonacci_generator():
@@ -40,4 +31,3 @@ def solution_generator() -> int:
         if fib_i > 4_000_000:
             break
     return fib_sum
-

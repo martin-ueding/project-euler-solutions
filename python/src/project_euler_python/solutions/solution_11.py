@@ -68,4 +68,3 @@ def solution() -> int:
             maximum = max(maximum, product)
 
     return maximum
-

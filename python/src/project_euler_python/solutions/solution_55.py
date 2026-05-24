@@ -1,4 +1,4 @@
-from python.src.project_euler_python.solutions.solution_36 import is_palindrome
+from project_euler_python.specnum import is_palindrome
 
 
 def reverse_and_add(number: int) -> int:

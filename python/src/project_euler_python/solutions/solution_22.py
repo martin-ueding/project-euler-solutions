@@ -7,4 +7,3 @@ def solution() -> int:
     names.sort()
     scores = [sum(map(lambda c: ord(c) - ord("A") + 1, name)) for name in names]
     return sum(row * score for row, score in enumerate(scores, 1))
-
