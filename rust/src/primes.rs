@@ -98,6 +98,13 @@ pub fn sieve_primes(end: i64) -> Vec<i64> {
         .collect()
 }
 
+pub fn get_num_divisors(number: i64, prime_generator: &mut PrimeList) -> i64 {
+    let prime_factors = get_prime_factors(number, prime_generator);
+    prime_factors
+        .iter()
+        .fold(1, |acc: i64, (&_prime, &count)| acc * (count + 1))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -132,5 +139,11 @@ mod tests {
         let actual = sieve_primes(15);
         let expected = vec![2, 3, 5, 7, 11, 13];
         assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn test_get_num_divisors() {
+        let mut prime_generator = PrimeList::new();
+        assert_eq!(get_num_divisors(28, &mut prime_generator), 6);
     }
 }
