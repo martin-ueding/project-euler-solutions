@@ -23,26 +23,7 @@ fn solution_sieve_known_end() -> i64 {
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 7,
-        name: Some("prime list"),
-        solve: solution_prime_list,
-        solution: Some(104743),
-    }
-}
-
-inventory::submit! {
-    crate::registry::SolutionEntry {
-        id: 7,
-        name: Some("sieve"),
-        solve: solution_sieve,
-        solution: Some(104743),
-    }
-}
-
-inventory::submit! {
-    crate::registry::SolutionEntry {
-        id: 7,
-        name: Some("sieve with known end"),
-        solve: solution_sieve_known_end,
+        implementations: &[("prime list", solution_prime_list), ("sieve", solution_sieve), ("sieve with known end", solution_sieve_known_end)],
         solution: Some(104743),
     }
 }

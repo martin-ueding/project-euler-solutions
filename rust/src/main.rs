@@ -13,21 +13,20 @@ fn main() {
 
     for entry in inventory::iter::<registry::SolutionEntry> {
         if entry.id == id {
-            measure(entry);
+            for (name, implementation) in entry.implementations {
+                println!("Implementation: {name}");
+                measure(entry, implementation);
+            }
         }
     }
 }
 
-fn measure(entry: &registry::SolutionEntry) {
-    if let Some(name) = entry.name {
-        println!("Implementation: {name}");
-    }
-
+fn measure(entry: &registry::SolutionEntry, implementation: &fn() -> i64) {
     let mut batch_size = 1;
     loop {
         let benchmark_start = Instant::now();
         for _ in 0..batch_size {
-            (entry.solve)();
+            implementation();
         }
         if benchmark_start.elapsed().as_secs_f64() < 0.001 {
             batch_size *= 10;
@@ -37,12 +36,12 @@ fn measure(entry: &registry::SolutionEntry) {
     }
 
     let benchmark_start = Instant::now();
-    let result = (entry.solve)();
+    let result = implementation();
     let mut timings_s = Vec::<f64>::new();
     while benchmark_start.elapsed().as_secs_f64() < 1.0 && timings_s.len() < 100 {
         let start = Instant::now();
         for _ in 0..batch_size {
-            (entry.solve)();
+            implementation();
         }
         timings_s.push(start.elapsed().as_secs_f64() / batch_size as f64)
     }

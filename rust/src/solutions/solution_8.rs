@@ -39,17 +39,7 @@ pub fn solution_8_functional() -> i64 {
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 8,
-        name: Some("procedural"),
-        solve: solution_8_procedural,
-        solution: Some(23514624000),
-    }
-}
-
-inventory::submit! {
-    crate::registry::SolutionEntry {
-        id: 8,
-        name: Some("functional"),
-        solve: solution_8_functional,
+        implementations: &[("procedural", solution_8_procedural), ("functional", solution_8_functional)],
         solution: Some(23514624000),
     }
 }

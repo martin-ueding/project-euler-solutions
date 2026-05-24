@@ -14,16 +14,7 @@ fn solution_sieve() -> i64 {
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 10,
-        name: Some("prime list"),
-        solve: solution_list,
-        solution: Some(142913828922),
-    }
-}
-inventory::submit! {
-    crate::registry::SolutionEntry {
-        id: 10,
-        name: Some("prime sieve"),
-        solve: solution_sieve,
+        implementations: &[("prime list", solution_list), ("prime sieve", solution_sieve)],
         solution: Some(142913828922),
     }
 }
