@@ -7,8 +7,3 @@ def solution_itertools() -> int:
     millionth = next(itertools.islice(permutations, 999_999, 1_000_000))
     return int("".join(map(str, millionth)))
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

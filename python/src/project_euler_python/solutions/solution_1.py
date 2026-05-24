@@ -25,8 +25,3 @@ def solution_closed_form() -> int:
         - sum_of_natural_numbers(999, 15)
     )
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

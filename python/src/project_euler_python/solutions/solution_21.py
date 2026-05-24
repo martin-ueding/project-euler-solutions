@@ -32,9 +32,3 @@ def solution() -> int:
         if divisor_sums[divisor_sum] == number and number != divisor_sum:
             sum_of_amicable += number
     return sum_of_amicable
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

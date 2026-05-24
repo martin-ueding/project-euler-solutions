@@ -16,8 +16,3 @@ def solution_procedural() -> int:
 
     return digit_sum
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

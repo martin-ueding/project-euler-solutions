@@ -55,9 +55,3 @@ def solution_manual() -> int:
         cur_date = increment_day(cur_date)
         cur_weekday = (cur_weekday + 1) % 7
     return num_sundays
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

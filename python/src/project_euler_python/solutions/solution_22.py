@@ -8,8 +8,3 @@ def solution() -> int:
     scores = [sum(map(lambda c: ord(c) - ord("A") + 1, name)) for name in names]
     return sum(row * score for row, score in enumerate(scores, 1))
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

@@ -109,9 +109,3 @@ def solution_recursive_with_cache() -> int:
             max_steps = steps
             result = start
     return result
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

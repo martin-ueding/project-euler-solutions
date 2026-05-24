@@ -1,6 +1,6 @@
-import numpy as np
+from .solution_21 import get_all_divisors
 
-from python.src.project_euler_python.solutions.solution_21 import get_all_divisors
+import numpy as np
 
 
 def solution() -> int:
@@ -19,8 +19,3 @@ def solution() -> int:
     is_viable[not_viable] = 0
     return sum(np.arange(len(is_viable))[is_viable == 1].tolist())
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

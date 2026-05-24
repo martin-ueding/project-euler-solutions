@@ -56,9 +56,3 @@ def number_to_word(number: int) -> str:
 def solution() -> int:
     words = [number_to_word(number) for number in range(1, 1001)]
     return sum(map(len, words))
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

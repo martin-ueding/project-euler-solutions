@@ -120,8 +120,3 @@ def solution_truncate() -> int:
     truncated = [number // 10**39 for number in get_numbers()]
     return int(str(sum(truncated))[:10])
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

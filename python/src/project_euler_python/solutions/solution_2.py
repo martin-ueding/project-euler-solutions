@@ -41,8 +41,3 @@ def solution_generator() -> int:
             break
     return fib_sum
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

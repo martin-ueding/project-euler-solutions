@@ -47,8 +47,3 @@ def solution_bottom_up() -> int:
             )
     return triangle[0][0]
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

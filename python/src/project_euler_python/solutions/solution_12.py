@@ -43,8 +43,3 @@ def solution_coprime() -> int:
         if num_divisors > 500:
             return triangle_number
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

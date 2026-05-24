@@ -69,8 +69,3 @@ def solution() -> int:
 
     return maximum
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

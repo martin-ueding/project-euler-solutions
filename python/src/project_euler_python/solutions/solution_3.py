@@ -14,9 +14,3 @@ def solution_reducing() -> int:
         if remainder == 1:
             break
     return last_factor
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())

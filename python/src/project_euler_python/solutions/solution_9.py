@@ -13,8 +13,3 @@ def solution_grid_search() -> int:
             if a**2 + b**2 == c**2:
                 return a * b * c
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())
