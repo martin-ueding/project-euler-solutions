@@ -4,7 +4,7 @@ const DIGIT_STRING: &'static str = "73167176531330624919225119674426574742355349
 
 const NUM_DIGITS: usize = 13;
 
-pub fn solution_8_procedural() -> i64 {
+pub fn solution_8_procedural_chars() -> i64 {
     let mut digits: Vec<u32> = Vec::new();
     for char in DIGIT_STRING.chars() {
         digits.push(char.to_digit(10).unwrap_or_default());
@@ -20,7 +20,7 @@ pub fn solution_8_procedural() -> i64 {
     largest
 }
 
-pub fn solution_8_functional() -> i64 {
+pub fn solution_8_functional_chars() -> i64 {
     let digits: Vec<u32> = DIGIT_STRING
         .chars()
         .map(|char| char.to_digit(10))
@@ -36,10 +36,38 @@ pub fn solution_8_functional() -> i64 {
         .unwrap_or_default()
 }
 
+pub fn solution_8_procedural_bytes() -> i64 {
+    let mut digits: Vec<u8> = Vec::new();
+    for char in DIGIT_STRING.bytes() {
+        digits.push(char - b'0');
+    }
+    let mut largest: i64 = 0;
+    for start in 0..digits.len() - NUM_DIGITS {
+        let mut product: i64 = 1;
+        for d in digits[start..start + NUM_DIGITS].iter() {
+            product *= *d as i64;
+        }
+        largest = max(largest, product as i64);
+    }
+    largest
+}
+
+pub fn solution_8_functional_bytes() -> i64 {
+    let digits: Vec<u8> = DIGIT_STRING.bytes().map(|char| char - b'0').collect();
+    (0..digits.len() - NUM_DIGITS)
+        .map(|start| {
+            digits[start..start + NUM_DIGITS]
+                .iter()
+                .fold(1 as i64, |a, &b| a * (b as i64))
+        })
+        .max()
+        .unwrap_or_default()
+}
+
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 8,
-        implementations: &[("procedural", solution_8_procedural), ("functional", solution_8_functional)],
+        implementations: &[("procedural chars", solution_8_procedural_chars),("procedural bytes", solution_8_procedural_bytes), ("functional chars", solution_8_functional_chars), ("functional bytes", solution_8_functional_bytes)],
         solution: Some(23514624000),
     }
 }
