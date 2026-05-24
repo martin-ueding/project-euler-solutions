@@ -1,16 +1,5 @@
 use crate::primes::{PrimeList, get_num_divisors};
 
-fn solution_iterator() -> i64 {
-    let mut prime_generator = PrimeList::new();
-    for n in 0.. {
-        let triangle_number = n * (n + 1) / 2;
-        if get_num_divisors(triangle_number, &mut prime_generator) > 500 {
-            return triangle_number;
-        }
-    }
-    0
-}
-
 fn solution_coprime() -> i64 {
     let mut prime_generator = PrimeList::new();
     for n in 1.. {
