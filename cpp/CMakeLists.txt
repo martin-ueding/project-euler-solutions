@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# add_compile_options(-march=native -O3)
+
 add_executable(main
     main.cpp
     registry.hpp registry.cpp
