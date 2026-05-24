@@ -2,8 +2,8 @@ import functools
 import itertools
 from typing import Iterator
 
-from python.src.project_euler_python.solutions.solution_3 import prime_generator
-from python.src.project_euler_python.solutions.solution_5 import get_prime_factors
+from project_euler_python.primes import prime_generator
+from project_euler_python.primes import get_prime_factors
 
 
 def triangle_number_generator() -> Iterator[int]:
@@ -32,7 +32,7 @@ def get_num_divisors(number: int) -> int:
     return num_divisors
 
 
-def solution_coprime() -> int():
+def solution_coprime() -> int:
     prime_generator.__defaults__ = ([],)
     for n in itertools.count(1):
         triangle_number = n * (n + 1) // 2

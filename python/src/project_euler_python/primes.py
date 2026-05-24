@@ -1,3 +1,4 @@
+import collections
 from collections.abc import Iterator
 import itertools
 
@@ -51,3 +52,14 @@ def prime_sieve(end: int) -> list[int]:
                 sieve[number] = False
     primes = [number for number, state in enumerate(sieve) if state]
     return primes
+
+
+def get_prime_factors(number: int) -> dict[int, int]:
+    factors = collections.defaultdict(lambda: 0)
+    for prime in prime_generator():
+        while number % prime == 0:
+            factors[prime] += 1
+            number /= prime
+        if number == 1:
+            break
+    return factors

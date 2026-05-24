@@ -1,17 +1,4 @@
-import collections
-
-from python.src.project_euler_python.solutions.solution_3 import prime_generator
-
-
-def get_prime_factors(number: int) -> dict[int, int]:
-    factors = collections.defaultdict(lambda: 0)
-    for prime in prime_generator():
-        while number % prime == 0:
-            factors[prime] += 1
-            number /= prime
-        if number == 1:
-            break
-    return factors
+from ..primes import get_prime_factors
 
 
 def merge_factors(factors_1: dict[int, int], factors_2: dict[int, int]):
@@ -20,7 +7,7 @@ def merge_factors(factors_1: dict[int, int], factors_2: dict[int, int]):
         factors_1[factor] = max(count_1, count_2)
 
 
-def solution_factor_dicts() -> None:
+def solution_factor_dicts() -> int:
     factors = {}
     for i in range(1, 21):
         new_factors = get_prime_factors(i)
@@ -29,9 +16,3 @@ def solution_factor_dicts() -> None:
     for factor, count in factors.items():
         result *= factor**count
     return result
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())
