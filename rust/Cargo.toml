@@ -7,6 +7,9 @@ edition = "2024"
 criterion = { version = "0.8.2", features = ["html_reports"] }
 inventory = "0.3.24"
 
+[build]
+rustflags = ["-C", "target-cpu=native"]
+
 [[bench]]
 name = "pe_bench"
 harness = false
