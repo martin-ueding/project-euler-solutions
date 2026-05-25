@@ -39,6 +39,18 @@ fn convergent_numerator_digit_sum(nth: i64) -> i64 {
     digit_sum(convergent_from_continued_fraction(&coefficients).0)
 }
 
+fn solution() -> i64 {
+    convergent_numerator_digit_sum(100)
+}
+
+inventory::submit! {
+    crate::registry::SolutionEntry {
+        id: 65,
+        implementations: &[("", solution)],
+        solution: Some(272),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

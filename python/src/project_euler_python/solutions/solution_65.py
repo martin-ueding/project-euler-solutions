@@ -1,10 +1,10 @@
 import itertools
-from typing import Callable, Iterator
+from typing import Iterator
 
-from project_euler_python.specnum import (
+from ..specnum import (
     greatest_common_denominator,
 )
-from python.src.project_euler_python.solutions.solution_56 import digit_sum
+from .solution_56 import digit_sum
 
 
 def continued_fraction_sqrt_2() -> Iterator[int]:
@@ -46,8 +46,3 @@ def solution() -> int:
     )
     return digit_sum(fractions[0][0])
 
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())
