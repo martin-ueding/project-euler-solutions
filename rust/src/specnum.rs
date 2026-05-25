@@ -11,6 +11,15 @@ pub fn is_palindrome(number: i64) -> bool {
     number == reversed
 }
 
+pub fn digit_sum(mut number: i64) -> i64 {
+    let mut result = 0;
+    while number > 0 {
+        result += number % 10;
+        number /= 10;
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -23,5 +32,10 @@ mod tests {
         assert_eq!(is_palindrome(11), true);
         assert_eq!(is_palindrome(1001), true);
         assert_eq!(is_palindrome(1002), false);
+    }
+
+    #[test]
+    fn test_digit_sum() {
+        assert_eq!(digit_sum(1457), 17);
     }
 }
