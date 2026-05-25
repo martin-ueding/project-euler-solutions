@@ -1,8 +1,15 @@
 use std::mem::swap;
 
-use crate::primes::greatest_common_denominator;
-
 type Fraction = (i64, i64);
+
+pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
+    while b != 0 {
+        let c = a % b;
+        a = b;
+        b = c;
+    }
+    a
+}
 
 pub fn cancel((n, d): Fraction) -> Fraction {
     let gcd = greatest_common_denominator(n, d);
@@ -58,6 +65,11 @@ pub fn convergent_from_sequence(coefficients: &[i64]) -> Fraction {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_greatest_common_denominator() {
+        assert_eq!(greatest_common_denominator(1071, 462), 21);
+    }
 
     #[test]
     fn test_expand_root() {
