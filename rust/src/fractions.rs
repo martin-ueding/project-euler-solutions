@@ -2,6 +2,13 @@ use std::mem::swap;
 
 use crate::primes::greatest_common_denominator;
 
+type Fraction = (i64, i64);
+
+pub fn cancel((n, d): Fraction) -> Fraction {
+    let gcd = greatest_common_denominator(n, d);
+    (n / gcd, d / gcd)
+}
+
 /// Expand square root as continuous fraction.
 ///
 /// The function returns the coefficients in the expansion. The first vector in the tuple is the leading part, the second part is the periodic part.
@@ -38,17 +45,14 @@ pub fn expand_root(number: i64) -> (Vec<i64>, Vec<i64>) {
     (results[..i].to_vec(), results[i..].to_vec())
 }
 
-pub fn convergent_from_sequence(coefficients: &[i64]) -> (i64, i64) {
+pub fn convergent_from_sequence(coefficients: &[i64]) -> Fraction {
     let mut denominator = 1;
     let mut numerator = coefficients.last().copied().unwrap_or(0);
     for &coefficient in coefficients.iter().rev().skip(1) {
         swap(&mut numerator, &mut denominator);
         numerator += coefficient * denominator;
     }
-    let gcd = greatest_common_denominator(numerator, denominator);
-    numerator /= gcd;
-    denominator /= gcd;
-    return (numerator, denominator);
+    cancel((numerator, denominator))
 }
 
 #[cfg(test)]
