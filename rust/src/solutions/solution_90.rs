@@ -1,8 +1,23 @@
+use std::{
+    cmp::{max, min},
+    collections::HashSet,
+};
+
 use itertools::Itertools;
 
-const SQUARES: &'static [(u16, u16)] = &[(0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9)];
+const SQUARES: &'static [(u16, u16)] = &[
+    (0, 1),
+    (0, 4),
+    (0, 9),
+    (1, 6),
+    (2, 5),
+    (3, 6),
+    (4, 9),
+    (6, 4),
+    (8, 1),
+];
 
-fn set_to_binary(numbers: &[i32]) -> u16 {
+fn set_to_binary(numbers: &[u16]) -> u16 {
     let mut result = 0;
     for number in numbers {
         result += 1 << number;
@@ -25,6 +40,37 @@ fn can_represent(mask: u16, digit: u16) -> bool {
 fn represents_number(number: (u16, u16), mask1: u16, mask2: u16) -> bool {
     can_represent(mask1, number.0) && can_represent(mask2, number.1)
         || can_represent(mask1, number.1) && can_represent(mask2, number.0)
+}
+
+fn represents_all_numbers(mask1: u16, mask2: u16) -> bool {
+    let mask1 = enable_69(mask1);
+    let mask2 = enable_69(mask2);
+    SQUARES
+        .iter()
+        .all(|&square| represents_number(square, mask1, mask2))
+}
+
+fn solution() -> i64 {
+    let pool: Vec<u16> = (0..10).collect();
+    let mut valid_cubes: HashSet<(u16, u16)> = HashSet::new();
+    for combination1 in pool.iter().copied().combinations(6) {
+        for combination2 in pool.iter().copied().combinations(6) {
+            let mask1 = set_to_binary(&combination1);
+            let mask2 = set_to_binary(&combination2);
+            if represents_all_numbers(mask1, mask2) {
+                valid_cubes.insert((min(mask1, mask2), max(mask1, mask2)));
+            }
+        }
+    }
+    valid_cubes.len() as i64
+}
+
+inventory::submit! {
+    crate::registry::SolutionEntry {
+        id: 90,
+        implementations: &[("testing all combinations", solution)],
+        solution: Some(1217),
+    }
 }
 
 #[cfg(test)]
@@ -67,10 +113,7 @@ mod tests {
         let mask1 = enable_69(set_to_binary(set1));
         let mask2 = enable_69(set_to_binary(set2));
 
-        for &square in SQUARES {
-            println!("{}{} {:b} {:b}", square.0, square.1, mask1, mask2);
-            assert!(represents_number(square, mask1, mask2));
-        }
+        assert!(represents_all_numbers(mask1, mask2));
     }
 
     // #[test]

@@ -10,7 +10,7 @@ For the first digit, we have {0, 1, 2, 3, 4, 6, 8}. For the second digit we have
 
 So what we really need to do is figure out two sets such that all the digits are there but the ones that need together are not both in the same set.
 
-Let's think differently of the numbers, let's to tuples (0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9). We can also reverse these tuples. So perhaps this is a way?
+Let's think differently of the numbers, let's do tuples (0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1). We can also reverse these tuples. So perhaps this is a way?
 
 - Decide which of the tuples to flip. That fixes how we represent all the numbers with the left and right cube.
 - Collect all the first and second digits into a set each.
