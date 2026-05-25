@@ -2,6 +2,7 @@ use std::mem::swap;
 
 type Fraction = (i64, i64);
 
+/// Compute greatest common denominator (GCD) using Euclid's algorithm.
 pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
     while b != 0 {
         let c = a % b;
@@ -11,6 +12,7 @@ pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
     a
 }
 
+/// Cancel a fraction using the GCD.
 pub fn cancel((n, d): Fraction) -> Fraction {
     let gcd = greatest_common_denominator(n, d);
     (n / gcd, d / gcd)
@@ -52,7 +54,8 @@ pub fn expand_root(number: i64) -> (Vec<i64>, Vec<i64>) {
     (results[..i].to_vec(), results[i..].to_vec())
 }
 
-pub fn convergent_from_sequence(coefficients: &[i64]) -> Fraction {
+/// Takes a finite continued fraction and simplifies to a fraction.
+pub fn convergent_from_continued_fraction(coefficients: &[i64]) -> Fraction {
     let mut denominator = 1;
     let mut numerator = coefficients.last().copied().unwrap_or(0);
     for &coefficient in coefficients.iter().rev().skip(1) {
@@ -88,10 +91,13 @@ mod tests {
 
     #[test]
     fn test_convergent_from_sequence() {
-        assert_eq!(convergent_from_sequence(&[]), (0, 1));
-        assert_eq!(convergent_from_sequence(&[1, 2]), (3, 2));
-        assert_eq!(convergent_from_sequence(&[1, 2, 2]), (7, 5));
-        assert_eq!(convergent_from_sequence(&[1, 2, 2, 2]), (17, 12));
-        assert_eq!(convergent_from_sequence(&[1, 2, 2, 2, 2]), (41, 29));
+        assert_eq!(convergent_from_continued_fraction(&[]), (0, 1));
+        assert_eq!(convergent_from_continued_fraction(&[1, 2]), (3, 2));
+        assert_eq!(convergent_from_continued_fraction(&[1, 2, 2]), (7, 5));
+        assert_eq!(convergent_from_continued_fraction(&[1, 2, 2, 2]), (17, 12));
+        assert_eq!(
+            convergent_from_continued_fraction(&[1, 2, 2, 2, 2]),
+            (41, 29)
+        );
     }
 }
