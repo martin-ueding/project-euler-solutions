@@ -3,6 +3,8 @@ use crate::primes::greatest_common_denominator;
 /// Expand square root as continuous fraction.
 ///
 /// The function returns the coefficients in the expansion. The first vector in the tuple is the leading part, the second part is the periodic part.
+///
+/// See [the blog article](https://martin-ueding.de/posts/project-euler-solution-64-odd-period-square-roots/) for an explanation of the algorithm.
 pub fn expand_root(number: i64) -> (Vec<i64>, Vec<i64>) {
     let floor = number.isqrt();
     if floor.pow(2) == number {
