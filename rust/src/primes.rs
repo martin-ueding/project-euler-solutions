@@ -105,7 +105,7 @@ pub fn get_num_divisors(number: i64, prime_generator: &mut PrimeList) -> i64 {
         .fold(1, |acc: i64, (&_prime, &count)| acc * (count + 1))
 }
 
-fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
+pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
     while b != 0 {
         let c = a % b;
         a = b;
