@@ -1,3 +1,4 @@
+use core::num;
 use std::mem::swap;
 
 type Fraction = (i64, i64);
@@ -13,9 +14,16 @@ pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
 }
 
 /// Cancel a fraction using the GCD.
-pub fn cancel((n, d): Fraction) -> Fraction {
+pub fn cancelled((n, d): Fraction) -> Fraction {
     let gcd = greatest_common_denominator(n, d);
     (n / gcd, d / gcd)
+}
+
+/// Cancel a fraction using the GCD.
+pub fn cancel(n: &mut i64, d: &mut i64) {
+    let gcd = greatest_common_denominator(*n, *d);
+    *n /= gcd;
+    *d /= gcd;
 }
 
 /// Expand square root as continuous fraction.
@@ -61,8 +69,9 @@ pub fn convergent_from_continued_fraction(coefficients: &[i64]) -> Fraction {
     for &coefficient in coefficients.iter().rev().skip(1) {
         swap(&mut numerator, &mut denominator);
         numerator += coefficient * denominator;
+        cancel(&mut numerator, &mut denominator);
     }
-    cancel((numerator, denominator))
+    (numerator, denominator)
 }
 
 #[cfg(test)]
