@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 criterion = { version = "0.8.2", features = ["html_reports"] }
 inventory = "0.3.24"
+itertools = "0.14.0"
 
 [build]
 rustflags = ["-C", "target-cpu=native"]
