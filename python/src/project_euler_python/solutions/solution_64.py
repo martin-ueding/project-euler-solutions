@@ -1,9 +1,6 @@
 import math
-from typing import Iterator
 
-from project_euler_python.specnum import (
-    greatest_common_denominator,
-)
+from ..specnum import greatest_common_denominator
 
 
 def expand_root(number: int) -> tuple[list[int], list[int]]:
@@ -42,13 +39,7 @@ def expand_root(number: int) -> tuple[list[int], list[int]]:
 def solution() -> int:
     result = 0
     for number in range(2, 10_000):
-        beginning, period = expand_root(number)
+        _beginning, period = expand_root(number)
         if len(period) % 2 == 1:
             result += 1
     return result
-
-
-if __name__ == "__main__":
-    import python.src.project_euler_python.runner as runner
-
-    runner.run(globals())
