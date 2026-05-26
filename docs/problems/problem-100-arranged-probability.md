@@ -24,3 +24,27 @@ We can shift the index and then we introduce $a := n - 1$. Then the equation bec
 $$ 2 T_{b-1} = T_{n-1} \,. $$
 
 With that, the problem boils down to finding the smallest triangle number $T_n$ with $n > 10^{12}$ which is double another triangle number.
+
+# Pell's equation
+
+Multiply the equation by 4:
+$$ 4(n^2-n) - 8(b^2-b) = 0 \,. $$
+
+Then complete the square:
+$$ (2n-1)^2 - 2 (2b-1)^2 = -1 \,. $$
+
+Introduce $x = 2n-1$ and $y=2b-1$.
+$$ x^2 - 2y^2 = -1 \,.$
+
+That is the [negative Pell's equation](https://en.wikipedia.org/wiki/Pell%27s_equation#The_negative_Pell's_equation). We have the case $n = 2$. And then we can use the fundamental solution of $x = 1$ and $y = 1$ together with this recursion relation:
+$$ x \to 3 x + y, \qquad y \to 2x + 3y \,. $$
+
+The algorithm then becomes extremely simple:
+
+- Start with $x = 1$ and $y = 1$.
+- Loop …
+    - Compute $n = (x+1)/2$ and $b = (y+1)/2$.
+    - If $n > 1,000,000,000,000$, return $b$.
+    - Apply the recursion relation.
+
+This way we don't have to deal with square numbers and the 64-bit integer is sufficient. My Rust solution runs in 11 ns.
