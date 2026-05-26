@@ -1,3 +1,4 @@
+use num_bigint::BigInt;
 use std::mem::swap;
 
 type Fraction = (i64, i64);
@@ -72,6 +73,17 @@ pub fn convergent_from_continued_fraction(coefficients: &[i64]) -> Fraction {
     (numerator, denominator)
 }
 
+/// Takes a finite continued fraction and simplifies to a fraction.
+pub fn convergent_from_continued_fraction_bigint(coefficients: &[i64]) -> (BigInt, BigInt) {
+    let mut denominator: BigInt = BigInt::from(1);
+    let mut numerator = BigInt::from(coefficients.last().copied().unwrap_or(0));
+    for &coefficient in coefficients.iter().rev().skip(1) {
+        swap(&mut numerator, &mut denominator);
+        numerator += coefficient * &denominator;
+    }
+    (numerator, denominator)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -97,7 +109,7 @@ mod tests {
     }
 
     #[test]
-    fn test_convergent_from_sequence() {
+    fn test_convergent_from_continued_fraction() {
         assert_eq!(convergent_from_continued_fraction(&[]), (0, 1));
         assert_eq!(convergent_from_continued_fraction(&[1, 2]), (3, 2));
         assert_eq!(convergent_from_continued_fraction(&[1, 2, 2]), (7, 5));
@@ -105,6 +117,14 @@ mod tests {
         assert_eq!(
             convergent_from_continued_fraction(&[1, 2, 2, 2, 2]),
             (41, 29)
+        );
+    }
+
+    #[test]
+    fn test_convergent_from_continued_fraction_bigint() {
+        assert_eq!(
+            convergent_from_continued_fraction_bigint(&[1, 2, 2, 2, 2]),
+            (BigInt::from(41), BigInt::from(29))
         );
     }
 }
