@@ -1,4 +1,4 @@
-use crate::{fractions::convergent_from_continued_fraction, specnum::digit_sum};
+use crate::{fractions::convergent_from_continued_fraction_bigint, specnum::digit_sum_bigint};
 
 struct ContinuedFractionE {
     k: i64,
@@ -36,7 +36,7 @@ impl Iterator for ContinuedFractionE {
 
 fn convergent_numerator_digit_sum(nth: i64) -> i64 {
     let coefficients: Vec<i64> = ContinuedFractionE::new().take(nth as usize).collect();
-    digit_sum(convergent_from_continued_fraction(&coefficients).0)
+    digit_sum_bigint(convergent_from_continued_fraction_bigint(&coefficients).0)
 }
 
 fn solution() -> i64 {
