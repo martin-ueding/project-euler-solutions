@@ -1,3 +1,5 @@
+//! Prime related functions and generators.
+
 use std::collections::HashMap;
 
 /// Computes prime numbers as they are iterated.

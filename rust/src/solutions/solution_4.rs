@@ -1,4 +1,4 @@
-use crate::specnum::is_palindrome;
+use crate::digits::is_palindrome;
 
 fn solution() -> i64 {
     let mut result: i64 = 0;

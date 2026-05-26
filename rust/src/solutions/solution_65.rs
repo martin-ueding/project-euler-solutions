@@ -1,4 +1,6 @@
-use crate::{fractions::convergent_from_continued_fraction_bigint, specnum::digit_sum_bigint};
+use crate::{
+    continued_fractions::convergent_from_continued_fraction_bigint, digits::digit_sum_bigint,
+};
 
 struct ContinuedFractionE {
     k: i64,

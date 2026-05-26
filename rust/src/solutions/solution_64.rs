@@ -1,4 +1,4 @@
-use crate::fractions::expand_root;
+use crate::continued_fractions::expand_root;
 
 fn solution() -> i64 {
     (2..10_000)
