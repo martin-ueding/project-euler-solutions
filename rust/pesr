@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -eu
+
+problem="$1"
+task="$2"
+
+case "$task" in
+    run)
+        cargo run "$problem"
+        ;;
+    test)
+        cargo test
+        ;;
+    bench)
+        cargo bench --bench pe_bench -- "$problem/"
+        ;;
+esac
