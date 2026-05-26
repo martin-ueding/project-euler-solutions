@@ -18,3 +18,4 @@ mod solution_7;
 mod solution_8;
 mod solution_90;
 mod solution_91;
+mod solution_93;

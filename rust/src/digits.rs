@@ -34,6 +34,15 @@ pub fn digit_sum_bigint(mut number: BigInt) -> i64 {
     result
 }
 
+pub fn int_from_digits(digits: &[i64]) -> i64 {
+    let mut result: i64 = 0;
+    for digit in digits {
+        result *= 10;
+        result += digit;
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
