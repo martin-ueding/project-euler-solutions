@@ -8,7 +8,6 @@ pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
     a
 }
 
-
 #[cfg(test)]
 mod tests {
 

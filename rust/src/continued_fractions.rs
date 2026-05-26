@@ -50,7 +50,7 @@ pub fn convergent_from_continued_fraction(coefficients: &[i64]) -> Fraction {
     (numerator, denominator)
 }
 
-/// Takes a finite continued fraction and simplifies to a fraction.
+/// Takes a finite continued fraction and simplifies to a fraction of big integers.
 pub fn convergent_from_continued_fraction_bigint(coefficients: &[i64]) -> (BigInt, BigInt) {
     let mut denominator: BigInt = BigInt::from(1);
     let mut numerator = BigInt::from(coefficients.last().copied().unwrap_or(0));

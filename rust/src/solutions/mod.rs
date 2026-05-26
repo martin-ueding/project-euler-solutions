@@ -1,3 +1,7 @@
+//! Solutions to the individual problems.
+//!
+//! Code that is reusable should go into the library files. Everything else that is specific to a given problem should go into the solution module.
+
 pub mod solution_1;
 pub mod solution_10;
 pub mod solution_12;

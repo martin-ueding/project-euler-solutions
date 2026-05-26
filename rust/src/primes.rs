@@ -22,6 +22,7 @@ impl PrimeList {
     }
 }
 
+/// Iterates over a PrimeList and computes primes as needed.
 pub struct PrimeIterator<'a> {
     primes: &'a mut Vec<i64>,
     index: usize,
@@ -100,6 +101,9 @@ pub fn sieve_primes(end: i64) -> Vec<i64> {
         .collect()
 }
 
+/// Computes the numbers of divisors of a number.
+///
+/// This uses the prime factor decomposition internally.
 pub fn get_num_divisors(number: i64, prime_generator: &mut PrimeList) -> i64 {
     let prime_factors = get_prime_factors(number, prime_generator);
     prime_factors

@@ -1,3 +1,5 @@
+//! Basic fractions utilities.
+
 use crate::integers;
 
 pub type Fraction = (i64, i64);

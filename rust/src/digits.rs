@@ -1,3 +1,5 @@
+//! Working with numbers in their (usually base-10) representation.
+
 use num_bigint::BigInt;
 use num_traits::ToPrimitive;
 
