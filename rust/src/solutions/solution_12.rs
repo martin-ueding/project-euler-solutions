@@ -26,3 +26,13 @@ inventory::submit! {
         solution: Some(1786995),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution_coprime() {
+        assert_eq!(solution_coprime(), 1_786_995);
+    }
+}

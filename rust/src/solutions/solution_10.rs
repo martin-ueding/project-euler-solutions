@@ -18,3 +18,13 @@ inventory::submit! {
         solution: Some(142913828922),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution_list() {
+        assert_eq!(solution_list(), 142_913_828_922);
+    }
+}

@@ -26,3 +26,13 @@ inventory::submit! {
         solution: None,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 6_857);
+    }
+}

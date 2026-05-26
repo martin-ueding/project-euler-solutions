@@ -24,6 +24,16 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 7,
         implementations: &[("prime list", solution_prime_list), ("sieve", solution_sieve), ("sieve with known end", solution_sieve_known_end)],
-        solution: Some(104743),
+        solution: Some(104_743),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution_prime_list() {
+        assert_eq!(solution_prime_list(), 104_743);
     }
 }

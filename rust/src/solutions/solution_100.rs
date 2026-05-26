@@ -1,6 +1,6 @@
 //! Arranged Probability (Problem 100)
 
-fn solution() -> i64 {
+fn solution_recursion_relation() -> i64 {
     // Start with the fundamental solution to the negative Pell's equation.
     let mut x: i64 = 1;
     let mut y: i64 = 1;
@@ -26,7 +26,17 @@ fn solution() -> i64 {
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 100,
-        implementations: &[("recursion relation", solution)],
+        implementations: &[("recursion relation", solution_recursion_relation)],
         solution: Some(756_872_327_473),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution_recursion_relation() {
+        assert_eq!(solution_recursion_relation(), 756_872_327_473);
     }
 }

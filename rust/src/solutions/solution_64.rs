@@ -13,3 +13,14 @@ inventory::submit! {
         solution: Some(1322),
     }
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 1_322);
+    }
+}

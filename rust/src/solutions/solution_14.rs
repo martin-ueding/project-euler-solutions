@@ -35,3 +35,13 @@ inventory::submit! {
         solution: Some(837799),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution_14_cache() {
+        assert_eq!(solution_14_cache(), 837_799);
+    }
+}

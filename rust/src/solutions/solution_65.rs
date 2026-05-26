@@ -70,4 +70,9 @@ mod tests {
     fn test_convergent_numerator_digit_sum() {
         assert_eq!(convergent_numerator_digit_sum(10), 17);
     }
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 272);
+    }
 }

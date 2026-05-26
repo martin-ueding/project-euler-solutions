@@ -71,3 +71,28 @@ inventory::submit! {
         solution: Some(23514624000),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_solution_8_procedural_chars() {
+        assert_eq!(solution_8_procedural_chars(), 23_514_624_000);
+    }
+
+    #[test]
+    fn test_solution_8_procedural_bytes() {
+        assert_eq!(solution_8_procedural_bytes(), 23_514_624_000);
+    }
+
+    #[test]
+    fn test_solution_8_functional_chars() {
+        assert_eq!(solution_8_functional_chars(), 23_514_624_000);
+    }
+
+    #[test]
+    fn test_solution_8_functional_bytes() {
+        assert_eq!(solution_8_functional_bytes(), 23_514_624_000);
+    }
+}

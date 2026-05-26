@@ -118,9 +118,9 @@ mod tests {
         assert!(represents_all_numbers(mask1, mask2));
     }
 
-    // #[test]
-    // fn test_verification() {
-
-    //     assert_eq!(actual, expected);
-    // }
+    
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 1_217);
+    }
 }
