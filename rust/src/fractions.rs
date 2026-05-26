@@ -1,4 +1,3 @@
-use core::num;
 use std::mem::swap;
 
 type Fraction = (i64, i64);
@@ -69,7 +68,6 @@ pub fn convergent_from_continued_fraction(coefficients: &[i64]) -> Fraction {
     for &coefficient in coefficients.iter().rev().skip(1) {
         swap(&mut numerator, &mut denominator);
         numerator += coefficient * denominator;
-        cancel(&mut numerator, &mut denominator);
     }
     (numerator, denominator)
 }
