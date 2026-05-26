@@ -1,3 +1,5 @@
+//! Convergents of e (Problem 65).
+
 use crate::{
     continued_fractions::convergent_from_continued_fraction_bigint, digits::digit_sum_bigint,
 };

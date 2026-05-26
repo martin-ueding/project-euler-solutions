@@ -1,3 +1,5 @@
+//! Cube Digit Pairs (Problem 90).
+
 use std::{
     cmp::{max, min},
     collections::HashSet,
