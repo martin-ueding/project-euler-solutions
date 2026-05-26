@@ -71,7 +71,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 90,
         implementations: &[("testing all combinations", solution)],
-        solution: Some(1217),
     }
 }
 

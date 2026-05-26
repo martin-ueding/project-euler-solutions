@@ -23,7 +23,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 12,
         implementations: &[("coprime", solution_coprime)],
-        solution: Some(1786995),
     }
 }
 

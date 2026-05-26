@@ -27,7 +27,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 100,
         implementations: &[("recursion relation", solution_recursion_relation)],
-        solution: Some(756_872_327_473),
     }
 }
 

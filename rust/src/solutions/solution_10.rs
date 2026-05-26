@@ -15,7 +15,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 10,
         implementations: &[("prime list", solution_list), ("prime sieve", solution_sieve)],
-        solution: Some(142913828922),
     }
 }
 

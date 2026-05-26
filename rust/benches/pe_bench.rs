@@ -9,7 +9,6 @@ fn bench_solutions(c: &mut Criterion) {
         let &SolutionEntry {
             id,
             implementations,
-            solution: _,
         } = entry;
         let mut g = c.benchmark_group(format!("solution for {id}"));
 

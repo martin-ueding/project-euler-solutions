@@ -12,7 +12,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 6,
         implementations: &[("", solution)],
-        solution: None,
     }
 }
 

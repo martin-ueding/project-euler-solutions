@@ -68,7 +68,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 8,
         implementations: &[("procedural chars", solution_8_procedural_chars),("procedural bytes", solution_8_procedural_bytes), ("functional chars", solution_8_functional_chars), ("functional bytes", solution_8_functional_bytes)],
-        solution: Some(23514624000),
     }
 }
 

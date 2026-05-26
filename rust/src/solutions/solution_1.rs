@@ -12,7 +12,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 1,
         implementations: &[("division check", solution_division_check)],
-        solution: None
     }
 }
 

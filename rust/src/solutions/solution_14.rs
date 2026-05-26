@@ -32,7 +32,6 @@ inventory::submit! {
     crate::registry::SolutionEntry {
         id: 14,
         implementations: &[("cache", solution_14_cache)],
-        solution: Some(837799),
     }
 }
 
