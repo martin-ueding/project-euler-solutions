@@ -10,7 +10,7 @@ fn bench_solutions(c: &mut Criterion) {
             id,
             implementations,
         } = entry;
-        let mut g = c.benchmark_group(format!("solution for {id}"));
+        let mut g = c.benchmark_group(format!("{id}"));
 
         for &(name, f) in implementations {
             let name = if name.is_empty() { "solution" } else { name };
