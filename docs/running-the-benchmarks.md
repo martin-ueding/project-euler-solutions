@@ -5,5 +5,5 @@
 ```bash
 cargo bench --bench pe_bench -- --quick
 
-cargo bench --bench pe_bench -- 'solution for 8'
+cargo bench --bench pe_bench -- '8/'
 ```
