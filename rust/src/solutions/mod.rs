@@ -16,6 +16,7 @@ mod solution_64;
 mod solution_65;
 mod solution_7;
 mod solution_8;
+mod solution_88;
 mod solution_90;
 mod solution_91;
 mod solution_93;
