@@ -1,5 +1,6 @@
 //! Prime related functions and generators.
 
+use itertools::Itertools;
 use std::collections::HashMap;
 
 /// Computes prime numbers as they are iterated.
@@ -111,6 +112,50 @@ pub fn get_num_divisors(number: i64, prime_generator: &mut PrimeList) -> i64 {
         .fold(1, |acc: i64, (&_prime, &count)| acc * (count + 1))
 }
 
+pub fn get_factorizations(
+    number: i64,
+    max_divisor: Option<i64>,
+    prime_generator: &mut PrimeList,
+) -> Vec<Vec<i64>> {
+    let mut result: Vec<Vec<i64>> = Vec::new();
+    if number == 1 {
+        return result;
+    }
+    let prime_factors = get_prime_factors(number, prime_generator);
+
+    let product_iterator = prime_factors
+        .values()
+        .map(|&count| 0..count + 1)
+        .multi_cartesian_product();
+
+    for factor_counts in product_iterator {
+        let divisor = prime_factors
+            .keys()
+            .copied()
+            .zip_eq(factor_counts)
+            .map(|(factor, count)| factor.pow(count as u32))
+            .fold(1i64, |acc, x| acc * x);
+
+        if divisor == 1 {
+            if max_divisor.is_some_and(|m| number > m) {
+                continue;
+            }
+            result.push(vec![number]);
+            continue;
+        }
+
+        if max_divisor.is_some_and(|m| divisor > m) {
+            continue;
+        }
+        let sub_factorizations =
+            get_factorizations(number / divisor, Some(divisor), prime_generator);
+        for sub_factorization in sub_factorizations.iter().cloned() {
+            result.push_mut(sub_factorization).push(divisor);
+        }
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -151,5 +196,22 @@ mod tests {
     fn test_get_num_divisors() {
         let mut prime_generator = PrimeList::new();
         assert_eq!(get_num_divisors(28, &mut prime_generator), 6);
+    }
+
+    #[test]
+    fn test_get_factorization() {
+        let mut prime_generator = PrimeList::new();
+        let expected = vec![
+            vec![24],
+            vec![12, 2],
+            vec![8, 3],
+            vec![6, 4],
+            vec![6, 2, 2],
+            vec![4, 3, 2],
+            vec![3, 2, 2, 2],
+        ]
+        .sort();
+        let actual = get_factorizations(24, None, &mut prime_generator).sort();
+        assert_eq!(expected, actual);
     }
 }
