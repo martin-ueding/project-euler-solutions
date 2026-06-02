@@ -18,7 +18,7 @@ I would work on the problems in a mostly linear fashion and document my progress
 
 When problems built on previous ones, I would just include the functions from one problem in the next one. This made for an interesting looking dependency graph, though it didn't provide me with a good library. Also I had to search the old problems for the implementations, not a very clever way to structure a software project. At the time, I didn't think of it like that.
 
-## Reboot in mid 2026
+## Reboot in mid 2026 with Rust
 
 In mid 2026, I somehow returned to these problems. My programming work has shifted away from the full stack of C++, CUDA, and Python towards only Python. I wanted to do some more hands-on native language programming, so I thought about continuing here with C++. The mere act of setting header and source files, a CMake project and wondering how to include Google Benchmark into this project reminded me why I hated C++ project setup.
 

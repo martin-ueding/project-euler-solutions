@@ -1,21 +1,28 @@
 # Cube Digit Pairs (90)
 
-We have the square numbers below 100, namely 01, 04, 09, 16, 25, 36, 49, 64, 81. Then there is the idea of representing the first and second digit with the faces of a cube, where we can pick six digits to print on. The question now is how many distinct sets there are.
+In [Problem 90](https://projecteuler.net/problem=90), we're asked to find ways to print digits onto two cubes to represent two-digit numbers.
+
+We can print the digits 0 to 9 onto each cube, so we need to chose 6 out of 10 without replacement. This gives us a rather sensible number of combinations:
+$$ \binom{10}{6} = 210 \,. $$
+
+With two cubes, we have $210^2 = 44\,100$ combinations. That is not too much to simply try all of them.
+
+## Formulating the criterion
+
+The numbers that we have to represent is the set {01, 04, 09, 16, 25, 36, 49, 64, 81}, the square numbers below 100. To represent these numbers, we need to make sure that for every number, each digit is present on one of the cubes. We can swap the cubes if needed, there is no need to have all the first digits on the first cube.
 
 And then there is the additional complication that one can use a 6 as a 9, but one has to count them as distinct sets.
 
-## Thoughts
+I end up with the following algorithm:
 
-For the first digit, we have {0, 1, 2, 3, 4, 6, 8}. For the second digit we have {1, 4, 5, 6, 9}. As the first set already has 7 elements, we must be allowed to exchange the cubes. Ah, this is what makes the problem difficult! Initially I thought that I would just take these sets and then fill them up with other numbers.
+- Iterate through all ways we can take 6 out of 10 digits for each cube …
+    - Discard the combination if we already had the same cubes but swapped.
+    - If one of the digit sets contains the 6 or 9, add the other one to the set. This accounts for the 6-9-rule.
+    - Iterate through all the numbers to represent …
+        - Check whether the first digit of the number is in the first cube set and the second digit is in the second cube set (or the other way around).
+        - If we cannot represent this number with the current cubes, discard this cube combination.
+    - If we could represent all the numbers, count the combination towards the result.
 
-So what we really need to do is figure out two sets such that all the digits are there but the ones that need together are not both in the same set.
+## Bit masks
 
-Let's think differently of the numbers, let's do tuples (0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1). We can also reverse these tuples. So perhaps this is a way?
-
-- Decide which of the tuples to flip. That fixes how we represent all the numbers with the left and right cube.
-- Collect all the first and second digits into a set each.
-- If any of the sets exceeds six elements (while considering the 6-9-rule), skip this combination.
-- See which digits are not included. If a 6 is present, we can surely also add a 9, even though we don't need it. Do all possible subsets of the other digits to fill up the cubes.
-- Record that particular combination
-
-We can choose 6 out of 10 digits per cube. That makes 210 combinations that we can have. With two cubes, that gives 44,100 combinations in total. that isn't that much.
+In my Rust implementation, I have chosen to represent the cube sets using bit masks. There are 10 digits, so a 16-bit integer is already sufficient. Checking for membership of a digit in the set is a binary _and_ operation. Adding numbers to the set is an _assign-or_ operation.
