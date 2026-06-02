@@ -13,4 +13,4 @@ magick -density 300 \
        -trim +repage \
        -gravity center -extent "%[orig_w]x%h" \
        -quality 90 \
-       "$root/docs/problems/images/${output_prefix}-%03d.png"
+       "${output_prefix}-%03d.png"

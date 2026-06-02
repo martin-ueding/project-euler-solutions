@@ -2,3 +2,5 @@ build
 .pytest_cache
 .idea
 site
+notes/drawing-*-*.png
+*.autosave.xopp

@@ -2,7 +2,7 @@
 
 There is [Project Euler](https://projecteuler.net/), a growing collection of math problems that are solved by programming. These have been around for more than twenty years and seem quite challenging.
 
-This repository contains my solutions and some explanations for them. There are [more explanations on my blog](https://martin-ueding.de/pages/project-euler.html).
+This repository contains my solutions and some explanations for them. You can find the code in the [GitHub repository](https://github.com/martin-ueding/project-euler-solutions), the explanations right here. There are [more explanations on my blog](https://martin-ueding.de/pages/project-euler.html).
 
 This place is mostly for me to think through hard math problems. Writing down the core insights is helpful for me. Reading other people's notes on their solutions sometimes helps me to get unstuck. So I provide my solutions to help people that are stuck. There is the real danger of getting the fun of discovery spoiled.
 
