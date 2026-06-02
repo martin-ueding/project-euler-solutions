@@ -91,19 +91,6 @@ We now know the $n_5 = 8$.
 
 ### Not specifying _k_
 
-We can also look at all factorizations without fixing $k$ beforehand. Then we have a neat factorization tree that we can look at.
-
-Let us take $n = 12$, which we can factor into $2^3 \times 3$. Then we can build the following search tree by taking any remaining divisor within the current branch. We also enforce that the following divisors must not be greater than the preceding one to avoid ordering issues.
-
-![](images/drawing-88-008.png)
-
-Hence we have these decompositions:
-
-- 12 × 2
-- 8 × 3
-- 6 × 4
-- 6 × 2 × 2
-- 4 × 3 × 2
-- 3
+We can also look at all factorizations without fixing $k$ beforehand. We use the [factorization function](../library/primes.md#factorizations) from the library.
 
 In case that the sum is smaller than the product, we can always pad with ones on both sides. If the sum is larger than the product, it is not viable.
