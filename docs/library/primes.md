@@ -8,7 +8,7 @@ Let us take $n = 24$, which we can factor into $2^3 \times 3$. Then we can build
 
 This gives us the following search tree:
 
-![](images/drawing-88-008.png)
+![](factorization-search-tree.png)
 
 Hence we have these factorizations:
 
