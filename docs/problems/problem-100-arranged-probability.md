@@ -2,7 +2,10 @@
 
 In [Problem 100](https://projecteuler.net/problem=100), we're asked to work with probabilities and combinatorics.
 
-In a box that contains $b$ blue and $r$ red disks initially, the chance of drawing two blue disks is $P(BB) = (b/(b+r)) (b-1)/(b-1+r)$. In the example, they take $b = 15$ and $r = 6$ to yield $15/21 \times 14/20 = 1/2$.
+In a box that contains $b$ blue and $r$ red disks initially, the chance of drawing two blue disks is
+$$ P(BB) = (b/(b+r)) (b-1)/(b-1+r) \,.$$
+
+In the example, they take $b = 15$ and $r = 6$ to yield $15/21 \times 14/20 = 1/2$.
 
 We also get exactly 1/2 when one takes $r = 85$ and $r = 35$. We're now tasked with finding a configuration where the probability is also exactly 1/2 but the total number of disks exceeds $10^{12}$. The answer for that problem is the number of blue disks $b$ in that configuration.
 
