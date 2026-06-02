@@ -4,7 +4,7 @@ In [Problem 88](https://projecteuler.net/problem=88), we're asked to find number
 
 We can reframe the question with more math notation like so: For every $k \in \mathbb N$ with $2 \le k \le 12\,000$, find the positive integer sequence $(a_i)_{i=1}^k$ such that
 $$ n_k := \prod_{i=1}^k a_i = \sum_{i=1}^k a_i $$
-is minimized. The final solution then is $\sum_{k=2}^{12\,000} n_k$.
+is minimized. The final solution then the sum of all unique $n_k$.
 
 ## Naive complexity
 
@@ -27,13 +27,50 @@ At $k = 3$, we have these:
 
 We essentially have a triple loop here. That is not clever enough to solve this problem.
 
-## Trying to organize the decompositions for fixed _k_
+We have two ways to slice this problem:
 
-My first approach is to chose a fixed $k$ and then organize all the $k$-tuples that I can form with that many numbers.
+1. We iterate over all $k$ and then try to find the matching $n_k$.
+2. We iterate over all $n$ and see for which $k$ we can find a product-sum-match.
 
-### Organizing into grids
+The way that the problem is phrased, it suggests to start with the first approach. As I found out the hard way, that doesn't work. Therefore we will cover the second approach first. You can read about the non-viability of the first approach further down.
 
-Looking at $k = 2$, we can organize the two numbers in a grid and see that the sum of the two numbers stays the same on diagonal lines:
+## Fixing _n_ and looking for suitable _k_'s
+
+We pick a fixed $n$ and see for which $k$ I can find a decomposition. Let's take 8 as an example. We can factorize this into primes as 2³. We know that we need to have at least factors and that neither of them can be 1. We therefore take the set of factors, {2, 2, 2}, and need to find all possible partitions into $k = 2$ sets. In our case the only unique one would be {{2}, {2, 2}}.
+
+From this partition, we get $2 \times 4 > 2 + 4$. As the product is greater than the sum, we can just add ones until it matches. In this case we are two short, hence we end up with
+$$ 1 \times 1 \times 2 \times 4 = 1 + 1 + 2 + 4 \,. $$
+
+We now know that 8 is the smallest $n_4$ that we can build because we have already tested all smaller $n$ and couldn't construct one for $k = 4$.
+
+Starting with all partitions into three sets, we get {{2}, {2}, {2}}. Checking the equation we have $2 \times 2 \times 2 > 2 + 2 + 2$. Again we're short by two and can hence add two ones:
+$$ 1 \times 1 \times 2 \times 2 \times 2 = 1 + 1 + 2 + 2 + 2 \,. $$
+
+We now know the $n_5 = 8$.
+
+### Not specifying _k_
+
+We can also look at all factorizations without fixing $k$ beforehand. We use the [factorization function](../library/primes.md#factorizations) from the library.
+
+Iterating over all factorizations that have at least two factors, we can compare the product and the sum. In case that the sum is smaller than the product, we can always pad with ones on both sides. If the sum is larger than the product, it is not a viable factorization.
+
+The algorithm is this:
+
+- Iterate over all $n$ from 2 to infinity …
+    - Iterate over all factorizations $(f_i)_{i=1}^m$ of $n$ …
+        - If the factorization has only one element, $m=1$, skip that one.
+        - Compute the sum over all factors, $s := \sum_{i=1}^m f_i$. We know by construction that $n = \prod_{i=1}^m f_i$.
+        - If $s < n$, we need to pad with $n - s$ many elements of 1. That increases $s$ exactly such that it is $n$, and $n$ will be unchanged.
+        - The number of elements in the decomposition is $k := m + (n - s)$.
+        - If $k \leq 12\,000$, note the $n$ as the smallest $n_k$ possible for that $k$ because we have checked all smaller $n$ already.
+    - If we have 11\,999 elements in our result, we have found an $n_k$ for every $k$ and break out of the loop.
+- Take the unique $n_k$ and sum them up.
+
+My Rust implementation runs in 256 ms.
+
+## Trying to use a fixed _k_
+
+Let us now explore why using a fixed $k$ leads us astray. Looking at $k = 2$, we can organize the two numbers in a grid and see that the sum of the two numbers stays the same on diagonal lines:
 
 ![](images/drawing-88-000.png)
 
@@ -73,24 +110,6 @@ We can formulate this as a search tree, though. We pick all possible first numbe
 
 Using recursion, one could easily traverse all these options. At least for $k = 3$, the monotonicity is still there and one could think about exploiting it.
 
-## Fixing the number instead
+I have done this and written a recursive function that will decompose the remainder further into a sum. The return value is a set of all possible products that can be formed given the desired sum $n$ and the number of elements $k$.
 
-It seems that looking at a fixed $k$ might be a dead end. So rather than doing that, I pick a fixed $n$ and see for which $k$ I can find a decomposition.
-
-Let's take 8 as an example. We can factorize this into primes as 2³. We know that we need to have at least factors and that neither of them can be 1. We therefore take the set of factors, {2, 2, 2}, and need to find all possible partitions into $k = 2$ sets. In our case the only unique one would be {{2}, {2, 2}}.
-
-From this partition, we get $2 \times 4 > 2 + 4$. As the product is greater than the sum, we can just add ones until it matches. In this case we are two short, hence we end up with
-$$ 1 \times 1 \times 2 \times 4 = 1 + 1 + 2 + 4 \,. $$
-
-We now know that 8 is the smallest $n_4$ that we can build because we have already tested all smaller $n$ and couldn't construct one for $k = 4$.
-
-Starting with all partitions into three sets, we get {{2}, {2}, {2}}. Checking the equation we have $2 \times 2 \times 2 > 2 + 2 + 2$. Again we're short by two and can hence add two ones:
-$$ 1 \times 1 \times 2 \times 2 \times 2 = 1 + 1 + 2 + 2 + 2 \,. $$
-
-We now know the $n_5 = 8$.
-
-### Not specifying _k_
-
-We can also look at all factorizations without fixing $k$ beforehand. We use the [factorization function](../library/primes.md#factorizations) from the library.
-
-In case that the sum is smaller than the product, we can always pad with ones on both sides. If the sum is larger than the product, it is not viable.
+From $k = 23$, it becomes crawling. I tried to look into caching, but unfortunately each subtree is unique and we cannot reuse the parts. So that idea is a dead end.

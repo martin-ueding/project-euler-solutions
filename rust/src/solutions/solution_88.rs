@@ -1,5 +1,8 @@
 use indicatif::ProgressIterator;
-use std::collections::HashSet;
+use itertools::Itertools;
+use std::collections::{HashMap, HashSet};
+
+use crate::primes::{PrimeList, get_factorizations};
 
 fn possible_products(n: i64, k: i64) -> HashSet<i64> {
     if k == 1 {
@@ -25,17 +28,52 @@ fn minimal_product_for_k(k: i64) -> i64 {
     return -1;
 }
 
-fn solution() -> i64 {
+fn solution_fixed_k() -> i64 {
     (2..12_001)
         .progress_count(11_999)
         .map(minimal_product_for_k)
         .sum()
 }
 
+fn solution_fixed_n() -> i64 {
+    let mut prime_generator = PrimeList::new();
+
+    let mut min_n_for_k: HashMap<i64, i64> = HashMap::new();
+
+    for n in 2.. {
+        let factorizations = get_factorizations(n, None, &mut prime_generator);
+        for factorization in factorizations.iter() {
+            if factorization.len() == 1 {
+                continue;
+            }
+            let sum: i64 = factorization.iter().sum();
+            if sum <= n {
+                let diff = n - sum;
+                let k: i64 = factorization.len() as i64 + diff;
+                if k > 12_000 {
+                    continue;
+                }
+                if !min_n_for_k.contains_key(&k) {
+                    // println!("n = {n}, k = {k}");
+                    min_n_for_k.insert(k, n);
+                }
+            }
+        }
+        if min_n_for_k.len() == 11_999 {
+            break;
+        }
+    }
+
+    (2..12_001)
+        .map(|k| min_n_for_k.get(&k).unwrap())
+        .unique()
+        .sum()
+}
+
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 88,
-        implementations: &[("", solution)],
+        implementations: &[("fixed n", solution_fixed_n)],
     }
 }
 
