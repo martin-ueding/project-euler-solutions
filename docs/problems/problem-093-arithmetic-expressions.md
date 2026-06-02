@@ -1,4 +1,4 @@
-# Arithmetic Expressions (Problem 93)
+# Arithmetic Expressions (93)
 
 Using parentheses, we can essentially create the following unique associations:
 

@@ -1,4 +1,4 @@
-# Cube Digit Pairs (Problem 90)
+# Cube Digit Pairs (90)
 
 We have the square numbers below 100, namely 01, 04, 09, 16, 25, 36, 49, 64, 81. Then there is the idea of representing the first and second digit with the faces of a cube, where we can pick six digits to print on. The question now is how many distinct sets there are.
 

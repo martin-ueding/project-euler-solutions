@@ -1,4 +1,4 @@
-# Product-Sum Numbers (Problem 88)
+# Product-Sum Numbers (88)
 
 For every $k$ in $2 \le k \le 12,000$, we're asked to find the minimal product-sum number with $k$ factors and summands.
 
