@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euo pipefail
+
+input_pdf="${1:-notizen.pdf}"
+output_prefix="drawing-${input_pdf%.*}"
+
+root="$(git rev-parse --show-toplevel)"
+
+magick -density 300 \
+       "$input_pdf" \
+       -set option:orig_w "%w" \
+       -trim +repage \
+       -gravity center -extent "%[orig_w]x%h" \
+       -quality 90 \
+       "$root/docs/problems/images/${output_prefix}-%03d.png"

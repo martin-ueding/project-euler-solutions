@@ -26,3 +26,10 @@ At $k = 3$, we have these:
 - 2 × 2 × 3
 
 We essentially have a triple loop here. That is not clever enough to solve this problem.
+
+## Organizing into grids
+
+Looking at $k = 2$, we can organize the two numbers in a grid and see that the sum of the two numbers stays the same on diagonal lines:
+
+![](images/drawing-88-000.png)
+
