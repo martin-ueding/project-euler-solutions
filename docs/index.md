@@ -10,7 +10,7 @@ This place is mostly for me to think through hard math problems. Writing down th
 
 I have worked on these problems on and off over many years. A long time ago I implemented implemented some of these in one programming language. Then I started to use these problems to explore implementations in other programming languages. This way, I might have gotten lost in breadth instead of continuing with the more advanced problems. Eventually I discarded the code, I cannot find it any more.
 
-In mid 2023, I came back to these problems and started to implement them anew in Python. I chose that language over C++ because it wouldn't get in my way and has the great `itertools` library that I could use for many combinatorial problems.
+In mid-2023, I came back to these problems and started to implement them anew in Python. I chose that language over C++ because it wouldn't get in my way and has the great `itertools` library that I could use for many combinatorial problems.
 
 Computational performance isn't a concern here. The problems are conceived such that they take less than a minute on a computer from 2001. Given that it is 25 later, the factor 100 that Python is slower is easily alleviated with a modern CPU.
 
@@ -18,9 +18,9 @@ I would work on the problems in a mostly linear fashion and document my progress
 
 When problems built on previous ones, I would just include the functions from one problem in the next one. This made for an interesting looking dependency graph, though it didn't provide me with a good library. Also I had to search the old problems for the implementations, not a very clever way to structure a software project. At the time, I didn't think of it like that.
 
-## Reboot in mid 2026 with Rust
+## Reboot in Mid 2026 with Rust
 
-In mid 2026, I somehow returned to these problems. My programming work has shifted away from the full stack of C++, CUDA, and Python towards only Python. I wanted to do some more hands-on native language programming, so I thought about continuing here with C++. The mere act of setting header and source files, a CMake project and wondering how to include Google Benchmark into this project reminded me why I hated C++ project setup.
+In mid-2026, I somehow returned to these problems. My programming work has shifted away from the full stack of C++, CUDA, and Python towards only Python. I wanted to do some more hands-on native language programming, so I thought about continuing here with C++. The mere act of setting header and source files, a CMake project and wondering how to include Google Benchmark into this project reminded me why I hated C++ project setup.
 
 Coworkers and many others have said nice things about Rust. And it had been on my list of things that I wanted to learn eventually. So, I thought, why not continue here with Rust?
 
