@@ -1,6 +1,6 @@
 //! Prime related functions and generators.
 
-use itertools::{Itertools, max};
+use itertools::Itertools;
 use std::{cmp::min, collections::HashMap};
 
 /// Computes prime numbers as they are iterated.
