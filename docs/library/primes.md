@@ -4,11 +4,13 @@ This library contains functionality to work with primes and related concepts. Fa
 
 ## Factorizations
 
-Let us take $n = 24$, which we can factor into $2^3 \times 3$. Then we can build the following search tree by taking any remaining divisor within the current branch. We also enforce that the following divisors must not be greater than the preceding one to avoid ordering issues.
+Let us take $n = 24$, which we can factor into $2^3 \times 3$. Then we can build the following search tree by taking any remaining divisor within the current branch. We also enforce that the following divisors must not be greater than the preceding one to avoid duplicates.
 
 This gives us the following search tree:
 
 ![](factorization-search-tree.png)
+
+This can be traversed by using a recursive function.
 
 Hence we have these factorizations:
 
