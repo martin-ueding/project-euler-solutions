@@ -184,6 +184,28 @@ impl<'a> Factorizer<'a> {
     }
 }
 
+pub fn get_divisors(number: i64, prime_generator: &mut PrimeList) -> Vec<i64> {
+    let prime_factors = get_prime_factors(number, prime_generator);
+
+    let product_iterator = prime_factors
+        .values()
+        .map(|&count| 0..count + 1)
+        .multi_cartesian_product();
+
+    let mut result: Vec<i64> = Vec::new();
+    for factor_counts in product_iterator {
+        let divisor = prime_factors
+            .keys()
+            .copied()
+            .zip_eq(factor_counts)
+            .map(|(factor, count)| factor.pow(count as u32))
+            .fold(1i64, |acc, x| acc * x);
+        result.push(divisor);
+    }
+    result.sort();
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -224,6 +246,15 @@ mod tests {
     fn test_get_num_divisors() {
         let mut prime_generator = PrimeList::new();
         assert_eq!(get_num_divisors(28, &mut prime_generator), 6);
+    }
+
+    #[test]
+    fn test_get_divisors() {
+        let mut prime_generator = PrimeList::new();
+        assert_eq!(
+            get_divisors(24, &mut prime_generator),
+            vec![1, 2, 3, 4, 6, 8, 12, 24]
+        );
     }
 
     #[test]
