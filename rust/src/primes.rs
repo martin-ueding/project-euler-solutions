@@ -170,6 +170,7 @@ impl<'a> Factorizer<'a> {
     }
 }
 
+/// Get a sorted list of all possible divisors, including 1 and the number itself.
 pub fn get_divisors(number: i64, prime_generator: &mut PrimeList) -> Vec<i64> {
     let prime_factors = get_prime_factors(number, prime_generator);
 
