@@ -1,17 +1,16 @@
 use itertools::Itertools;
 use std::collections::HashMap;
 
-use crate::primes::{PrimeList, get_factorizations};
+use crate::primes::{Factorizer, PrimeList};
 
 fn solution_fixed_n() -> i64 {
     let mut prime_generator = PrimeList::new();
-    let mut cache: HashMap<(i64, i64), Vec<Vec<i64>>> = HashMap::new();
+    let mut factorizer = Factorizer::new(&mut prime_generator);
 
     let mut min_n_for_k: HashMap<i64, i64> = HashMap::new();
 
     for n in 2.. {
-        get_factorizations(n, n, &mut prime_generator, &mut cache);
-        let factorizations = cache.get(&(n, n)).unwrap();
+        let factorizations = factorizer.factorize(n);
         for factorization in factorizations.iter() {
             if factorization.len() == 1 {
                 continue;
