@@ -62,7 +62,7 @@ The algorithm that we can generalize from this approach is:
     - If we have 11\,999 elements in our result, we have found an $n_k$ for every $k$ and break out of the loop.
 - Take the unique $n_k$ and sum them up.
 
-My Rust implementation runs in 256 ms.
+My Rust implementation runs in 123 ms.
 
 ## Trying to use a fixed _k_
 

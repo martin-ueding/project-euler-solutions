@@ -5,11 +5,13 @@ use crate::primes::{PrimeList, get_factorizations};
 
 fn solution_fixed_n() -> i64 {
     let mut prime_generator = PrimeList::new();
+    let mut cache: HashMap<(i64, i64), Vec<Vec<i64>>> = HashMap::new();
 
     let mut min_n_for_k: HashMap<i64, i64> = HashMap::new();
 
     for n in 2.. {
-        let factorizations = get_factorizations(n, None, &mut prime_generator);
+        get_factorizations(n, n, &mut prime_generator, &mut cache);
+        let factorizations = cache.get(&(n, n)).unwrap();
         for factorization in factorizations.iter() {
             if factorization.len() == 1 {
                 continue;

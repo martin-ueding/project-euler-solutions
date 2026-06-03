@@ -21,3 +21,5 @@ Hence we have these factorizations:
 - 6 × 2 × 2
 - 4 × 3 × 2
 - 3 × 2 × 2 × 2
+
+We can see that there is a recurring tail in these factorizations. Here we have factorized 4 multiple times. Hence it makes sense to cache the results if one wants to factorize a lot of numbers.

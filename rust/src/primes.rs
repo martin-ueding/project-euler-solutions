@@ -1,6 +1,6 @@
 //! Prime related functions and generators.
 
-use itertools::Itertools;
+use itertools::{Itertools, max};
 use std::{cmp::min, collections::HashMap};
 
 /// Computes prime numbers as they are iterated.
@@ -114,49 +114,58 @@ pub fn get_num_divisors(number: i64, prime_generator: &mut PrimeList) -> i64 {
 
 pub fn get_factorizations(
     number: i64,
-    max_divisor: Option<i64>,
+    max_divisor: i64,
     prime_generator: &mut PrimeList,
-) -> Vec<Vec<i64>> {
-    let mut result: Vec<Vec<i64>> = Vec::new();
-    if number == 1 {
-        return result;
+    cache: &mut HashMap<(i64, i64), Vec<Vec<i64>>>,
+) {
+    // println!("number = {number}, max_divisor = {max_divisor:?}");
+    if cache.contains_key(&(number, max_divisor)) {
+        return;
     }
-    let prime_factors = get_prime_factors(number, prime_generator);
+    let mut result: Vec<Vec<i64>> = Vec::new();
+    if number > 1 {
+        let prime_factors = get_prime_factors(number, prime_generator);
 
-    let product_iterator = prime_factors
-        .values()
-        .map(|&count| 0..count + 1)
-        .multi_cartesian_product();
+        let product_iterator = prime_factors
+            .values()
+            .map(|&count| 0..count + 1)
+            .multi_cartesian_product();
 
-    for factor_counts in product_iterator {
-        let divisor = prime_factors
-            .keys()
-            .copied()
-            .zip_eq(factor_counts)
-            .map(|(factor, count)| factor.pow(count as u32))
-            .fold(1i64, |acc, x| acc * x);
+        for factor_counts in product_iterator {
+            let divisor = prime_factors
+                .keys()
+                .copied()
+                .zip_eq(factor_counts)
+                .map(|(factor, count)| factor.pow(count as u32))
+                .fold(1i64, |acc, x| acc * x);
 
-        if divisor == 1 {
-            if max_divisor.is_some_and(|m| number > m) {
+            if divisor == 1 {
+                if number > max_divisor {
+                    continue;
+                }
+                result.push(vec![number]);
                 continue;
             }
-            result.push(vec![number]);
-            continue;
-        }
 
-        if max_divisor.is_some_and(|m| divisor > m) {
-            continue;
-        }
-        let sub_factorizations = get_factorizations(
-            number / divisor,
-            Some(min(divisor, number / divisor)),
-            prime_generator,
-        );
-        for sub_factorization in sub_factorizations.iter().cloned() {
-            result.push_mut(sub_factorization).push(divisor);
+            if divisor > max_divisor {
+                continue;
+            }
+            get_factorizations(
+                number / divisor,
+                min(divisor, number / divisor),
+                prime_generator,
+                cache,
+            );
+
+            let sub_factorizations = cache
+                .get(&(number / divisor, min(divisor, number / divisor)))
+                .unwrap();
+            for sub_factorization in sub_factorizations.iter().cloned() {
+                result.push_mut(sub_factorization).push(divisor);
+            }
         }
     }
-    result
+    cache.insert((number, max_divisor), result);
 }
 
 #[cfg(test)]
@@ -204,6 +213,8 @@ mod tests {
     #[test]
     fn test_get_factorization() {
         let mut prime_generator = PrimeList::new();
+        let mut cache: HashMap<(i64, i64), Vec<Vec<i64>>> = HashMap::new();
+
         let expected = vec![
             vec![24],
             vec![12, 2],
@@ -214,7 +225,8 @@ mod tests {
             vec![3, 2, 2, 2],
         ]
         .sort();
-        let actual = get_factorizations(24, None, &mut prime_generator).sort();
+        get_factorizations(24, 24, &mut prime_generator, &mut cache);
+        let actual = cache.get(&(24, 24)).unwrap().clone().sort();
         assert_eq!(expected, actual);
     }
 }
