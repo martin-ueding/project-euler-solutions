@@ -146,24 +146,22 @@ impl<'a> Factorizer<'a> {
             return;
         }
         let mut result: Vec<Vec<i64>> = Vec::new();
-        if number > 1 {
-            for divisor in get_divisors(number, self.prime_generator) {
-                if divisor == 1 {
-                    if number > max_divisor {
-                        continue;
-                    }
-                    result.push(vec![number]);
+        for divisor in get_divisors(number, self.prime_generator) {
+            if divisor == 1 {
+                if number > max_divisor {
                     continue;
                 }
+                result.push(vec![number]);
+                continue;
+            }
 
-                if divisor > max_divisor {
-                    continue;
-                }
-                let sub_factorizations =
-                    self.factorize_with_limit(number / divisor, min(divisor, number / divisor));
-                for sub_factorization in sub_factorizations.iter().cloned() {
-                    result.push_mut(sub_factorization).push(divisor);
-                }
+            if divisor > max_divisor {
+                continue;
+            }
+            let sub_factorizations =
+                self.factorize_with_limit(number / divisor, min(divisor, number / divisor));
+            for sub_factorization in sub_factorizations.iter().cloned() {
+                result.push_mut(sub_factorization).push(divisor);
             }
         }
         self.cache.insert((number, max_divisor), result);
