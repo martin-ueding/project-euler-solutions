@@ -1,7 +1,7 @@
 //! Prime related functions and generators.
 
 use itertools::Itertools;
-use std::collections::HashMap;
+use std::{cmp::min, collections::HashMap};
 
 /// Computes prime numbers as they are iterated.
 ///
@@ -147,8 +147,11 @@ pub fn get_factorizations(
         if max_divisor.is_some_and(|m| divisor > m) {
             continue;
         }
-        let sub_factorizations =
-            get_factorizations(number / divisor, Some(divisor), prime_generator);
+        let sub_factorizations = get_factorizations(
+            number / divisor,
+            Some(min(divisor, number / divisor)),
+            prime_generator,
+        );
         for sub_factorization in sub_factorizations.iter().cloned() {
             result.push_mut(sub_factorization).push(divisor);
         }
