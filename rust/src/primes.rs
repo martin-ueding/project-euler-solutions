@@ -147,21 +147,7 @@ impl<'a> Factorizer<'a> {
         }
         let mut result: Vec<Vec<i64>> = Vec::new();
         if number > 1 {
-            let prime_factors = get_prime_factors(number, self.prime_generator);
-
-            let product_iterator = prime_factors
-                .values()
-                .map(|&count| 0..count + 1)
-                .multi_cartesian_product();
-
-            for factor_counts in product_iterator {
-                let divisor = prime_factors
-                    .keys()
-                    .copied()
-                    .zip_eq(factor_counts)
-                    .map(|(factor, count)| factor.pow(count as u32))
-                    .fold(1i64, |acc, x| acc * x);
-
+            for divisor in get_divisors(number, self.prime_generator) {
                 if divisor == 1 {
                     if number > max_divisor {
                         continue;
