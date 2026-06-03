@@ -112,6 +112,29 @@ pub fn get_num_divisors(number: i64, prime_generator: &mut PrimeList) -> i64 {
         .fold(1, |acc: i64, (&_prime, &count)| acc * (count + 1))
 }
 
+/// Get a sorted list of all possible divisors, including 1 and the number itself.
+pub fn get_divisors(number: i64, prime_generator: &mut PrimeList) -> Vec<i64> {
+    let prime_factors = get_prime_factors(number, prime_generator);
+
+    let product_iterator = prime_factors
+        .values()
+        .map(|&count| 0..count + 1)
+        .multi_cartesian_product();
+
+    let mut result: Vec<i64> = Vec::new();
+    for factor_counts in product_iterator {
+        let divisor = prime_factors
+            .keys()
+            .copied()
+            .zip_eq(factor_counts)
+            .map(|(factor, count)| factor.pow(count as u32))
+            .fold(1i64, |acc, x| acc * x);
+        result.push(divisor);
+    }
+    result.sort();
+    result
+}
+
 /// Factorizes integers while reusing sub-factorizations.
 pub struct Factorizer<'a> {
     cache: HashMap<(i64, i64), Vec<Vec<i64>>>,
@@ -141,23 +164,18 @@ impl<'a> Factorizer<'a> {
     ///
     /// This separation is needed to use the cache in recursive calls. Otherwise we would be using mutable and immutable references to the same cache object, which isn't possible.
     fn populate_cache(&mut self, number: i64, max_divisor: i64) {
-        // println!("number = {number}, max_divisor = {max_divisor:?}");
         if self.cache.contains_key(&(number, max_divisor)) {
             return;
         }
         let mut result: Vec<Vec<i64>> = Vec::new();
-        for divisor in get_divisors(number, self.prime_generator) {
-            if divisor == 1 {
-                if number > max_divisor {
-                    continue;
-                }
-                result.push(vec![number]);
-                continue;
-            }
-
-            if divisor > max_divisor {
-                continue;
-            }
+        if number <= max_divisor {
+            result.push(vec![number]);
+        }
+        for divisor in get_divisors(number, self.prime_generator)
+            .into_iter()
+            .skip(1)
+            .take_while(|&d| d <= max_divisor)
+        {
             let sub_factorizations =
                 self.factorize_with_limit(number / divisor, min(divisor, number / divisor));
             for sub_factorization in sub_factorizations.iter().cloned() {
@@ -166,29 +184,6 @@ impl<'a> Factorizer<'a> {
         }
         self.cache.insert((number, max_divisor), result);
     }
-}
-
-/// Get a sorted list of all possible divisors, including 1 and the number itself.
-pub fn get_divisors(number: i64, prime_generator: &mut PrimeList) -> Vec<i64> {
-    let prime_factors = get_prime_factors(number, prime_generator);
-
-    let product_iterator = prime_factors
-        .values()
-        .map(|&count| 0..count + 1)
-        .multi_cartesian_product();
-
-    let mut result: Vec<i64> = Vec::new();
-    for factor_counts in product_iterator {
-        let divisor = prime_factors
-            .keys()
-            .copied()
-            .zip_eq(factor_counts)
-            .map(|(factor, count)| factor.pow(count as u32))
-            .fold(1i64, |acc, x| acc * x);
-        result.push(divisor);
-    }
-    result.sort();
-    result
 }
 
 #[cfg(test)]
