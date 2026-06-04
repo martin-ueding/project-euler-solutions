@@ -135,11 +135,6 @@ pub fn get_divisors(number: i64, prime_generator: &mut PrimeList) -> Vec<i64> {
     result
 }
 
-pub fn is_square(x: i64, prime_generator: &mut PrimeList) -> bool {
-    let divisors = get_prime_factors(x, prime_generator);
-    divisors.values().all(|&x| x % 2 == 0)
-}
-
 /// Factorizes integers while reusing sub-factorizations.
 pub struct Factorizer<'a> {
     cache: HashMap<(i64, i64), Vec<Vec<i64>>>,

@@ -1,4 +1,4 @@
-use crate::primes::{PrimeList, is_square};
+use crate::integers::is_square;
 
 /// Verifies a solution for $x^2 - D y^2 = c$.
 pub fn solves_diophantine_equation(x: i64, y: i64, d: i64, c: i64) -> bool {
@@ -6,13 +6,13 @@ pub fn solves_diophantine_equation(x: i64, y: i64, d: i64, c: i64) -> bool {
 }
 
 /// Find the minimal solution for $x^2 - D y^2 = c$.
-pub fn find_initial_solution(d: i64, c: i64, prime_generator: &mut PrimeList) -> (i64, i64) {
-    if is_square(d, prime_generator) {
+pub fn find_initial_solution(d: i64, c: i64) -> (i64, i64) {
+    if is_square(d) {
         panic!("d = {d} must not be a square number!");
     }
     for y in 1.. {
         let x_sq = d * y * y + c;
-        if is_square(x_sq, prime_generator) {
+        if is_square(x_sq) {
             let x = x_sq.isqrt();
             return (x, y);
         }
@@ -29,9 +29,9 @@ pub struct DiophantineSolutionIterator {
 }
 
 impl DiophantineSolutionIterator {
-    pub fn new(d: i64, c: i64, prime_generator: &mut PrimeList) -> Self {
-        let (x, y) = find_initial_solution(d, c, prime_generator);
-        let (x_hat, y_hat) = find_initial_solution(d, 1, prime_generator);
+    pub fn new(d: i64, c: i64) -> Self {
+        let (x, y) = find_initial_solution(d, c);
+        let (x_hat, y_hat) = find_initial_solution(d, 1);
         DiophantineSolutionIterator {
             d,
             x,
@@ -69,18 +69,15 @@ mod tests {
 
     #[test]
     fn test_find_initial_solution() {
-        let mut prime_generator = PrimeList::new();
-
-        assert_eq!(find_initial_solution(12, 4, &mut prime_generator), (4, 1));
+        assert_eq!(find_initial_solution(12, 4), (4, 1));
     }
 
     #[test]
     fn test_diophantine_solution_iterator() {
         let d = 12;
         let c = 4;
-        let mut prime_generator = PrimeList::new();
 
-        let solution_iterator = DiophantineSolutionIterator::new(d, c, &mut prime_generator);
+        let solution_iterator = DiophantineSolutionIterator::new(d, c);
         assert!(
             solution_iterator
                 .take(5)

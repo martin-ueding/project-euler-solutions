@@ -8,6 +8,11 @@ pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
     a
 }
 
+pub fn is_square(x: i64) -> bool {
+    let s = x.isqrt();
+    s * s == x
+}
+
 #[cfg(test)]
 mod tests {
 
