@@ -1,3 +1,5 @@
+use num_bigint::BigInt;
+
 /// Compute greatest common denominator (GCD) using Euclid's algorithm.
 pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
     while b != 0 {
@@ -10,7 +12,12 @@ pub fn greatest_common_denominator(mut a: i64, mut b: i64) -> i64 {
 
 pub fn is_square(x: i64) -> bool {
     let s = x.isqrt();
-    s * s == x
+    s.pow(2) == x
+}
+
+pub fn is_square_bigint(x: &BigInt) -> bool {
+    let s = x.sqrt();
+    s.pow(2) == *x
 }
 
 #[cfg(test)]

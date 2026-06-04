@@ -8,9 +8,10 @@ fn solution() -> i64 {
     non_squares
         .iter()
         .progress()
-        .map(|&d| DiophantineSolutionIterator::new(d, 1).next().unwrap().0)
+        .map(|&d| (DiophantineSolutionIterator::new(d, 1).next().unwrap().0, d))
         .max()
         .unwrap()
+        .1
 }
 
 inventory::submit! {

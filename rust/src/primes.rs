@@ -188,6 +188,8 @@ impl<'a> Factorizer<'a> {
 
 #[cfg(test)]
 mod tests {
+    use crate::integers::is_square;
+
     use super::*;
 
     #[test]
@@ -258,10 +260,9 @@ mod tests {
 
     #[test]
     fn test_is_square() {
-        let mut prime_generator = PrimeList::new();
-        assert!(is_square(4, &mut prime_generator));
-        assert!(is_square(625, &mut prime_generator));
-        assert!(!is_square(5, &mut prime_generator));
-        assert!(!is_square(624, &mut prime_generator));
+        assert!(is_square(4));
+        assert!(is_square(625));
+        assert!(!is_square(5));
+        assert!(!is_square(624));
     }
 }

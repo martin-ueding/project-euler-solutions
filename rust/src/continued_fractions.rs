@@ -65,12 +65,14 @@ impl ConvergentSeries {
 }
 
 impl Iterator for ConvergentSeries {
-    type Item = Fraction;
+    type Item = (BigInt, BigInt);
 
     fn next(&mut self) -> Option<Self::Item> {
         self.coefficients
             .push(self.expansion_iterator.next().unwrap());
-        Some(convergent_from_continued_fraction(&self.coefficients))
+        Some(convergent_from_continued_fraction_bigint(
+            &self.coefficients,
+        ))
     }
 }
 
