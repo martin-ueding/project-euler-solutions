@@ -20,3 +20,4 @@ mod solution_88;
 mod solution_90;
 mod solution_91;
 mod solution_93;
+mod solution_94;
