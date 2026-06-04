@@ -16,6 +16,9 @@ export default withSidebar(
       footer: {
         copyright: 'Copyright &copy; 2023–2026 Martin Ueding',
       },
+      outline: {
+        level: [2, 3],
+      },
     },
   },
   {
