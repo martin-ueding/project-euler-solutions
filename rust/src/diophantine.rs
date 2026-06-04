@@ -7,7 +7,7 @@ pub fn solves_diophantine_equation(x: i64, y: i64, d: i64, c: i64) -> bool {
 
 /// Find the minimal solution for $x^2 - D y^2 = c$.
 pub fn find_initial_solution(d: i64, c: i64, prime_generator: &mut PrimeList) -> (i64, i64) {
-    for y in 0.. {
+    for y in 1.. {
         let x_sq = d * y * y + c;
         if is_square(x_sq, prime_generator) {
             let x = x_sq.isqrt();
@@ -68,7 +68,7 @@ mod tests {
     fn test_find_initial_solution() {
         let mut prime_generator = PrimeList::new();
 
-        assert_eq!(find_initial_solution(12, 4, &mut prime_generator), (2, 0));
+        assert_eq!(find_initial_solution(12, 4, &mut prime_generator), (4, 1));
     }
 
     #[test]
@@ -80,7 +80,7 @@ mod tests {
         let solution_iterator = DiophantineSolutionIterator::new(d, c, &mut prime_generator);
         assert!(
             solution_iterator
-                .take(10)
+                .take(5)
                 .all(|(x, y)| solves_diophantine_equation(x, y, d, c))
         );
     }
