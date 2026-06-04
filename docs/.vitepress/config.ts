@@ -9,6 +9,10 @@ export default withSidebar(
       math: true,
     },
     themeConfig: {
+      nav: [
+        { text: "Source Code", link: "https://github.com/martin-ueding/project-euler-solutions" },
+        { text: "Martin Ueding", link: "https://martin-ueding.de/" },
+      ],
       search: { provider: 'local' },
       socialLinks: [
         { icon: 'github', link: 'https://github.com/martin-ueding/project-euler-solutions' },
