@@ -7,6 +7,9 @@ pub fn solves_diophantine_equation(x: i64, y: i64, d: i64, c: i64) -> bool {
 
 /// Find the minimal solution for $x^2 - D y^2 = c$.
 pub fn find_initial_solution(d: i64, c: i64, prime_generator: &mut PrimeList) -> (i64, i64) {
+    if is_square(d, prime_generator) {
+        panic!("d = {d} must not be a square number!");
+    }
     for y in 1.. {
         let x_sq = d * y * y + c;
         if is_square(x_sq, prime_generator) {
