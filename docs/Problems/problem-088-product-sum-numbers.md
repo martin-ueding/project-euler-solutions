@@ -36,7 +36,7 @@ The way that the problem is phrased, it suggests to start with the first approac
 
 ## Fixing _n_ and looking for suitable _k_'s
 
-We can also look at all factorizations without fixing $k$ beforehand. We use the [factorization function](../library/primes.md#factorizations) from the library.
+We can also look at all factorizations without fixing $k$ beforehand. We use the [factorization function](../Library/primes.md#factorizations) from the library.
 
 Iterating over all factorizations that have at least two factors, we can compare the product and the sum. In case that the sum is smaller than the product, we can always pad with ones on both sides. If the sum is larger than the product, it is not a viable factorization.
 
