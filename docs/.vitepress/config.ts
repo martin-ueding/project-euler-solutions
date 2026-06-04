@@ -20,7 +20,9 @@ export default withSidebar(
   {
     documentRootPath: 'docs',
     useTitleFromFileHeading: true,
+    capitalizeEachWords: true,
     sortMenusByName: true,
+    sortFolderTo: 'bottom',
     collapsed: false,
   },
 )
