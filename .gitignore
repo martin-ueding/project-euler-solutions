@@ -2,5 +2,8 @@ build
 .pytest_cache
 .idea
 site
+node_modules
+docs/.vitepress/dist
+docs/.vitepress/cache
 notes/drawing-*-*.png
 *.autosave.xopp
