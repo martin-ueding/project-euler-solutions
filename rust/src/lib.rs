@@ -1,5 +1,6 @@
 pub mod continued_fractions;
 pub mod digits;
+pub mod diophantine;
 pub mod fractions;
 pub mod integers;
 pub mod primes;
