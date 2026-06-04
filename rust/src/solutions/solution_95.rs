@@ -13,7 +13,7 @@ fn sum_proper_divisors(number: i64, prime_list: &mut PrimeList) -> i64 {
 
 fn iter_chain(
     start: i64,
-    eventually_zero: &mut HashSet<i64>,
+    eventually_zero: &mut Vec<bool>,
     prime_list: &mut PrimeList,
 ) -> Option<(i64, i64)> {
     let mut explored: HashSet<i64> = HashSet::new();
@@ -33,19 +33,21 @@ fn iter_chain(
         if explored.contains(&number) {
             break;
         }
-        if eventually_zero.contains(&number) {
+        if eventually_zero[number as usize] {
             number = 0;
             break;
         }
     }
     if number == 0 {
-        eventually_zero.extend(explored.into_iter());
+        explored
+            .into_iter()
+            .for_each(|e| eventually_zero[e as usize] = true);
     } else if number == start {
         let chain_length = explored.len() as i64;
         let smallest_member = *explored.iter().min().unwrap();
-        println!(
-            "n = {start}: chain with {chain_length} elements and {smallest_member} as minimum"
-        );
+        // println!(
+        //     "n = {start}: chain with {chain_length} elements and {smallest_member} as minimum"
+        // );
         return Some((chain_length, smallest_member));
     }
     return None;
@@ -53,7 +55,7 @@ fn iter_chain(
 
 fn solution() -> i64 {
     let mut prime_list = PrimeList::new();
-    let mut eventually_zero: HashSet<i64> = HashSet::new();
+    let mut eventually_zero: Vec<bool> = vec![false; 1_000_000];
 
     (2..1_000_001)
         .progress_count(999_999)
