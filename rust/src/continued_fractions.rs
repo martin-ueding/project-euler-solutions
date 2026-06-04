@@ -1,5 +1,8 @@
 use num_bigint::BigInt;
-use std::mem::swap;
+use std::{
+    iter::{Chain, Cycle},
+    mem::swap,
+};
 
 use crate::{fractions::Fraction, integers::greatest_common_denominator};
 
@@ -37,6 +40,38 @@ pub fn expand_root(number: i64) -> (Vec<i64>, Vec<i64>) {
     }
     let i = states.iter().position(|&s| s == state).unwrap_or(0) + 1;
     (results[..i].to_vec(), results[i..].to_vec())
+}
+
+/// Infinite iterate over all coefficients from the square root expansion.
+pub fn root_expansion_iterator(
+    number: i64,
+) -> Chain<std::vec::IntoIter<i64>, Cycle<std::vec::IntoIter<i64>>> {
+    let (prefix, periodic) = expand_root(number);
+    prefix.into_iter().chain(periodic.into_iter().cycle())
+}
+
+pub struct ConvergentSeries {
+    coefficients: Vec<i64>,
+    expansion_iterator: Chain<std::vec::IntoIter<i64>, Cycle<std::vec::IntoIter<i64>>>,
+}
+
+impl ConvergentSeries {
+    pub fn new(number: i64) -> Self {
+        ConvergentSeries {
+            coefficients: Vec::new(),
+            expansion_iterator: root_expansion_iterator(number),
+        }
+    }
+}
+
+impl Iterator for ConvergentSeries {
+    type Item = Fraction;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.coefficients
+            .push(self.expansion_iterator.next().unwrap());
+        Some(convergent_from_continued_fraction(&self.coefficients))
+    }
 }
 
 /// Takes a finite continued fraction and simplifies to a fraction.

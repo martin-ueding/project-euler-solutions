@@ -1,12 +1,20 @@
-use crate::integers::is_square;
+use num_bigint::BigInt;
+
+use crate::{continued_fractions::ConvergentSeries, integers::is_square};
 
 /// Verifies a solution for $x^2 - D y^2 = c$.
 pub fn solves_diophantine_equation(x: i64, y: i64, d: i64, c: i64) -> bool {
-    x * x - d * y * y == c
+    let x_ = BigInt::from(x);
+    let y_ = BigInt::from(y);
+    let c_ = BigInt::from(c);
+    x_.pow(2) - d * y_.pow(2) == c_
 }
 
 /// Find the minimal solution for $x^2 - D y^2 = c$.
 pub fn find_initial_solution(d: i64, c: i64) -> (i64, i64) {
+    if c == 1 {
+        return find_initial_solution_pell(d);
+    }
     if is_square(d) {
         panic!("d = {d} must not be a square number!");
     }
@@ -17,7 +25,19 @@ pub fn find_initial_solution(d: i64, c: i64) -> (i64, i64) {
             return (x, y);
         }
     }
-    panic!("Couldn't find a solution!")
+    panic!("Couldn't find a solution!");
+}
+
+fn find_initial_solution_pell(d: i64) -> (i64, i64) {
+    for (x, y) in ConvergentSeries::new(d) {
+        if x == 1 {
+            continue;
+        }
+        if solves_diophantine_equation(x, y, d, 1) {
+            return (x, y);
+        }
+    }
+    panic!("Couldn't find a solution!");
 }
 
 pub struct DiophantineSolutionIterator {
