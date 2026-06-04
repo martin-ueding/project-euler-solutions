@@ -22,7 +22,7 @@ export default withSidebar(
     documentRootPath: 'docs',
     useTitleFromFileHeading: true,
     capitalizeEachWords: false,
-    sortMenusByName: true,
+    sortMenusByName: false,
     sortFolderTo: 'bottom',
     collapsed: false,
   },
