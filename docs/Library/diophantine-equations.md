@@ -9,9 +9,13 @@ where $x, y, D, c \in \mathbb Z$. This type of equation essentially describes a 
 We can find the first solution just by trying values of $y$. We manipulate the equation to become
 $$ x^2 = D y^2 + c \,. $$
 
-Then we just iterate through $y \in \mathbb N$ and check whether the right side is a square number. This can be checked by requiring that all prime factors within that number occur an even number.
+Then we just iterate through $y \in \mathbb N$ and check whether the right side is a perfect square. This can be checked by requiring that all prime factors within that number occur an even number.
 
 Example: For $D = 12$ and $c = 4$, we already find $y = 0$ to be a solution with $x = 2$.
+
+### Special case c = 1
+
+In the special case that we have $c = 1$, we can find the minimal solution faster. Instead of trying out every possible $y$, we instead the [convergents of $\sqrt D$](continued-fractions.md#convergents). Let us denote the $i$-th such convergent as $h_i/k_i$. Then we can test whether $x = h_i$ and $y = k_i$ is a solution. This way we have way less to check.
 
 ## Finding more solutions
 
@@ -46,7 +50,7 @@ We had reformulated finding a solution to the Diophantine equation by finding el
 Therefore we want to find solutions to the following equation, which is a special case and called [Pell's equation](https://en.wikipedia.org/wiki/Pell%27s_equation):
 $$ x^2 - D y^2 = 1 \,, $$
 
-We use the same approach to find the minimal solution as above. In this case we can directly find $x = 1$ and $y = 0$. As we will see later, this one will not help us. We need to find one with $y > 0$. So we just keep trying until we find one. With $y = 2$ we have $4 \times 12 + 1 = 49$, which is a square. So our solution is $x = 7$ and $y = 2$.
+We can use the more efficient approach with the convergents to find the initial solution here. With $y = 2$ we have $4 \times 12 + 1 = 49$, which is a perfect square. So our solution is $x = 7$ and $y = 2$.
 
 By construction, we know that $N(7 + \sqrt{12} \cdot 2) = 1$. Let us define our initial solution to the Diophantine equation as $\alpha := 2 + \sqrt{12} \cdot 0$ and our non-trivial solution to Pell's equation as $\beta := 7 + \sqrt{12} \cdot 2$. By construction we know that $N(\alpha) = 4$ and $N(\beta) = 1$. Using the multiplicative property, we know that $N(\alpha \beta) = 4$. Actually, $N(\alpha \beta^n) = 4$ for all $n \in \mathbb N_0$ and hence are solution to the Diophantine equation.
 

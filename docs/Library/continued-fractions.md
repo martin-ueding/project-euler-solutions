@@ -1,7 +1,7 @@
 # Continued Fractions
 
 A continued fraction is something that looks like
-$$ a_0+\frac 1 {a_1+\frac 1 {a_2+ \frac 1 {a3+ \dots}}} \,. $$
+$$ a_0 + \frac 1 {a_1 + \frac 1 {a_2 + \frac 1 {a_3 + \dots}}} \,. $$
 
 These are useful for approximating irrational numbers by a rational one. One can just cut off the continued fraction at any point and simplify the fraction.
 
@@ -47,7 +47,7 @@ We're only interested in the coefficients. There is a non-periodic part of $(1)$
 
 ## Convergents
 
-We can take a set of coefficients like $(1, 1, 2, 1)$ to approximate $\sqrt 3$. This then takes the form
+The continued fractions are infinitely deep and hence equal the irrational number. When we cut off the expansion at some point, we can get a rational approximation. Let us again take $\sqrt 3$ and cut off the expansion at $(1, 1, 2, 1)$. The continued fraction then takes this finite form:
 $$ \sqrt 3 \approx 1 + \frac{1}{1 + \frac{1}{2 + \frac{1}{1 + \frac{1}{2}}}} \,. $$
 
 We need to simplify this fraction. We start on the inside and simplify:
