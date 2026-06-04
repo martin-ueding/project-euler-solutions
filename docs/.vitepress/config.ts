@@ -9,6 +9,7 @@ export default withSidebar(
       math: true,
     },
     themeConfig: {
+      search: { provider: 'local' },
       socialLinks: [
         { icon: 'github', link: 'https://github.com/martin-ueding/project-euler-solutions' },
       ],
