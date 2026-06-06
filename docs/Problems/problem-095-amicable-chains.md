@@ -15,3 +15,20 @@ What we can do is just track the numbers that were already visited. Once we hit 
 Once we hit 0, we know that all the numbers that we visited will eventually end up with 0. When we try a different starting number and hit such a known number, we can directly abort tracking that chain.
 
 This naive approach took 56 s with some nice Rust code on a CPU from 2019. Given that the problem is from 2005, this would have clearly violated the one-minute-rule.
+
+## Sieve-like approach
+
+Similarly to the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) for primes, we can construct an array where at each index we have the sum of divisors. In order to fill it, we can use a simple algorithm:
+
+- Create an array up to the upper bound of 1,000,000 with zeros.
+- For every possible divisor between 1 and 1,000,000:
+    - For every possible multiplicator starting from two:
+        - Compute the index as divisor × multiplicator.
+        - If the index is beyond the array, stop going through the multiplicators.
+        - Add the current divisor to the array position at the given index.
+
+In the end one will have the sum of proper divisors at each array position.
+
+In a next step, we can then find the chain lengths using a similar algorithm as before. We track which numbers we have visited. If we reach zero, we know that all these numbers will be eventually zero. If we end up at a previously visited number, we can already stop.
+
+This more intelligent approach runs in 451 ms, which is a factor 125 faster than before.
