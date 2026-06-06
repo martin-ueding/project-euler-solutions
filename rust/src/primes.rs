@@ -186,6 +186,13 @@ impl<'a> Factorizer<'a> {
     }
 }
 
+fn sum_proper_divisors(number: i64, prime_list: &mut PrimeList) -> i64 {
+    get_divisors(number, prime_list)
+        .into_iter()
+        .take_while(|&d| d < number)
+        .sum()
+}
+
 #[cfg(test)]
 mod tests {
     use crate::integers::is_square;
@@ -264,5 +271,13 @@ mod tests {
         assert!(is_square(625));
         assert!(!is_square(5));
         assert!(!is_square(624));
+    }
+
+    #[test]
+    fn test_sum_proper_divisors() {
+        let mut prime_list = PrimeList::new();
+        assert_eq!(sum_proper_divisors(28, &mut prime_list), 28);
+        assert_eq!(sum_proper_divisors(220, &mut prime_list), 284);
+        assert_eq!(sum_proper_divisors(284, &mut prime_list), 220);
     }
 }
