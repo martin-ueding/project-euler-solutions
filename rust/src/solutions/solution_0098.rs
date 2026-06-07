@@ -1,9 +1,41 @@
 use std::{
-    collections::{HashMap, HashSet},
+    cmp::max,
+    collections::{BTreeMap, HashMap},
     fs,
 };
 
 use itertools::Itertools;
+
+fn sort_digits(mut number: i64) -> String {
+    let mut digits: Vec<String> = Vec::new();
+    while number > 0 {
+        digits.push((number % 10).to_string());
+        number /= 10;
+    }
+    digits.sort();
+    digits.join("")
+}
+
+fn normalize_mask(class: &str) -> String {
+    let mut result = String::new();
+    let mut r = 'a';
+    let mut last = 'A';
+    for c in class.chars() {
+        if result.is_empty() {
+            result.push(r);
+        } else {
+            if last == c {
+                result.push(r);
+            } else {
+                r = char::from_u32(r as u32 + 1).unwrap_or(r);
+                result.push(r);
+            }
+        }
+
+        last = c;
+    }
+    result
+}
 
 fn solution() -> i64 {
     let content = fs::read_to_string("../data/0098_words.txt").expect("File couldn't be found!");
@@ -11,21 +43,106 @@ fn solution() -> i64 {
     let json_string = format!("[{}]", row);
     let vec: Vec<String> = serde_json::from_str(&json_string).expect("Invalid JSON!");
 
-    let mut anagram_classes: HashMap<String, Vec<String>> = HashMap::new();
+    let mut anagram_classes: BTreeMap<String, Vec<String>> = BTreeMap::new();
     for s in vec {
         let class: String = s.chars().sorted().collect();
         anagram_classes.entry(class).or_default().push(s);
     }
-
     anagram_classes.retain(|_class, strings| strings.len() > 1);
+    let max_length = anagram_classes
+        .keys()
+        .map(|class| class.len())
+        .max()
+        .unwrap();
 
-    println!("{:?}", anagram_classes);
-    0
+    let squares: Vec<i64> = (1_i64..)
+        .map(|x| x.pow(2))
+        .take_while(|&sq| sq < 10_i32.pow(max_length as u32).into())
+        .collect();
+
+    let mut squares_classes: HashMap<String, Vec<i64>> = HashMap::new();
+    for square in squares {
+        let sorted_digits = sort_digits(square);
+        if sorted_digits[0..1] == *"0" {
+            continue;
+        }
+        squares_classes
+            .entry(sorted_digits)
+            .or_default()
+            .push(square);
+    }
+    squares_classes.retain(|_class, squares| squares.len() > 1);
+
+    let mut squares_classes_2: HashMap<String, Vec<String>> = HashMap::new();
+    for class in squares_classes.keys() {
+        squares_classes_2
+            .entry(normalize_mask(class))
+            .or_default()
+            .push(class.clone());
+    }
+
+    // println!("{:?}", anagram_classes);
+    // println!("{:?}", squares_classes);
+    println!("{:?}", squares_classes_2);
+
+    let mut biggest_prime: i64 = 0;
+
+    for (word_class, words) in anagram_classes.iter() {
+        // println!("word_class = {word_class}");
+        if let Some(potential_square_classes) = squares_classes_2.get(&normalize_mask(word_class)) {
+            // println!("potential_square_classes = {potential_square_classes:?}");
+            for square_class in potential_square_classes {
+                // println!(
+                //         "square_class = {square_class}, squares = {:?}",
+                //         squares_classes.get(square_class).unwrap()
+                //     );
+
+                for word_1 in words {
+                    for square_1 in squares_classes.get(square_class).unwrap().iter() {
+                        let mapping: BTreeMap<char, char> =
+                            word_1.chars().zip(square_1.to_string().chars()).collect();
+
+                        for word_2 in words {
+                            if word_1 <= word_2 {
+                                continue;
+                            }
+                            for square_2 in squares_classes.get(square_class).unwrap().iter() {
+                                if square_1 <= square_2 {
+                                    continue;
+                                }
+                                let other_mapping: BTreeMap<char, char> =
+                                    word_2.chars().zip(square_2.to_string().chars()).collect();
+
+                                if mapping == other_mapping {
+                                    println!(
+                                        "| {} - {} | {} - {} | `{:?}` |",
+                                        word_1, word_2, square_1, square_2, mapping
+                                    );
+                                    biggest_prime = max(biggest_prime, *square_2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    biggest_prime
 }
 
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 98,
         implementations: &[("", solution)],
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_normalize_mask() {
+        assert_eq!(normalize_mask("AADDFFY"), "aabbccd");
     }
 }

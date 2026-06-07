@@ -62,3 +62,77 @@ After this grouping and filtering of the data, we're left with a bunch of anagra
     "OPST"     : ["POST",      "SPOT",      "STOP"]
 }
 ```
+
+# Square classes
+
+We can do a similar thing for the squares and build anagram classes out of square numbers. When forming the class key, we need to make sure that we track the zeros by using strings of digits instead of plain integers.
+
+This gives us anagram squares classes like these:
+
+```json
+{
+    "22334689" : [ 32239684,  33269824,  42823936                                            ],
+    "1225789"  : [  2758921,   8791225                                                       ],
+    "112556689": [125865961, 126855169, 158659216, 215619856, 526518916, 552861169, 652598116],
+    "244458999": [458944929, 995844249                                                       ],
+    "122346778": [163277284, 216737284, 226773481, 271326784                                 ],
+    "112247899": [114982729, 212197489, 749281129                                            ]
+}
+```
+
+# Mappings
+
+The mappings between letters and digits is not unique, we can freely chose those. Hence we need to normalize one step further to get the structure. So what I do is to replace all consecutive digits that are equal with the same letter, but count the letters upwards. So for instance `111223` would be mapped to `aaabbc`, but so would `222559` or `000889`. We then get another mapping that groups anagram squares classes by their digits. We get the following:
+
+```json
+{
+    "aabbbbcde": ["114444567", "114444679", "114444589", "112222459", "112222359"],
+    "aabcddde" : [
+        "11268889", "11356668", "11234448", "33467778", "44678889", "11456668", "22458889"
+    ],
+    "abbcddefg": [
+        "122344579", "233455689", "122344569", "122344678", "233566789", "122344567", "122466789",
+        "122566789", "122355679", "133455679", "122344578", "344566789", "122455789", "122455678"
+    ],
+    "aabccdde" : [
+        "11355669", "11455668", "33455889", "22566778", "22455667", "11466889", "11244889",
+        "22466889", "22355667", "11344669"
+    ]
+}
+```
+
+You can see for instance that `114444567` and `114444679` differ in their digit content but not in the structure.
+
+# Matching
+
+The matching now works like this:
+
+- We iterate through all the word classes with their key (like `ABDOR`).
+- We normalize that key to `abcde`, there are four distinct letters in there, the first one occurs twice.
+- We take a look into the square classes that have the same pattern. There we have `["34569", "13468", "12679", "24579", "14589", "24589", "12367", "16789"]`.
+- We go though all of these classes, let's pick `16789` as an example.
+- Inside that class we find the squares `[17689, 18769, 78961, 81796]`.
+- We go through all the pairs of words in our word class, "SHEET" and "THESE".
+- We go through all the pairs of primes in the chosen square class.
+- We see how the first word maps its letters onto the first prime and the second word onto the second prime.
+- If these mappings match, then we have found square anagrams!
+
+Doing this for all possible combinations gives the following pairs:
+
+| Anagram Pair | Square Pair | Letter to Digit Mapping |
+| --- | --- | --- |
+| BROAD - BOARD | **18769** - 17689 | `{'A': '6', 'B': '1', 'D': '9', 'O': '7', 'R': '8'}` |
+| RACE - CARE | 9216 - 1296 | `{'A': '2', 'C': '1', 'E': '6', 'R': '9'}` |
+| LEAD - DEAL | 4761 - 1764 | `{'A': '6', 'D': '1', 'E': '7', 'L': '4'}` |
+| HEAT - HATE | 1936 - 1369 | `{'A': '3', 'E': '9', 'H': '1', 'T': '6'}` |
+| MEAL - MALE | 1936 - 1369 | `{'A': '3', 'E': '9', 'L': '6', 'M': '1'}` |
+| TEA - EAT | 625 - 256 | `{'A': '5', 'E': '2', 'T': '6'}` |
+| GOD - DOG | 961 - 169 | `{'D': '1', 'G': '9', 'O': '6'}` |
+| LIFE - FILE | 9216 - 1296 | `{'E': '6', 'F': '1', 'I': '2', 'L': '9'}` |
+| TONE - NOTE | 9216 - 1296 | `{'E': '6', 'N': '1', 'O': '2', 'T': '9'}` |
+| WHO - HOW | 625 - 256 | `{'H': '2', 'O': '5', 'W': '6'}` |
+| THUS - SHUT | 4761 - 1764 | `{'H': '7', 'S': '1', 'T': '4', 'U': '6'}` |
+| SIT - ITS | 625 - 256 | `{'I': '2', 'S': '6', 'T': '5'}` |
+| OWN - NOW | 961 - 196 | `{'N': '1', 'O': '9', 'W': '6'}` |
+
+The desired answer is the largest square number that occurs in any of these pairs.
