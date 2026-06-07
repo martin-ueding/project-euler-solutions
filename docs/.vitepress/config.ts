@@ -11,6 +11,7 @@ export default withSidebar(
     themeConfig: {
       nav: [
         { text: "Source Code", link: "https://github.com/martin-ueding/project-euler-solutions" },
+        { text: "Older Solutions", link: "https://martin-ueding.de/pages/project-euler/" },
         { text: "Martin Ueding", link: "https://martin-ueding.de/" },
       ],
       search: { provider: 'local' },
