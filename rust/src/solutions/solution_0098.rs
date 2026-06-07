@@ -145,4 +145,9 @@ mod tests {
     fn test_normalize_mask() {
         assert_eq!(normalize_mask("AADDFFY"), "aabbccd");
     }
+
+    #[test]
+    fn test_solution() {
+        assert_eq!(solution(), 17_689);
+    }
 }
