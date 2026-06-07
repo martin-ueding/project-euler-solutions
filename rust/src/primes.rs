@@ -186,7 +186,7 @@ impl<'a> Factorizer<'a> {
     }
 }
 
-fn sum_proper_divisors(number: i64, prime_list: &mut PrimeList) -> i64 {
+pub fn sum_proper_divisors(number: i64, prime_list: &mut PrimeList) -> i64 {
     get_divisors(number, prime_list)
         .into_iter()
         .take_while(|&d| d < number)
