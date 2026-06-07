@@ -107,10 +107,10 @@ fn solution() -> i64 {
                             word_2.chars().zip(square_2.to_string().chars()).collect();
 
                         if mapping == other_mapping {
-                            println!(
-                                "| {} - {} | {} - {} | `{:?}` |",
-                                word_1, word_2, square_1, square_2, mapping
-                            );
+                            // println!(
+                            //     "| {} - {} | {} - {} | `{:?}` |",
+                            //     word_1, word_2, square_1, square_2, mapping
+                            // );
                             biggest_prime = max(biggest_prime, *square_2);
                         }
                     }
