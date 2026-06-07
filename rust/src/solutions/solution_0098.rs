@@ -82,48 +82,43 @@ fn solution() -> i64 {
     let mut biggest_prime: i64 = 0;
 
     for (word_class, words) in anagram_classes.iter() {
-        // println!("word_class = {word_class}");
-        if let Some(potential_square_classes) = squares_classes_2.get(&normalize_mask(word_class)) {
-            // println!("potential_square_classes = {potential_square_classes:?}");
-            for square_class in potential_square_classes {
-                // println!(
-                //         "square_class = {square_class}, squares = {:?}",
-                //         squares_classes.get(square_class).unwrap()
-                //     );
+        for square_class in squares_classes_2
+            .get(&normalize_mask(word_class))
+            .into_iter()
+            .flatten()
+        {
+            for (word_1, word_2) in words.iter().zip(words) {
+                if word_1 <= word_2 {
+                    continue;
+                }
 
-                for word_1 in words {
-                    for square_1 in squares_classes.get(square_class).unwrap().iter() {
-                        let mapping: BTreeMap<char, char> =
-                            word_1.chars().zip(square_1.to_string().chars()).collect();
-                        if mapping.len() < word_1.len() {
+                for square_1 in squares_classes.get(square_class).unwrap().iter() {
+                    let mapping: BTreeMap<char, char> =
+                        word_1.chars().zip(square_1.to_string().chars()).collect();
+                    if mapping.len() < word_1.len() {
+                        continue;
+                    }
+
+                    for square_2 in squares_classes.get(square_class).unwrap().iter() {
+                        if square_1 <= square_2 {
                             continue;
                         }
+                        let other_mapping: BTreeMap<char, char> =
+                            word_2.chars().zip(square_2.to_string().chars()).collect();
 
-                        for word_2 in words {
-                            if word_1 <= word_2 {
-                                continue;
-                            }
-                            for square_2 in squares_classes.get(square_class).unwrap().iter() {
-                                if square_1 <= square_2 {
-                                    continue;
-                                }
-                                let other_mapping: BTreeMap<char, char> =
-                                    word_2.chars().zip(square_2.to_string().chars()).collect();
-
-                                if mapping == other_mapping {
-                                    println!(
-                                        "| {} - {} | {} - {} | `{:?}` |",
-                                        word_1, word_2, square_1, square_2, mapping
-                                    );
-                                    biggest_prime = max(biggest_prime, *square_2);
-                                }
-                            }
+                        if mapping == other_mapping {
+                            println!(
+                                "| {} - {} | {} - {} | `{:?}` |",
+                                word_1, word_2, square_1, square_2, mapping
+                            );
+                            biggest_prime = max(biggest_prime, *square_2);
                         }
                     }
                 }
             }
         }
     }
+
     biggest_prime
 }
 
