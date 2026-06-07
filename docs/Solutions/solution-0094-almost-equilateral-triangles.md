@@ -49,7 +49,7 @@ This type of equation has occurred multiple times in these problems and it is th
 
 ## Solutions of the Diophantine equation
 
-As written in the library page, we can generate solutions for this equation systematically. We just need to convert the $x$ back to $a$ using
+As written in the library page, we can generate solutions $(x, y)$ for this equation systematically. We just need to convert the $x$ back to $a$ using
 $$ a = \frac{x \pm 1}{3} $$
 if $x \pm 1$ is actually divisible by 3.
 
