@@ -35,6 +35,15 @@ fn normalize_mask(class: &str) -> String {
         .join("-")
 }
 
+fn make_mapping(word: &str, number: &str) -> Option<BTreeMap<char, char>> {
+    let mapping: BTreeMap<char, char> = word.chars().zip(number.to_string().chars()).collect();
+    if mapping.len() == word.len() {
+        Some(mapping)
+    } else {
+        None
+    }
+}
+
 fn solution() -> i64 {
     let content = fs::read_to_string("../data/0098_words.txt").expect("File couldn't be found!");
     let row = content.trim();
@@ -80,33 +89,26 @@ fn solution() -> i64 {
     }
 
     let mut biggest_prime: i64 = 0;
-
     for (word_class, words) in anagram_classes.iter() {
         for square_class in squares_classes_2
             .get(&normalize_mask(word_class))
             .into_iter()
             .flatten()
         {
-            for (word_1, word_2) in words.iter().zip(words) {
-                if word_1 <= word_2 {
-                    continue;
-                }
-
+            for (word_1, word_2) in words.iter().zip(words).filter(|(w1, w2)| w1 < w2) {
                 for square_1 in squares_classes.get(square_class).unwrap().iter() {
-                    let mapping: BTreeMap<char, char> =
-                        word_1.chars().zip(square_1.to_string().chars()).collect();
-                    if mapping.len() < word_1.len() {
-                        continue;
-                    }
+                    let mapping = match make_mapping(word_1, &square_1.to_string()) {
+                        Some(x) => x,
+                        None => continue,
+                    };
 
-                    for square_2 in squares_classes.get(square_class).unwrap().iter() {
-                        if square_1 <= square_2 {
-                            continue;
-                        }
-                        let other_mapping: BTreeMap<char, char> =
-                            word_2.chars().zip(square_2.to_string().chars()).collect();
-
-                        if mapping == other_mapping {
+                    for square_2 in squares_classes
+                        .get(square_class)
+                        .unwrap()
+                        .iter()
+                        .filter(|s2| square_1 < s2)
+                    {
+                        if mapping == make_mapping(word_2, &square_2.to_string()).unwrap() {
                             // println!(
                             //     "| {} - {} | {} - {} | `{:?}` |",
                             //     word_1, word_2, square_1, square_2, mapping
@@ -118,7 +120,6 @@ fn solution() -> i64 {
             }
         }
     }
-
     biggest_prime
 }
 
