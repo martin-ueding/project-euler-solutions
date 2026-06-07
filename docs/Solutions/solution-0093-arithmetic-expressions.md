@@ -3,7 +3,7 @@
 In [Problem 93](https://projecteuler.net/problem=93), we're asked to find four distinct digits such that can generate a lot of consecutive numbers using all possible arithmetic expressions.
 
 The number of combinations seems to be overwhelming at first. We can reduce the combinatorics a lot, though. Let us denote the four digit positions with $x_1$ to $x_4$ and the three binary operations with $\circ_1$ to $\circ_3$. Essentially, there are just two structurally different expressions:
-$$ (x_1 \circ_1 x_2) \circ_2 (x_3 \circ_3 x_4), \\quad ((x_1 \circ_1 x_2) \circ_2 x_3) \circ_3 x_4 \,. $$
+$$ (x_1 \circ_1 x_2) \circ_2 (x_3 \circ_3 x_4), \quad ((x_1 \circ_1 x_2) \circ_2 x_3) \circ_3 x_4 \,. $$
 
 The algorithm is the following:
 
