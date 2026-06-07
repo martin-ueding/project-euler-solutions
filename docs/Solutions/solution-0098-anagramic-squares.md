@@ -6,7 +6,7 @@ In Problem 98, we're asked to work anagrams and substitute letters for digits to
 
 The file that we're given starts like this:
 
-```csv
+```json
 "A","ABILITY","ABLE","ABOUT","ABOVE"
 ```
 
@@ -82,26 +82,21 @@ This gives us anagram squares classes like these:
 
 # Mappings
 
-The mappings between letters and digits is not unique, we can freely chose those. Hence we need to normalize one step further to get the structure. So what I do is to replace all consecutive digits that are equal with the same letter, but count the letters upwards. So for instance `111223` would be mapped to `aaabbc`, but so would `222559` or `000889`. We then get another mapping that groups anagram squares classes by their digits. We get the following:
+The mappings between letters and digits is not unique, we can freely chose those. Hence we need to normalize one step further to get the structure. We count how many of the same letter or digit is in there. Then we take these counts and sort them, to normalize all permutations. Then we join these counts with a separator such that they give unique keys.
+
+For instance for `11123` this would be come `1-2-3` because there is one group of length 1, one group of length 2 and another of length 3. For `222559` we get the same key. Something like `13578` would just become `1-1-1-1-1`.
+
+We then get another mapping that groups anagram squares classes by their digits. We get the following:
 
 ```json
 {
-    "aabbbbcde": ["114444567", "114444679", "114444589", "112222459", "112222359"],
-    "aabcddde" : [
-        "11268889", "11356668", "11234448", "33467778", "44678889", "11456668", "22458889"
-    ],
-    "abbcddefg": [
-        "122344579", "233455689", "122344569", "122344678", "233566789", "122344567", "122466789",
-        "122566789", "122355679", "133455679", "122344578", "344566789", "122455789", "122455678"
-    ],
-    "aabccdde" : [
-        "11355669", "11455668", "33455889", "22566778", "22455667", "11466889", "11244889",
-        "22466889", "22355667", "11344669"
-    ]
+    "1-1-1-1": ["1369",      "1269",      "1467"                               ],
+    "1-1-1-6": ["111111268"                                                    ],
+    "1-1-2-5": ["113444449", "467777799", "166666779", "111114667", "111115669"]
 }
 ```
 
-You can see for instance that `114444567` and `114444679` differ in their digit content but not in the structure.
+You can see for instance that `113444449` and `467777799` differ in their digit content but not in the structure.
 
 # Matching
 
