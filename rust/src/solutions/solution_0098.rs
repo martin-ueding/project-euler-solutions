@@ -11,29 +11,16 @@ fn solution() -> i64 {
     let json_string = format!("[{}]", row);
     let vec: Vec<String> = serde_json::from_str(&json_string).expect("Invalid JSON!");
 
-    let mut strings_by_length: HashMap<i64, HashSet<String>> = HashMap::new();
-    for s in vec.iter() {
-        strings_by_length
-            .entry(s.len() as i64)
-            .or_default()
-            .insert(s.clone());
-    }
-
     let mut anagram_classes: HashMap<String, Vec<String>> = HashMap::new();
-    for s in vec.iter() {
+    for s in vec {
         let class: String = s.chars().sorted().collect();
-        anagram_classes.entry(class).or_default().push(s.clone());
+        anagram_classes.entry(class).or_default().push(s);
     }
 
     anagram_classes.retain(|_class, strings| strings.len() > 1);
 
     println!("{:?}", anagram_classes);
-
-    anagram_classes
-        .iter()
-        .map(|(_class, strings)| strings.len())
-        .max()
-        .unwrap() as i64
+    0
 }
 
 inventory::submit! {
