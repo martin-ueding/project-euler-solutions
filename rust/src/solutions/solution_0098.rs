@@ -16,25 +16,23 @@ fn sort_digits(mut number: i64) -> String {
     digits.join("")
 }
 
-fn normalize_mask(class: &str) -> String {
-    let mut result = String::new();
-    let mut r = 'a';
-    let mut last = 'A';
-    for c in class.chars() {
-        if result.is_empty() {
-            result.push(r);
-        } else {
-            if last == c {
-                result.push(r);
-            } else {
-                r = char::from_u32(r as u32 + 1).unwrap_or(r);
-                result.push(r);
-            }
+fn split_on_change(s: &str) -> Vec<String> {
+    s.chars().fold(Vec::new(), |mut acc, c| {
+        match acc.last_mut() {
+            Some(last) if last.starts_with(c) => last.push(c),
+            _ => acc.push(String::from(c)),
         }
+        acc
+    })
+}
 
-        last = c;
-    }
-    result
+fn normalize_mask(class: &str) -> String {
+    split_on_change(class)
+        .iter()
+        .map(|x| x.len())
+        .sorted()
+        .map(|l| l.to_string())
+        .join("-")
 }
 
 fn solution() -> i64 {
@@ -81,10 +79,6 @@ fn solution() -> i64 {
             .push(class.clone());
     }
 
-    // println!("{:?}", anagram_classes);
-    // println!("{:?}", squares_classes);
-    println!("{:?}", squares_classes_2);
-
     let mut biggest_prime: i64 = 0;
 
     for (word_class, words) in anagram_classes.iter() {
@@ -101,6 +95,9 @@ fn solution() -> i64 {
                     for square_1 in squares_classes.get(square_class).unwrap().iter() {
                         let mapping: BTreeMap<char, char> =
                             word_1.chars().zip(square_1.to_string().chars()).collect();
+                        if mapping.len() < word_1.len() {
+                            continue;
+                        }
 
                         for word_2 in words {
                             if word_1 <= word_2 {

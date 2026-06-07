@@ -108,7 +108,7 @@ You can see for instance that `114444567` and `114444679` differ in their digit 
 The matching now works like this:
 
 - We iterate through all the word classes with their key (like `ABDOR`).
-- We normalize that key to `abcde`, there are four distinct letters in there, the first one occurs twice.
+- We normalize that key to `1-1-1-1-1`, there are five distinct letters in there, each occurring once. `EEHST` would become `1-1-1-2` (number ordered for uniqueness).
 - We take a look into the square classes that have the same pattern. There we have `["34569", "13468", "12679", "24579", "14589", "24589", "12367", "16789"]`.
 - We go though all of these classes, let's pick `16789` as an example.
 - Inside that class we find the squares `[17689, 18769, 78961, 81796]`.
