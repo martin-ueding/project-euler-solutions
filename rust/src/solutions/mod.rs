@@ -2,24 +2,25 @@
 //!
 //! Code that is reusable should go into the library files. Everything else that is specific to a given problem should go into the solution module.
 
-mod solution_1;
-mod solution_10;
-mod solution_100;
-mod solution_12;
-mod solution_14;
-mod solution_2;
-mod solution_3;
-mod solution_4;
-mod solution_5;
-mod solution_6;
-mod solution_64;
-mod solution_65;
-mod solution_66;
-mod solution_7;
-mod solution_8;
-mod solution_88;
-mod solution_90;
-mod solution_91;
-mod solution_93;
-mod solution_94;
-mod solution_95;
+mod solution_0001;
+mod solution_0002;
+mod solution_0003;
+mod solution_0004;
+mod solution_0005;
+mod solution_0006;
+mod solution_0007;
+mod solution_0008;
+mod solution_0010;
+mod solution_0012;
+mod solution_0014;
+mod solution_0064;
+mod solution_0065;
+mod solution_0066;
+mod solution_0088;
+mod solution_0090;
+mod solution_0091;
+mod solution_0093;
+mod solution_0094;
+mod solution_0095;
+mod solution_0098;
+mod solution_0100;
