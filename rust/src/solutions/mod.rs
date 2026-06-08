@@ -25,3 +25,4 @@ mod solution_0095;
 mod solution_0098;
 mod solution_0100;
 mod solution_0101;
+mod solution_0102;
