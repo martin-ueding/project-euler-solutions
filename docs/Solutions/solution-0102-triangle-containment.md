@@ -7,7 +7,7 @@ There are many different ways to check whether a point is contained in a triangl
 Without loss of generality, let us assume that the vertices are arranged in a counterclockwise fashion. If the origin is within the triangle, the connections from one vertex to the origin will always be left of the connection to the next vertex. This holds for all three vertices. If the origin is outside, some of these origin connections will be on the left, others on the right.
 
 We can express this “left or right” relation with a cross product. Since we're in two dimensions only, we only need to look at the third component of the cross product. For two vectors $\vec a$ and $\vec b$, the cross product vector $\vec c$ is defined as
-$$ c_i = \epsilon_{ijk} a_j k_j \,, $$
+$$ c_i = \epsilon_{ijk} a_j b_k \,, $$
 where $\epsilon_{ijk}$ is the [Levi-Civita symbol](https://en.wikipedia.org/wiki/Levi-Civita_symbol) and [summation convention](https://en.wikipedia.org/wiki/Einstein_notation) is assumed.
 
 In our concrete case we're interested in $c_3$:
