@@ -4,5 +4,36 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "cmake.sourceDirectory": "/home/mu/Projekte/project-euler-solutions/cpp"
+    "cmake.configureOnOpen": false,
+    "cmake.options.statusBarVisibility": "hidden",
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/rust/target/**": true,
+        "**/python/.venv/**": true,
+        "**/build/**": true,
+        "**/cpp/build/**": true,
+        "**/.cache/**": true,
+        "**/__pycache__/**": true,
+        "**/.pytest_cache/**": true,
+        "**/.ruff_cache/**": true,
+        "**/site/**": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/rust/target": true,
+        "**/python/.venv": true,
+        "**/build": true,
+        "**/cpp/build": true,
+        "**/.cache": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/.ruff_cache": true,
+        "**/site": true
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/.ruff_cache": true,
+        "**/.cache": true
+    }
 }
