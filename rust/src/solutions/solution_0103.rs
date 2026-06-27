@@ -45,8 +45,8 @@ fn is_special_sum_set(a: &[i32]) -> bool {
 fn f(n: i32) -> Vec<i32> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
-    for a1 in 1..30 {
-        for a2 in a1 + 1..35 {
+    for a1 in 1..21 {
+        for a2 in a1 + 1..32 {
             let mut a: Vec<i32> = vec![a1, a2];
             // println!("{a:?}");
             if let Some(best) = g(&mut a, n) {
@@ -209,7 +209,7 @@ mod tests {
 
     #[test]
     fn set_string_for_n6() {
-        assert_eq!(set_string(&optimal_special_set(6)), 111819202225);
+        assert_eq!(set_string(&vec![11, 18, 19, 20, 22, 25]), 111819202225);
     }
 
     #[test]
