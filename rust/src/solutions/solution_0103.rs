@@ -1,11 +1,11 @@
 use itertools::Itertools;
 
 fn solution() -> i64 {
-    let o = optimal_special_set(7);
+    let o = find_optimal_special_set(7);
     set_string(&o)
 }
 
-fn optimal_special_set(n: i32) -> Vec<i32> {
+fn find_optimal_special_set(n: i32) -> Vec<i32> {
     if n == 1 {
         vec![1]
     } else {
@@ -163,32 +163,32 @@ mod tests {
 
     #[test]
     fn optimal_special_set_n1() {
-        assert_eq!(optimal_special_set(1), vec![1]);
+        assert_eq!(find_optimal_special_set(1), vec![1]);
     }
 
     #[test]
     fn optimal_special_set_n2() {
-        assert_eq!(optimal_special_set(2), vec![1, 2]);
+        assert_eq!(find_optimal_special_set(2), vec![1, 2]);
     }
 
     #[test]
     fn optimal_special_set_n3() {
-        assert_eq!(optimal_special_set(3), vec![2, 3, 4]);
+        assert_eq!(find_optimal_special_set(3), vec![2, 3, 4]);
     }
 
     #[test]
     fn optimal_special_set_n4() {
-        assert_eq!(optimal_special_set(4), vec![3, 5, 6, 7]);
+        assert_eq!(find_optimal_special_set(4), vec![3, 5, 6, 7]);
     }
 
     #[test]
     fn optimal_special_set_n5() {
-        assert_eq!(optimal_special_set(5), vec![6, 9, 11, 12, 13]);
+        assert_eq!(find_optimal_special_set(5), vec![6, 9, 11, 12, 13]);
     }
 
     #[test]
     fn optimal_special_set_n6() {
-        assert_eq!(optimal_special_set(6), vec![11, 18, 19, 20, 22, 25]);
+        assert_eq!(find_optimal_special_set(6), vec![11, 18, 19, 20, 22, 25]);
     }
 
     #[test]
