@@ -2,9 +2,12 @@ use itertools::Itertools;
 
 fn optimal_special_set(n: i32) -> Vec<i32> {
     if n == 1 {
-        return vec![1];
+        vec![1]
+    } else if n == 2 {
+        vec![1, 2]
+    } else {
+        f(n)
     }
-    f(n)
 }
 
 fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
@@ -38,23 +41,30 @@ fn is_special_sum_set(a: &[i32]) -> bool {
 }
 
 fn f(n: i32) -> Vec<i32> {
-    for a1 in 1..5 {
-        for a2 in a1 + 1..5 {
+    let mut best_set: Option<Vec<i32>> = None;
+    let mut best_sum: Option<i32> = None;
+    for a1 in 1..20 {
+        for a2 in a1 + 1..20 {
             let mut a: Vec<i32> = vec![a1, a2];
+            // println!("{a:?}");
             if let Some(best) = g(&mut a, n) {
-                return best;
+                let sum: i32 = best.iter().sum();
+                if best_sum.is_none() || sum < best_sum.unwrap() {
+                    best_set = Some(best);
+                    best_sum = Some(sum);
+                }
             }
         }
     }
-    vec![]
+    best_set.unwrap()
 }
 
 fn g(a: &mut Vec<i32>, n: i32) -> Option<Vec<i32>> {
-    println!("{a:?}");
+    // println!("{a:?}");
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
     if is_special_sum_set(a) {
-        println!("{a:?} special");
+        // println!("{a:?} special");
         if a.len() < (n as usize) {
             for possible_number in get_possible_numbers(&a) {
                 a.push(possible_number);
@@ -126,10 +136,10 @@ mod tests {
         assert_eq!(optimal_special_set(4), vec![3, 5, 6, 7]);
     }
 
-    // #[test]
-    // fn optimal_special_set_n5() {
-    //     assert_eq!(optimal_special_set(5), vec![6, 9, 11, 12, 13]);
-    // }
+    #[test]
+    fn optimal_special_set_n5() {
+        assert_eq!(optimal_special_set(5), vec![6, 9, 11, 12, 13]);
+    }
 
     // #[test]
     // fn optimal_special_set_n6() {
