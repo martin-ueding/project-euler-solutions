@@ -13,7 +13,7 @@ fn find_optimal_special_set(n: i32) -> Vec<i32> {
         for k in 3..n + 1 {
             let candidate = get_next_candidate(&solution);
             let sum_ceiling: i32 = candidate.iter().sum();
-            solution = find_optimal_special_sum_set(k, sum_ceiling);
+            solution = find_osss(k, sum_ceiling);
         }
         solution
     }
@@ -27,7 +27,7 @@ fn get_next_candidate(a: &[i32]) -> Vec<i32> {
     result
 }
 
-fn find_optimal_special_sum_set(n: i32, sum_ceiling: i32) -> Vec<i32> {
+fn find_osss(n: i32, sum_ceiling: i32) -> Vec<i32> {
     (1..)
         .take_while(|&a1| a1 * n <= sum_ceiling)
         .flat_map(|a1| {
@@ -35,18 +35,18 @@ fn find_optimal_special_sum_set(n: i32, sum_ceiling: i32) -> Vec<i32> {
                 .take_while(move |a2| a1 + a2 * (n - 1) <= sum_ceiling)
                 .map(move |a2| (a1, a2))
         })
-        .map(|(a1, a2)| f(a1, a2, n, sum_ceiling))
+        .map(|(a1, a2)| find_osss_from_prefix(a1, a2, n, sum_ceiling))
         .flatten()
         .min_by_key(|a| a.iter().sum::<i32>())
         .unwrap()
 }
 
-fn f(a1: i32, a2: i32, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
+fn find_osss_from_prefix(a1: i32, a2: i32, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
     let mut a: Vec<i32> = vec![a1, a2];
-    complete_special_sum_set(&mut a, n, sum_ceiling)
+    complete_sss(&mut a, n, sum_ceiling)
 }
 
-fn complete_special_sum_set(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
+fn complete_sss(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
     if is_special_sum_set(a) {
@@ -56,7 +56,7 @@ fn complete_special_sum_set(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Optio
                     break;
                 }
                 a.push(possible_number);
-                let best_result = complete_special_sum_set(a, n, sum_ceiling);
+                let best_result = complete_sss(a, n, sum_ceiling);
                 if best_result.is_some() {
                     let sum: i32 = best_result.as_ref().unwrap().iter().sum();
                     if best_sum.is_none() || sum < best_sum.unwrap() {
