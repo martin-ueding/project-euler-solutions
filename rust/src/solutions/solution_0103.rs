@@ -39,62 +39,62 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_optimal_special_set_1() {
+    fn optimal_special_set_n1() {
         assert_eq!(optimal_special_set(1), vec![1]);
     }
 
     #[test]
-    fn test_optimal_special_set_2() {
+    fn optimal_special_set_n2() {
         assert_eq!(optimal_special_set(2), vec![1, 2]);
     }
 
     #[test]
-    fn test_optimal_special_set_3() {
+    fn optimal_special_set_n3() {
         assert_eq!(optimal_special_set(3), vec![2, 3, 4]);
     }
 
     #[test]
-    fn test_optimal_special_set_4() {
+    fn optimal_special_set_n4() {
         assert_eq!(optimal_special_set(4), vec![3, 5, 6, 7]);
     }
 
     #[test]
-    fn test_optimal_special_set_5() {
+    fn optimal_special_set_n5() {
         assert_eq!(optimal_special_set(5), vec![6, 9, 11, 12, 13]);
     }
 
     #[test]
-    fn test_optimal_special_set_6() {
+    fn optimal_special_set_n6() {
         assert_eq!(optimal_special_set(6), vec![11, 18, 19, 20, 22, 25]);
     }
 
     #[test]
-    fn test_is_special_sum_set_example_6() {
+    fn is_special_sum_set_accepts_n5_example() {
         assert!(is_special_sum_set(&vec![6, 9, 11, 12, 13]));
     }
 
     #[test]
-    fn test_satisfies_larger_constraint_1() {
+    fn satisfies_larger_constraint_accepts_n4_solution() {
         assert!(satisfies_larger_constraint(&vec![3, 5, 6, 7]));
     }
 
     #[test]
-    fn test_satisfies_larger_constraint_2() {
+    fn satisfies_larger_constraint_accepts_n5_solution() {
         assert!(satisfies_larger_constraint(&vec![6, 9, 11, 12, 13]));
     }
 
     #[test]
-    fn test_satisfies_larger_constraint_3() {
+    fn satisfies_larger_constraint_rejects_invalid_set() {
         assert!(!satisfies_larger_constraint(&vec![1, 2, 3, 5]));
     }
 
     #[test]
-    fn test_is_unequal_subsets_true() {
+    fn is_unequal_subsets_accepts_unequal_sums() {
         assert!(is_unequal_subsets(&vec![1, 2], &vec![4, 5]));
     }
 
     #[test]
-    fn test_is_unequal_subsets_false() {
+    fn is_unequal_subsets_rejects_equal_sums() {
         assert!(!is_unequal_subsets(&vec![1, 4], &vec![2, 3]));
     }
 }
