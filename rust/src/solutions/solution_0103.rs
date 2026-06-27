@@ -127,6 +127,13 @@ fn solution() -> i64 {
     set_string(&o)
 }
 
+fn get_next_candidate(a: &[i32]) -> Vec<i32> {
+    let middle_element = a[(a.len() + 1) / 2];
+    let mut result = vec![middle_element];
+    result.extend(a.iter().map(|&i| i + middle_element));
+    result
+}
+
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 103,
@@ -215,5 +222,13 @@ mod tests {
     #[test]
     fn solution_matches() {
         assert_eq!(solution(), 20_313_839_404_245);
+    }
+
+    #[test]
+    fn get_next_candidate_constructs_4_to_5() {
+        assert_eq!(
+            get_next_candidate(&vec![3, 5, 6, 7]),
+            vec![6, 9, 11, 12, 13]
+        );
     }
 }
