@@ -13,12 +13,13 @@ fn optimal_special_set(n: i32) -> Vec<i32> {
         for k in 3..n + 1 {
             let candidate = get_next_candidate(&solution);
             let sum_ceiling: i32 = candidate.iter().sum();
-            solution = f(k, sum_ceiling);
+            solution = find_optimal_special_sum_set(k, sum_ceiling);
         }
         solution
     }
 }
 
+/// Apply {a_1, a_2, …, a_n} -> {b, a_1 + b, a_2 + b, …}.
 fn get_next_candidate(a: &[i32]) -> Vec<i32> {
     let middle_element = a[(a.len() + 1) / 2];
     let mut result = vec![middle_element];
@@ -26,7 +27,7 @@ fn get_next_candidate(a: &[i32]) -> Vec<i32> {
     result
 }
 
-fn f(n: i32, sum_ceiling: i32) -> Vec<i32> {
+fn find_optimal_special_sum_set(n: i32, sum_ceiling: i32) -> Vec<i32> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
     for a1 in 1.. {
@@ -38,8 +39,7 @@ fn f(n: i32, sum_ceiling: i32) -> Vec<i32> {
                 break;
             }
             let mut a: Vec<i32> = vec![a1, a2];
-            // println!("{a:?}");
-            if let Some(best) = g(&mut a, n, sum_ceiling) {
+            if let Some(best) = complete_special_sum_set(&mut a, n, sum_ceiling) {
                 let sum: i32 = best.iter().sum();
                 if best_sum.is_none() || sum < best_sum.unwrap() {
                     best_set = Some(best);
@@ -51,22 +51,17 @@ fn f(n: i32, sum_ceiling: i32) -> Vec<i32> {
     best_set.unwrap()
 }
 
-fn g(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
-    // for _ in 0..a.len() {
-    //     print!(" ");
-    // }
-    // println!("{a:?}");
+fn complete_special_sum_set(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
     if is_special_sum_set(a) {
-        // println!("{a:?} special");
         if a.len() < (n as usize) {
             for possible_number in get_possible_numbers(&a) {
                 if a.iter().sum::<i32>() + possible_number > sum_ceiling {
                     break;
                 }
                 a.push(possible_number);
-                let best_result = g(a, n, sum_ceiling);
+                let best_result = complete_special_sum_set(a, n, sum_ceiling);
                 if best_result.is_some() {
                     let sum: i32 = best_result.as_ref().unwrap().iter().sum();
                     if best_sum.is_none() || sum < best_sum.unwrap() {
@@ -97,6 +92,7 @@ fn satisfies_larger_constraint(a: &[i32]) -> bool {
         .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
 }
 
+/// Verifies all partitions in this permutation.
 fn is_valid_permutation(a: &[i32]) -> bool {
     for m in 1..a.len() - 1 {
         for n in 1..a.len() - m + 1 {
@@ -115,6 +111,7 @@ fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
     b.iter().sum::<i32>() != c.iter().sum::<i32>()
 }
 
+/// Find numbers that can be appended to the given set.
 fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
     let begin = *a.last().unwrap() + 1;
     let end: i32 = a.iter().sum();
@@ -142,6 +139,7 @@ fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
     allowed
 }
 
+/// Convert set into digit concatenation.
 fn set_string(a: &[i32]) -> i64 {
     let s: String = a.iter().map(|&i| i.to_string()).collect();
     s.parse().unwrap()
