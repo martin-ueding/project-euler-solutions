@@ -11,6 +11,7 @@ fn optimal_special_set(n: i32) -> Vec<i32> {
 }
 
 fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
+    println!("is_unequal_subsets({b:?}, {c:?})");
     b.iter().sum::<i32>() != c.iter().sum::<i32>()
 }
 
@@ -20,8 +21,9 @@ fn satisfies_larger_constraint(a: &[i32]) -> bool {
 }
 
 fn is_valid_permutation(a: &[i32]) -> bool {
+    // println!("is_valid_permutation({a:?})");
     for m in 1..a.len() - 1 {
-        for n in 1..a.len() - m {
+        for n in 1..a.len() - m + 1 {
             let b = &a[..m];
             let c = &a[m..m + n];
             if !is_unequal_subsets(&b, &c) {
@@ -60,11 +62,14 @@ fn f(n: i32) -> Vec<i32> {
 }
 
 fn g(a: &mut Vec<i32>, n: i32) -> Option<Vec<i32>> {
+    // for _ in 0..a.len() {
+    //     print!(" ");
+    // }
     // println!("{a:?}");
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
     if is_special_sum_set(a) {
-        // println!("{a:?} special");
+        println!("{a:?} special");
         if a.len() < (n as usize) {
             for possible_number in get_possible_numbers(&a) {
                 a.push(possible_number);
@@ -149,6 +154,10 @@ mod tests {
     #[test]
     fn is_special_sum_set_accepts_n5_example() {
         assert!(is_special_sum_set(&vec![6, 9, 11, 12, 13]));
+    }
+    #[test]
+    fn is_special_sum_set_rejects_consecutive() {
+        assert!(!is_special_sum_set(&vec![4, 5, 6, 7]));
     }
 
     #[test]
