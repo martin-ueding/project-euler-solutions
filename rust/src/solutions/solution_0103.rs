@@ -3,10 +3,14 @@ use itertools::Itertools;
 fn optimal_special_set(n: i32) -> Vec<i32> {
     if n == 1 {
         vec![1]
-    } else if n == 2 {
-        vec![1, 2]
     } else {
-        f(n)
+        let mut solution = vec![1, 2];
+        for k in 3..n + 1 {
+            let candidate = get_next_candidate(&solution);
+            let sum_ceiling: i32 = candidate.iter().sum();
+            solution = f(k, sum_ceiling);
+        }
+        solution
     }
 }
 
@@ -42,14 +46,20 @@ fn is_special_sum_set(a: &[i32]) -> bool {
             .all(|p| is_valid_permutation(&p))
 }
 
-fn f(n: i32) -> Vec<i32> {
+fn f(n: i32, sum_ceiling: i32) -> Vec<i32> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
-    for a1 in 1..21 {
-        for a2 in a1 + 1..32 {
+    for a1 in 1.. {
+        if a1 * n > sum_ceiling {
+            break;
+        }
+        for a2 in a1 + 1.. {
+            if a1 + a2 * (n - 1) > sum_ceiling {
+                break;
+            }
             let mut a: Vec<i32> = vec![a1, a2];
             // println!("{a:?}");
-            if let Some(best) = g(&mut a, n) {
+            if let Some(best) = g(&mut a, n, sum_ceiling) {
                 let sum: i32 = best.iter().sum();
                 if best_sum.is_none() || sum < best_sum.unwrap() {
                     best_set = Some(best);
@@ -61,7 +71,7 @@ fn f(n: i32) -> Vec<i32> {
     best_set.unwrap()
 }
 
-fn g(a: &mut Vec<i32>, n: i32) -> Option<Vec<i32>> {
+fn g(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
     // for _ in 0..a.len() {
     //     print!(" ");
     // }
@@ -72,8 +82,11 @@ fn g(a: &mut Vec<i32>, n: i32) -> Option<Vec<i32>> {
         // println!("{a:?} special");
         if a.len() < (n as usize) {
             for possible_number in get_possible_numbers(&a) {
+                if a.iter().sum::<i32>() + possible_number > sum_ceiling {
+                    break;
+                }
                 a.push(possible_number);
-                let best_result = g(a, n);
+                let best_result = g(a, n, sum_ceiling);
                 if best_result.is_some() {
                     let sum: i32 = best_result.as_ref().unwrap().iter().sum();
                     if best_sum.is_none() || sum < best_sum.unwrap() {
