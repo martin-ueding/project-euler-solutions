@@ -1,5 +1,10 @@
 use itertools::Itertools;
 
+fn solution() -> i64 {
+    let o = optimal_special_set(7);
+    set_string(&o)
+}
+
 fn optimal_special_set(n: i32) -> Vec<i32> {
     if n == 1 {
         vec![1]
@@ -14,36 +19,11 @@ fn optimal_special_set(n: i32) -> Vec<i32> {
     }
 }
 
-fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
-    // println!("is_unequal_subsets({b:?}, {c:?})");
-    b.iter().sum::<i32>() != c.iter().sum::<i32>()
-}
-
-fn satisfies_larger_constraint(a: &[i32]) -> bool {
-    (1..(a.len() + 1) / 2)
-        .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
-}
-
-fn is_valid_permutation(a: &[i32]) -> bool {
-    // println!("is_valid_permutation({a:?})");
-    for m in 1..a.len() - 1 {
-        for n in 1..a.len() - m + 1 {
-            let b = &a[..m];
-            let c = &a[m..m + n];
-            if !is_unequal_subsets(&b, &c) {
-                return false;
-            }
-        }
-    }
-    true
-}
-
-fn is_special_sum_set(a: &[i32]) -> bool {
-    satisfies_larger_constraint(a)
-        && a.iter()
-            .copied()
-            .permutations(a.len())
-            .all(|p| is_valid_permutation(&p))
+fn get_next_candidate(a: &[i32]) -> Vec<i32> {
+    let middle_element = a[(a.len() + 1) / 2];
+    let mut result = vec![middle_element];
+    result.extend(a.iter().map(|&i| i + middle_element));
+    result
 }
 
 fn f(n: i32, sum_ceiling: i32) -> Vec<i32> {
@@ -103,6 +83,38 @@ fn g(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> {
     best_set
 }
 
+fn is_special_sum_set(a: &[i32]) -> bool {
+    satisfies_larger_constraint(a)
+        && a.iter()
+            .copied()
+            .permutations(a.len())
+            .all(|p| is_valid_permutation(&p))
+}
+
+/// Checks for all B, C: |B| > |C| => S(B) > S(C).
+fn satisfies_larger_constraint(a: &[i32]) -> bool {
+    (1..(a.len() + 1) / 2)
+        .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
+}
+
+fn is_valid_permutation(a: &[i32]) -> bool {
+    for m in 1..a.len() - 1 {
+        for n in 1..a.len() - m + 1 {
+            let b = &a[..m];
+            let c = &a[m..m + n];
+            if !is_unequal_subsets(&b, &c) {
+                return false;
+            }
+        }
+    }
+    true
+}
+
+/// Checks sum(B) != sum(C).
+fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
+    b.iter().sum::<i32>() != c.iter().sum::<i32>()
+}
+
 fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
     let begin = *a.last().unwrap() + 1;
     let end: i32 = a.iter().sum();
@@ -133,18 +145,6 @@ fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
 fn set_string(a: &[i32]) -> i64 {
     let s: String = a.iter().map(|&i| i.to_string()).collect();
     s.parse().unwrap()
-}
-
-fn solution() -> i64 {
-    let o = optimal_special_set(7);
-    set_string(&o)
-}
-
-fn get_next_candidate(a: &[i32]) -> Vec<i32> {
-    let middle_element = a[(a.len() + 1) / 2];
-    let mut result = vec![middle_element];
-    result.extend(a.iter().map(|&i| i + middle_element));
-    result
 }
 
 inventory::submit! {
