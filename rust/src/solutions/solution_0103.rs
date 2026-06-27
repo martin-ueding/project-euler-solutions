@@ -159,6 +159,11 @@ mod tests {
     use super::*;
 
     #[test]
+    fn solution_matches() {
+        assert_eq!(solution(), 20_313_839_404_245);
+    }
+
+    #[test]
     fn optimal_special_set_n1() {
         assert_eq!(optimal_special_set(1), vec![1]);
     }
@@ -186,6 +191,14 @@ mod tests {
     #[test]
     fn optimal_special_set_n6() {
         assert_eq!(optimal_special_set(6), vec![11, 18, 19, 20, 22, 25]);
+    }
+
+    #[test]
+    fn get_next_candidate_constructs_4_to_5() {
+        assert_eq!(
+            get_next_candidate(&vec![3, 5, 6, 7]),
+            vec![6, 9, 11, 12, 13]
+        );
     }
 
     #[test]
@@ -230,18 +243,5 @@ mod tests {
     #[test]
     fn set_string_for_n6() {
         assert_eq!(set_string(&vec![11, 18, 19, 20, 22, 25]), 111819202225);
-    }
-
-    #[test]
-    fn solution_matches() {
-        assert_eq!(solution(), 20_313_839_404_245);
-    }
-
-    #[test]
-    fn get_next_candidate_constructs_4_to_5() {
-        assert_eq!(
-            get_next_candidate(&vec![3, 5, 6, 7]),
-            vec![6, 9, 11, 12, 13]
-        );
     }
 }
