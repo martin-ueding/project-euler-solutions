@@ -1,19 +1,19 @@
 use itertools::Itertools;
 
-fn optimal_special_set(n: i64) -> Vec<i64> {
+fn optimal_special_set(n: i32) -> Vec<i32> {
     vec![]
 }
 
-fn is_unequal_subsets(b: &[i64], c: &[i64]) -> bool {
-    b.iter().sum::<i64>() != c.iter().sum::<i64>()
+fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
+    b.iter().sum::<i32>() != c.iter().sum::<i32>()
 }
 
-fn satisfies_larger_constraint(a: &[i64]) -> bool {
+fn satisfies_larger_constraint(a: &[i32]) -> bool {
     (1..(a.len() + 1) / 2)
-        .all(|k| a[..k + 1].iter().sum::<i64>() >= a[a.len() - k..].iter().sum::<i64>())
+        .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
 }
 
-fn is_valid_permutation(a: &[i64]) -> bool {
+fn is_valid_permutation(a: &[i32]) -> bool {
     for m in 1..a.len() - 1 {
         for n in 1..a.len() - m {
             let b = &a[..m];
@@ -26,12 +26,49 @@ fn is_valid_permutation(a: &[i64]) -> bool {
     true
 }
 
-fn is_special_sum_set(a: &[i64]) -> bool {
+fn is_special_sum_set(a: &[i32]) -> bool {
     satisfies_larger_constraint(a)
         && a.iter()
             .copied()
             .permutations(a.len())
             .all(|p| is_valid_permutation(&p))
+}
+
+fn f() {
+    for a1 in 1.. {
+        for a2 in a1 + 1.. {
+            let mut a: Vec<i32> = vec![a1, a2];
+        }
+    }
+}
+
+fn g(a: Vec<i32>, n: i32) {}
+
+fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
+    let begin = *a.last().unwrap() + 1;
+    let end: i32 = a.iter().sum();
+    let mut disallowed: Vec<i32> = (1..a.len() + 1)
+        .map(|k| {
+            a.iter()
+                .permutations(k)
+                .map(|permutation| permutation.into_iter().copied().sum())
+        })
+        .flatten()
+        .sorted()
+        .dedup()
+        .collect();
+    disallowed.reverse();
+    let mut allowed: Vec<i32> = Vec::new();
+    for i in begin..end {
+        if let Some(&d) = disallowed.last() {
+            if i == d {
+                disallowed.pop();
+                continue;
+            }
+        }
+        allowed.push(i);
+    }
+    allowed
 }
 
 #[cfg(test)]
@@ -96,5 +133,10 @@ mod tests {
     #[test]
     fn is_unequal_subsets_rejects_equal_sums() {
         assert!(!is_unequal_subsets(&vec![1, 4], &vec![2, 3]));
+    }
+
+    #[test]
+    fn get_possible_numbers_1() {
+        assert_eq!(get_possible_numbers(&vec![4, 5]), vec![6, 7, 8])
     }
 }
