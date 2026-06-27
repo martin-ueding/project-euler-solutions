@@ -74,17 +74,27 @@ mod tests {
     }
 
     #[test]
-    fn test_is_satisfies_larger_constraint_1() {
+    fn test_satisfies_larger_constraint_1() {
         assert!(satisfies_larger_constraint(&vec![3, 5, 6, 7]));
     }
 
     #[test]
-    fn test_is_satisfies_larger_constraint_2() {
+    fn test_satisfies_larger_constraint_2() {
         assert!(satisfies_larger_constraint(&vec![6, 9, 11, 12, 13]));
     }
 
     #[test]
-    fn test_is_satisfies_larger_constraint_3() {
+    fn test_satisfies_larger_constraint_3() {
         assert!(!satisfies_larger_constraint(&vec![1, 2, 3, 5]));
+    }
+
+    #[test]
+    fn test_is_unequal_subsets_true() {
+        assert!(is_unequal_subsets(&vec![1, 2], &vec![4, 5]));
+    }
+
+    #[test]
+    fn test_is_unequal_subsets_false() {
+        assert!(!is_unequal_subsets(&vec![1, 4], &vec![2, 3]));
     }
 }
