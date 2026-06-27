@@ -11,7 +11,7 @@ fn optimal_special_set(n: i32) -> Vec<i32> {
 }
 
 fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
-    println!("is_unequal_subsets({b:?}, {c:?})");
+    // println!("is_unequal_subsets({b:?}, {c:?})");
     b.iter().sum::<i32>() != c.iter().sum::<i32>()
 }
 
@@ -45,8 +45,8 @@ fn is_special_sum_set(a: &[i32]) -> bool {
 fn f(n: i32) -> Vec<i32> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
-    for a1 in 1..20 {
-        for a2 in a1 + 1..20 {
+    for a1 in 1..30 {
+        for a2 in a1 + 1..35 {
             let mut a: Vec<i32> = vec![a1, a2];
             // println!("{a:?}");
             if let Some(best) = g(&mut a, n) {
@@ -69,7 +69,7 @@ fn g(a: &mut Vec<i32>, n: i32) -> Option<Vec<i32>> {
     let mut best_set: Option<Vec<i32>> = None;
     let mut best_sum: Option<i32> = None;
     if is_special_sum_set(a) {
-        println!("{a:?} special");
+        // println!("{a:?} special");
         if a.len() < (n as usize) {
             for possible_number in get_possible_numbers(&a) {
                 a.push(possible_number);
@@ -117,6 +117,23 @@ fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
     allowed
 }
 
+fn set_string(a: &[i32]) -> i64 {
+    let s: String = a.iter().map(|&i| i.to_string()).collect();
+    s.parse().unwrap()
+}
+
+fn solution() -> i64 {
+    let o = optimal_special_set(7);
+    set_string(&o)
+}
+
+inventory::submit! {
+    crate::registry::SolutionEntry {
+        id: 103,
+        implementations: &[("", solution)],
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -146,10 +163,10 @@ mod tests {
         assert_eq!(optimal_special_set(5), vec![6, 9, 11, 12, 13]);
     }
 
-    // #[test]
-    // fn optimal_special_set_n6() {
-    //     assert_eq!(optimal_special_set(6), vec![11, 18, 19, 20, 22, 25]);
-    // }
+    #[test]
+    fn optimal_special_set_n6() {
+        assert_eq!(optimal_special_set(6), vec![11, 18, 19, 20, 22, 25]);
+    }
 
     #[test]
     fn is_special_sum_set_accepts_n5_example() {
@@ -188,5 +205,15 @@ mod tests {
     #[test]
     fn get_possible_numbers_1() {
         assert_eq!(get_possible_numbers(&vec![4, 5]), vec![6, 7, 8])
+    }
+
+    #[test]
+    fn set_string_for_n6() {
+        assert_eq!(set_string(&optimal_special_set(6)), 111819202225);
+    }
+
+    #[test]
+    fn solution_matches() {
+        assert_eq!(solution(), 20_313_839_404_245);
     }
 }
