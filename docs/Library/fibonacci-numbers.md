@@ -142,6 +142,6 @@ $$
 
 As we're only interested in $F_n$ and not $F_{n+1}$, it is sufficient to use the first row of $V$. And then we arrive at the claimed formula.
 
----
+■
 
 This expression doesn't work well numerically as one has to project high powers of an irrational number (the $\sqrt 5$) back onto an integer. Eventually, even 64-bit floating point will be insufficient and lead to rounding errors. Using a arbitrary precision library doesn't help either because one is dealing with irrational numbers here.

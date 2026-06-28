@@ -35,3 +35,5 @@ $$ 2 S_n = n (n+1) \,. $$
 
 We divide by $2$ to isolate $S_n$ to get the claimed result:
 $$ S_n = \frac{n (n+1)}{2} \,. $$
+
+■

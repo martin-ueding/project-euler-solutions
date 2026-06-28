@@ -34,3 +34,44 @@ These definitions have various implications. Let us consider a few things to get
 
 The definitions of SDS and SMS are restricted to disjoint sets. Dropping this rule wouldn't make a difference because common elements would just increase both sums and could be cancelled. Let's take $A = \{1, 2, 3\}$. If we take $B = \{1, 2\}$ and $C = \{2, 3\}$, we are comparing whether $1 + 2 \neq 2 + 3$, which simplifies to $1 \neq 3$ by subtracting the common elements from both sides.
 
+## Easier size monotonicity
+
+Testing whether a set is size-monotone is hard with the definition. There is an equivalent and easier way:
+
+::: theorem Largest vs Smallest
+If and only if for all $k$, the sum of the $k+1$ smallest elements is larger than the sum of the $k$ largest elements, the set is size-monotone.
+:::
+
+**Proof:** Let $A \subset \mathbb N$ be a finite set with $n = |A|$ elements where for all $k$, the sum of the $k+1$ smallest elements is larger than the sum of the $k$ largest elements. Let $(a_i)_{i=1}^n$ be the sorted series of the elements, so $a_i < a_{i+1}$ for all $i$.
+
+For concrete $k$, we can derive these properties:
+
+- $a_1 + a_2 > a_n$
+- $a_1 + a_2 + a_3 > a_{n-1} + a_n$
+- …
+
+Let $B \subset A$ be the non-empty subset with the $k+1$ smallest elements and $C \subset A$ the non-empty subset with the $k$ largest elements. By construction, we have $|B| > |C|$.
+
+$B$ contains the smallest elements in the set. We can form a new set $B'$ by swapping elements of $B$ one-to-one with other ones. As only larger elements are available, we have $S(B') \geq S(B)$. $|B'| = k+1$ remains.
+
+We do the same with $C$, where we may substitute elements with smaller ones. We therefore have $C'$ with $S(C') \leq S(C)$. $|C'| = k$ remains.
+
+The set $B'$ contains $k+1$ elements, the set $C'$ contains $k$ elements, hence $|B'| > |C'|$. We may drop elements from $C'$ to form $C''$. We then still have $|B'| > |C''|$ and also $S(C'') \leq S(C')$.
+
+Using the transitivity of the comparison, we can derive
+$$ S(B') \geq S(B) > S(C) \geq S(C') \geq S(C'') \,, $$
+which simplifies to
+$$ S(B') > S(C'') \,. $$
+
+Also we have held the constraint
+$$ |B'| = |B| > |C| = |C'| = \geq |C''| \,, $$
+which simplifies to
+$$ |B'| > |C''| \,. $$
+
+Because we allowed to swap all elements in both sets and allowed $C''$ to be smaller than $k$, we can form any set $B'$ with $k+1$ elements and set $C''$ with $k$ or less elements. Therefore this applies to all sets. Hence one direction of the equivalence is proven.
+
+For the other side of the equivalence, we assume that we have a size-monotone set by the initial definition. That means we can pick any two sets $B$ and $C$ with $|B| > |C|$ and know that $S(B) > S(C)$.
+
+As either condition implies the other, the equivalence is proven.
+
+■

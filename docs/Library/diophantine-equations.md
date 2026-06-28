@@ -50,7 +50,7 @@ $$ \gamma = (ac + D bd) + \sqrt D (bc + ad) \,. $$
 **Proof:** We write out the elements and regroup the terms with and without $\sqrt D$ to get the claimed result:
 $$ \alpha \beta = (a + \sqrt D b) (c + \sqrt D d) = (ac + D bd) + \sqrt D (bc + ad) \,. $$
 
----
+■
 
 The field norm has a multiplicative property that will become useful to use later on:
 
@@ -63,6 +63,8 @@ $$ N(\alpha \beta) = N(\alpha) N(\beta) \,. $$
 $$ (a^2 - D b^2) (c^2 - D d^2) = (ac + D bd)^2 - D (bc + ad)^2 \,. $$
 
 Further simplification shows that both sides are equal and hence the theorem is proven.
+
+■
 
 ### Recursion relation
 
@@ -84,7 +86,7 @@ $$ (x + \sqrt D y) (\hat x + \sqrt D \hat y) = (\hat x x + D \hat y y) + \sqrt D
 
 From this we can read off the second solution as claimed.
 
----
+■
 
 We can apply this approach as many times as we want. This brings us to the recursion relation:
 
@@ -99,7 +101,7 @@ $$ N(\alpha\beta^n) = N(\alpha) N(\beta^n) = N(\alpha) N(\beta)^n = N(\alpha) \c
 
 This also proves the theorem.
 
----
+■
 
 This gives us the recursion relation to easily construct arbitrary many solutions to the generalized Pell equation.
 
