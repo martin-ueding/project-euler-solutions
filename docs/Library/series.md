@@ -10,6 +10,8 @@ $$ t_i := \sum_{k = 1}^i s_i \,. $$
 A trivial sequence is formed by the natural numbers themselves, $s_i = i$. The series is interesting, because each term is the sum of $n$ natural numbers:
 $$ S_n = \sum_{i = 1}^n i \,. $$
 
+There is a clever way to compute this for arbitrary $n$ in closed form:
+
 ::: theorem Gauss's Formula
 The value of $S_n$ is given by
 $$ S_n = \frac{n (n+1)}{2} \,. $$
