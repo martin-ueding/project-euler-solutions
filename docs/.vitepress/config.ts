@@ -16,7 +16,7 @@ export default withSidebar(
               if (token.nesting === 1) {
                 const arg = token.info.trim().slice(name.length).trim()
                 const title = arg
-                  ? `${label} (${md.utils.escapeHtml(arg)})`
+                  ? `${label}: ${md.utils.escapeHtml(arg)}`
                   : label
                 return `<div class="${name}"><p class="callout-title">${title}</p>\n`
               }
