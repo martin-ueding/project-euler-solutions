@@ -37,7 +37,7 @@ This will yield 1, 1, 2, 3, 5, … as we want. It never recomputes any number.
 
 There is an eigenvalue trick that one can use to directly compute any Fibonacci number in closed form:
 
-::: theorem $n$-th Fibonacci number
+::: theorem n-th Fibonacci number
 The $n$-th Fibonacci number is
 $$
 F_n =
@@ -54,6 +54,7 @@ F_n =
 -1 & \frac{\sqrt 5 - 1}{2}
 \end{pmatrix}
 \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\,.
 $$
 :::
 
