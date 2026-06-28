@@ -1,3 +1,5 @@
+use crate::series::gauss_formula;
+
 fn solution_division_check() -> i64 {
     let mut sum_of_multiples = 0;
     for i in 1..1000 {
@@ -12,14 +14,8 @@ fn solution_division_check_iterator() -> i64 {
     (1..1000).filter(|&i| i % 3 == 0 || i % 5 == 0).sum()
 }
 
-fn sum_of_natural_numbers(end: i64, step: i64) -> i64 {
-    let count = end / step + 1;
-    count * (count - 1) * step / 2
-}
-
 fn solution_closed_form() -> i64 {
-    sum_of_natural_numbers(999, 3) + sum_of_natural_numbers(999, 5)
-        - sum_of_natural_numbers(999, 15)
+    3 * gauss_formula(333) + 5 * gauss_formula(199) - 15 * gauss_formula(66)
 }
 
 inventory::submit! {

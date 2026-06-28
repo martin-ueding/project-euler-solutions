@@ -5,4 +5,5 @@ pub mod fractions;
 pub mod integers;
 pub mod primes;
 pub mod registry;
+pub mod series;
 pub mod solutions;
