@@ -6,6 +6,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
+    "markdown-it-container": "^4.0.0",
     "vitepress": "^1.6.3",
     "vitepress-sidebar": "^1.36.1"
   }

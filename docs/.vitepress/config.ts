@@ -1,4 +1,5 @@
 import { withSidebar } from 'vitepress-sidebar'
+import container from 'markdown-it-container'
 
 export default withSidebar(
   {
@@ -7,6 +8,21 @@ export default withSidebar(
     base: '/project-euler-solutions/',
     markdown: {
       math: true,
+      config: (md) => {
+        md.use(container, 'theorem', {
+          render(tokens, idx) {
+            const token = tokens[idx]
+            if (token.nesting === 1) {
+              const name = token.info.trim().slice('theorem'.length).trim()
+              const title = name
+                ? `Theorem (${md.utils.escapeHtml(name)})`
+                : 'Theorem'
+              return `<div class="theorem"><p class="theorem-title">${title}</p>\n`
+            }
+            return '</div>\n'
+          },
+        })
+      },
     },
     themeConfig: {
       nav: [
