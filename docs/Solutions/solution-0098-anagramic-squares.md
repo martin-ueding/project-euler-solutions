@@ -1,6 +1,6 @@
 # Anagramic Squares (98)
 
-In Problem 98, we're asked to work anagrams and substitute letters for digits to convert words into numbers such that all of them are perfect squares.
+In [Problem 98](https://projecteuler.net/problem=98), we're asked to work anagrams and substitute letters for digits to convert words into numbers such that all of them are perfect squares.
 
 ## Looking at the words
 
