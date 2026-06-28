@@ -29,7 +29,7 @@ $$ 2 S_n = (n+1) + (n+1) + \cdots + (n+1) + (n+1) \,. $$
 We have $n$ elements which are $(n+1)$. Hence we can simplify to
 $$ 2 S_n = n (n+1) \,. $$
 
-We divide by $2$ to isolate $S_n$ and obtain the desired result of
+We divide by $2$ to isolate $S_n$:
 $$ S_n = \frac{n (n+1)}{2} \,. $$
 
-q.e.d.
+Which is the claimed result.
