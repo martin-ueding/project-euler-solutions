@@ -15,11 +15,11 @@ $$ x^2 = D y^2 + c \,. $$
 
 Then we just iterate through $y \in \mathbb N$ and check whether the right side is a perfect square. This can be checked by requiring that all prime factors within that number occur an even number.
 
-Example: For $D = 12$ and $c = 4$, we already find $y = 0$ to be a solution with $x = 2$.
+**Example:** For $D = 12$ and $c = 4$, we already find $y = 0$ to be a solution with $x = 2$.
 
 ### Special case c = 1
 
-In the special case that we have $c = 1$, we can find the minimal solution faster. Instead of trying out every possible $y$, we instead use the [convergents of $\sqrt D$](continued-fractions.md#convergents). Let us denote the $i$-th such convergent as $h_i/k_i$. Then we can test whether $x = h_i$ and $y = k_i$ is a solution. This way we have way less to check.
+In the special case that we have $c = 1$, the equation is claled [Pell's equation](https://en.wikipedia.org/wiki/Pell%27s_equation). For this one, we can find the minimal solution faster. Instead of trying out every possible $y$, we instead use the [convergents of $\sqrt D$](continued-fractions.md#convergents). Let us denote the $i$-th such convergent as $h_i/k_i$. Then we can test whether $x = h_i$ and $y = k_i$ is a solution. This way we have way less to check.
 
 ## Finding more solutions
 
@@ -29,44 +29,78 @@ There is a way to construct more solutions from the initial solution. We will ne
 
 Apparently in _algebraic number theory_, there is the concept of a [_field norm_](https://en.wikipedia.org/wiki/Field_norm). At the time of writing, this is all new to me. I will focus on introducing the important concepts here.
 
-Complex numbers can be written as $a + \mathrm i b$ and have a norm $|(a + \mathrm i b)| := a^2 - b^2$. The same concept can be generalized such that we would call this norm $\mathbb Z[\mathrm i]$. The general norm for $\mathbb Z[\sqrt D]$ is defined as
+Complex numbers can be written as $a + \mathrm i b$ and have a norm $|(a + \mathrm i b)| := a^2 - b^2$. The same concept can be generalized such that we would call this norm $\mathbb Z[\mathrm i]$. This generalized:
+
+::: definition Field Norm
+The general norm for $\mathbb Z[\sqrt D]$ is defined as
 $$ N_{\sqrt D} (a + \sqrt D b) := a^2 - D b^2 \,. $$
+:::
 
 We can now reformulate the initial Diophantine equation not as finding a pair $(x, y)$ that solves the equation but rather finding an element $x + \sqrt D y$ that has norm $c$.
 
 ### Multiplicative property
 
-Let us take an element $\alpha := (a + \sqrt D b)$ and another $\beta := (c + \sqrt D d)$. We can now multiply these and regroup the terms:
-$$ (a + \sqrt D b) (c + \sqrt D d) = (ac + D bd) + \sqrt D (bc + ad) \,. $$
+For the field norm to be useful, we need to look at the multiplication of the elements.
 
-Then we can introduce the following theorem that says that the norm is multiplicative:
-$$ N(\alpha) N(\beta) = N(\alpha \beta) \,. $$
+::: theorem Element Multiplication
+Let $\alpha := (a + \sqrt D b)$ and $\beta := (c + \sqrt D d)$ be elements. The product of $\alpha$ and $\beta$ gives a new element
+$$ \gamma = (ac + D bd) + \sqrt D (bc + ad) \,. $$
+:::
 
-This can be shown by inserting everything and simplifying. As an intermediate step we get
+**Proof:** We write out the elements and regroup the terms with and without $\sqrt D$ to get the claimed result:
+$$ \alpha \beta = (a + \sqrt D b) (c + \sqrt D d) = (ac + D bd) + \sqrt D (bc + ad) \,. $$
+
+---
+
+The field norm has a multiplicative property that will become useful to use later on:
+
+::: theorem Field Norm Multiplication
+Let $\alpha := (a + \sqrt D b)$ $\beta := (c + \sqrt D d)$ be such elements. Then the norm of the product is the product of the norms:
+$$ N(\alpha \beta) = N(\alpha) N(\beta) \,. $$
+:::
+
+**Proof:** This can be shown by inserting everything on both sides of the claim and simplifying. As an intermediate step we get
 $$ (a^2 - D b^2) (c^2 - D d^2) = (ac + D bd)^2 - D (bc + ad)^2 \,. $$
 
 Further simplification shows that both sides are equal and hence the theorem is proven.
 
 ### Recursion relation
 
-We had reformulated finding a solution to the Diophantine equation by finding elements $x + \sqrt D y$ that have norm $c$. If we had elements with norm 1, we could multiply our solution element with that element and get a different element with norm $c$. This would also solve the Diophantine equation.
+We had reformulated finding a solution to the Diophantine equation by finding elements $x + \sqrt D y$ that have norm $c$. We can use this to obtain a recursion relation.
 
-Therefore we want to find solutions to the following equation, which is a special case and called [Pell's equation](https://en.wikipedia.org/wiki/Pell%27s_equation):
-$$ x^2 - D y^2 = 1 \,, $$
+::: theorem Next Solution
+Let (x, y) be a solution to $x^2 - D y^2 = c$. Let $(\hat x, \hat y)$ be a solution to $\hat x^2 - D \hat y^2 = 1$. Then $(\hat x x + D \hat y y, \hat y x + \hat x y)$ is also a solution to the first equation, $x^2 - D y^2 = c$.
+:::
 
-We can use the more efficient approach with the convergents to find the initial solution here. With $y = 2$ we have $4 \times 12 + 1 = 49$, which is a perfect square. So our solution is $x = 7$ and $y = 2$.
+**Proof:** Let $\alpha := (x + \sqrt D y)$ be an element with $N_{\sqrt D}(\alpha) = c$, which is equivalent to being a solution to $x^2 - D y^2 = c$. Let $\beta := (\hat x + \sqrt D \hat y)$ be an element with $N_{\sqrt D}(\beta) = 1$ (a solution to Pell's equation with $c = 1$).
 
-By construction, we know that $N(7 + \sqrt{12} \cdot 2) = 1$. Let us define our initial solution to the Diophantine equation as $\alpha := 2 + \sqrt{12} \cdot 0$ and our non-trivial solution to Pell's equation as $\beta := 7 + \sqrt{12} \cdot 2$. By construction we know that $N(\alpha) = 4$ and $N(\beta) = 1$. Using the multiplicative property, we know that $N(\alpha \beta) = 4$. Actually, $N(\alpha \beta^n) = 4$ for all $n \in \mathbb N_0$ and hence are solution to the Diophantine equation.
+By the *field norm multiplication* and using $N(\beta) = 1$, we have
+$$ N(\alpha\beta) = N(\alpha) N(\beta) = N(\alpha) \,. $$
 
-We can therefore construct all solutions by computing $\alpha \beta^n$. Using the notation $\alpha := (x + \sqrt D y)$ and $\beta := (\hat x + \sqrt D \hat y)$, we had already defined the multiplication as this:
-$$ (x + \sqrt D y) (\hat x + \sqrt d) = (x \hat x + D \hat y y) + \sqrt D (\hat x y + \hat y x) \,. $$
+As $N(\alpha\beta) = N(\alpha)$, both $\alpha$ and $\alpha\beta$ are solutions to the generalized Pell equation.
 
-From here, we can formulate a recursion relation:
-$$
-\begin{aligned}
-    x &\to \hat x x + D \hat y y \,, \\\\
-    y &\to \hat y x + \hat x y \,.
-\end{aligned}
-$$
+Using the *element multiplication, we can write the product of $\alpha\beta$ as
+$$ (x + \sqrt D y) (\hat x + \sqrt D \hat y) = (\hat x x + D \hat y y) + \sqrt D (\hat x y + \hat y x) \,. $$
 
-With that we can generate all the solutions from the initial one.
+From this we can read off the second solution as claimed.
+
+---
+
+We can apply this approach as many times as we want. This brings us to the recursion relation:
+
+::: theorem Recursion Relation
+Let $\alpha$ be a solution to the generalized Pell equation with arbitrary $c$, let $\beta$ be a solution to Pell's equation with $c = 1$. Then we can generate solutions from $\alpha \beta^n$.
+:::
+
+**Proof:** We have already shown that $\alpha\beta$ is a solution to the generalized Pell equation as well. We can redefine $\alpha := \alpha\beta$ as the new solution and apply the *next solution* theorem again.
+
+Alternatively we can go back to the *field norm multiplication* and see that
+$$ N(\alpha\beta^n) = N(\alpha) N(\beta^n) = N(\alpha) N(\beta)^n = N(\alpha) \cdot 1^n = N(\alpha) \,. $$
+
+This also proves the theorem.
+
+---
+
+This gives us the recursion relation to easily construct arbitrary many solutions to the generalized Pell equation.
+
+We haven't shown that we can generate *all* solutions by using the minimal solution to Pell's equation in the recursion relation. If one applies the recursion with a non-minimal $N(\beta) = 1$ solution, one would skip solutions. It appears as if we do get all solutions, but I don't have a proof.
