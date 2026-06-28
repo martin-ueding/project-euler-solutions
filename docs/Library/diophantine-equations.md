@@ -1,8 +1,12 @@
 # Diophantine Equations
 
-In surprisingly many of the problems, we encounter equations of the kind
-$$ x^2 - D y^2 = c \,, $$
-where $x, y, D, c \in \mathbb Z$. This type of equation essentially describes a hyperbola and we're interested in the intersections with the integer “grid” on the graph. These (and slightly more general ones) are called [Diophantine equations](https://en.wikipedia.org/wiki/Diophantine_equation).
+In surprisingly many of the problems here, we encounter a certain kind of equation. Let us give it a name:
+
+::: definition Generalized Pell Equation
+$$ x^2 - D y^2 = c \quad \text{where} \quad x, y, D, c \in \mathbb Z $$
+:::
+
+This type of equation essentially describes a hyperbola and we're interested in the intersections with the integer “grid” on the graph. More general types of this equation have the umbrella term [Diophantine equation](https://en.wikipedia.org/wiki/Diophantine_equation).
 
 ## Finding the minimal solution
 
