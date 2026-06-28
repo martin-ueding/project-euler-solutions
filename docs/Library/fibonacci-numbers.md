@@ -41,6 +41,7 @@ There is an eigenvalue trick that one can use to directly compute any Fibonacci 
 The $n$-th Fibonacci number is
 $$
 F_n =
+\frac{1}{\sqrt 5}
 \begin{pmatrix}
 \frac{\sqrt 5 - 1}{2} & -\frac{\sqrt 5 + 1}{2}
 \end{pmatrix}
@@ -49,8 +50,8 @@ F_n =
 0 & \left( \frac{1 - \sqrt 5}{2} \right)^n \\
 \end{pmatrix}
 \begin{pmatrix}
-\frac{\sqrt 5 - 1}{2} & -\frac{\sqrt 5 + 1}{2} \\
-1 & 1
+1 & \frac{\sqrt 5 + 1}{2} \\
+-1 & \frac{\sqrt 5 - 1}{2}
 \end{pmatrix}
 \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 $$
@@ -67,7 +68,7 @@ $$
 We can apply this matrix over and over in order to advance in the algorithm. Hence we can write a closed-form expression:
 $$
 \begin{pmatrix} F_n \\ F_{n+1} \end{pmatrix}
-:=
+=
 \begin{pmatrix} 0 & 1 \\ 1 & 1 \end{pmatrix}^n
 \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 $$
@@ -95,7 +96,48 @@ V =
 $$
 
 Hence we can write the matrix $M$ using the eigensystem as
-$$ M = V \Lambda V^\mathrm T \,. $$
+$$ M = V \Lambda V^{-1} \,. $$
+
+The inverse of $V$ is
+$$ V^{-1} = \frac{1}{\sqrt 5}
+\begin{pmatrix}
+1 & \frac{\sqrt 5 + 1}{2} \\
+-1 & \frac{\sqrt 5 - 1}{2}
+\end{pmatrix} \,. $$
+
+Putting all of that together gives us
+
+$$
+\begin{pmatrix} F_n \\ F_{n+1} \end{pmatrix}
+=
+(V \Lambda V^{-1})^n
+\begin{pmatrix} 0 \\ 1 \end{pmatrix} \,.
+$$
+
+The real simplification comes from writing out $(V \Lambda V^{-1})^n$ and realizing that $V^{-1} V = 1$. Then we can simplify
+$$ (V \Lambda V^{-1})^n = V \Lambda^n V^{-1} \,. $$
+
+Because $\Lambda$ is a diagonal matrix, applying the power to the matrix is the same as applying the power to the elements on the diagonal.
+
+We can then plug in all the expressions and we arrive at
+$$
+\begin{pmatrix} F_n \\ F_{n+1} \end{pmatrix} =
+\frac{1}{\sqrt 5}
+\begin{pmatrix}
+\frac{\sqrt 5 - 1}{2} & -\frac{\sqrt 5 + 1}{2} \\
+1 & 1
+\end{pmatrix}
+\begin{pmatrix}
+\left( \frac{1 + \sqrt 5}{2} \right)^n & 0 \\
+0 & \left( \frac{1 - \sqrt 5}{2} \right)^n \\
+\end{pmatrix}
+\begin{pmatrix}
+1 & \frac{\sqrt 5 + 1}{2} \\
+-1 & \frac{\sqrt 5 - 1}{2}
+\end{pmatrix}
+\begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\,.
+$$
 
 As we're only interested in $F_n$ and not $F_{n+1}$, it is sufficient to use the first row of $V$. And then we arrive at the claimed formula.
 
