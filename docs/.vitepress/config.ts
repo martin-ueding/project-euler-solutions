@@ -9,19 +9,23 @@ export default withSidebar(
     markdown: {
       math: true,
       config: (md) => {
-        md.use(container, 'theorem', {
-          render(tokens, idx) {
-            const token = tokens[idx]
-            if (token.nesting === 1) {
-              const name = token.info.trim().slice('theorem'.length).trim()
-              const title = name
-                ? `Theorem (${md.utils.escapeHtml(name)})`
-                : 'Theorem'
-              return `<div class="theorem"><p class="theorem-title">${title}</p>\n`
-            }
-            return '</div>\n'
-          },
-        })
+        const callout = (name: string, label: string) => {
+          md.use(container, name, {
+            render(tokens, idx) {
+              const token = tokens[idx]
+              if (token.nesting === 1) {
+                const arg = token.info.trim().slice(name.length).trim()
+                const title = arg
+                  ? `${label} (${md.utils.escapeHtml(arg)})`
+                  : label
+                return `<div class="${name}"><p class="callout-title">${title}</p>\n`
+              }
+              return '</div>\n'
+            },
+          })
+        }
+        callout('theorem', 'Theorem')
+        callout('definition', 'Definition')
       },
     },
     themeConfig: {

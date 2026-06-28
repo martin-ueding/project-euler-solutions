@@ -18,7 +18,8 @@ html.dark main img {
   --vp-c-brand-soft: rgba(251, 191, 36, 0.14);
 }
 
-.theorem {
+.theorem,
+.definition {
   border-left: 3px solid var(--vp-c-brand-1);
   background-color: var(--vp-c-brand-soft);
   border-radius: 0 8px 8px 0;
@@ -26,7 +27,7 @@ html.dark main img {
   margin: 16px 0;
 }
 
-.theorem-title {
+.callout-title {
   font-weight: 600;
   margin: 0 0 8px;
 }
