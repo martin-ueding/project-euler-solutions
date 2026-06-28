@@ -15,7 +15,7 @@ Example: For $D = 12$ and $c = 4$, we already find $y = 0$ to be a solution with
 
 ### Special case c = 1
 
-In the special case that we have $c = 1$, we can find the minimal solution faster. Instead of trying out every possible $y$, we instead the [convergents of $\sqrt D$](continued-fractions.md#convergents). Let us denote the $i$-th such convergent as $h_i/k_i$. Then we can test whether $x = h_i$ and $y = k_i$ is a solution. This way we have way less to check.
+In the special case that we have $c = 1$, we can find the minimal solution faster. Instead of trying out every possible $y$, we instead use the [convergents of $\sqrt D$](continued-fractions.md#convergents). Let us denote the $i$-th such convergent as $h_i/k_i$. Then we can test whether $x = h_i$ and $y = k_i$ is a solution. This way we have way less to check.
 
 ## Finding more solutions
 
