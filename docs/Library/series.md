@@ -2,8 +2,12 @@
 
 A *sequence* is an ordered collection of numbers. We can, for instance, define a sequence of square numbers $(s_i)_i$ as $s_i := i^2$.
 
+Using this definition, we can define the next interesting concept:
+
+::: definition Series
 A *series* is the sequence of partial sums of a sequence. The series $(t_i)_i$ of the sequence $(s_i)_i$ is defined as
 $$ t_i := \sum_{k = 1}^i s_i \,. $$
+:::
 
 ## Natural numbers
 
