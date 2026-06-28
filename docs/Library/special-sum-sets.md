@@ -39,18 +39,12 @@ The definitions of SDS and SMS are restricted to disjoint sets. Dropping this ru
 Testing whether a set is size-monotone is hard with the definition. There is an equivalent and easier way:
 
 ::: theorem Largest vs Smallest
-If and only if for all $k$, the sum of the $k+1$ smallest elements is larger than the sum of the $k$ largest elements, the set is size-monotone.
+If and only if for all $k$ with $2k + 1 \leq |A|$, the sum of the $k+1$ smallest elements is larger than the sum of the $k$ largest elements, the set is size-monotone.
 :::
 
 **Proof:** Let $A \subset \mathbb N$ be a finite set with $n = |A|$ elements where for all $k$, the sum of the $k+1$ smallest elements is larger than the sum of the $k$ largest elements. Let $(a_i)_{i=1}^n$ be the sorted series of the elements, so $a_i < a_{i+1}$ for all $i$.
 
-For concrete $k$, we can derive these properties:
-
-- $a_1 + a_2 > a_n$
-- $a_1 + a_2 + a_3 > a_{n-1} + a_n$
-- …
-
-Let $B \subset A$ be the non-empty subset with the $k+1$ smallest elements and $C \subset A$ the non-empty subset with the $k$ largest elements. By construction, we have $|B| > |C|$.
+Let $B \subset A$ be the non-empty subset with the $k+1$ smallest elements and $C \subset A$ the non-empty disjoint subset with the $k$ largest elements. By construction, we have $|B| > |C|$.
 
 $B$ contains the smallest elements in the set. We can form a new set $B'$ by swapping elements of $B$ one-to-one with other ones. As only larger elements are available, we have $S(B') \geq S(B)$. $|B'| = k+1$ remains.
 
@@ -64,13 +58,15 @@ which simplifies to
 $$ S(B') > S(C'') \,. $$
 
 Also we have held the constraint
-$$ |B'| = |B| > |C| = |C'| = \geq |C''| \,, $$
+$$ |B'| = |B| > |C| = |C'| \geq |C''| \,, $$
 which simplifies to
 $$ |B'| > |C''| \,. $$
 
-Because we allowed to swap all elements in both sets and allowed $C''$ to be smaller than $k$, we can form any set $B'$ with $k+1$ elements and set $C''$ with $k$ or less elements. Therefore this applies to all sets. Hence one direction of the equivalence is proven.
+We could even add unused elements to $B'$ to make it even larger and the sum larger.
 
-For the other side of the equivalence, we assume that we have a size-monotone set by the initial definition. That means we can pick any two sets $B$ and $C$ with $|B| > |C|$ and know that $S(B) > S(C)$.
+Because we allowed to swap all elements in both sets and allowed $C''$ to be smaller than $k$, and we allowed adding elements to $B'$, we can form any set $B'$ with $k+1$ or more elements and set $C''$ with $k$ or less elements. We are able to choose any $k$. Therefore this applies to all sets. Hence the forward direction of the equivalence is proven.
+
+For the backwards direction of the equivalence, we assume that we have a size-monotone set by the initial definition. That means we can pick any two sets $B$ and $C$ with $|B| > |C|$ and know that $S(B) > S(C)$. We can pick $B$ to contain the $k+1$ smallest elements and $C$ to contain the $k$ largest elements.
 
 As either condition implies the other, the equivalence is proven.
 
