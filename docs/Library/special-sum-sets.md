@@ -5,20 +5,20 @@ In multiple related problems, we work with *special sum sets* that are quite non
 Let us first define the sum:
 
 ::: definition Set Sum
-Let $A$ be a finite set of natural numbers, $A \subseteq \mathbb N$. Then $S(A)$ is the sum of all numbers in that set.
+Let $A$ be a finite set of natural numbers, $A \subset \mathbb N$. Then $S(A)$ is the sum of all numbers in that set.
 :::
 
 Then we define a *sum-distinct* set:
 
 ::: definition Sum-Distinct Set
-Let $A \subseteq \mathbb N$ be a finite set. In a *sum-distinct set* (SDS), for any two non-empty disjoint subsets $B$ and $C$, their set sums are different:
+Let $A \subset \mathbb N$ be a finite set. In a *sum-distinct set* (SDS), for any two non-empty disjoint subsets $B$ and $C$, their set sums are different:
 $$ S(B) \neq S(C) \,. $$
 :::
 
 And the size-monotone set:
 
 ::: definition Size-Monotone Set
-Let $A \subseteq \mathbb N$ be a finite set. In a *size-monotone set* (SMS), for any two disjoint subsets $B$ and $C$, the set with more elements has a higher sum:
+Let $A \subset \mathbb N$ be a finite set. In a *size-monotone set* (SMS), for any two disjoint subsets $B$ and $C$, the set with more elements has a higher sum:
 $$ |B| > |C| \implies S(B) > S(C) \,. $$
 :::
 
@@ -68,6 +68,4 @@ Because we allowed to swap all elements in both sets and allowed $C''$ to be sma
 
 For the backwards direction of the equivalence, we assume that we have a size-monotone set by the initial definition. That means we can pick any two sets $B$ and $C$ with $|B| > |C|$ and know that $S(B) > S(C)$. We can pick $B$ to contain the $k+1$ smallest elements and $C$ to contain the $k$ largest elements.
 
-As either condition implies the other, the equivalence is proven.
-
-■
+As either condition implies the other, the equivalence is proven. ■

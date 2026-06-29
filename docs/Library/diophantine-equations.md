@@ -52,6 +52,8 @@ $$ \alpha \beta = (a + \sqrt D b) (c + \sqrt D d) = (ac + D bd) + \sqrt D (bc + 
 
 ■
 
+---
+
 The field norm has a multiplicative property that will become useful to use later on:
 
 ::: theorem Field Norm Multiplication
@@ -62,9 +64,7 @@ $$ N(\alpha \beta) = N(\alpha) N(\beta) \,. $$
 **Proof:** This can be shown by inserting everything on both sides of the claim and simplifying. As an intermediate step we get
 $$ (a^2 - D b^2) (c^2 - D d^2) = (ac + D bd)^2 - D (bc + ad)^2 \,. $$
 
-Further simplification shows that both sides are equal and hence the theorem is proven.
-
-■
+Further simplification shows that both sides are equal and hence the theorem is proven. ■
 
 ### Recursion relation
 
@@ -84,9 +84,9 @@ As $N(\alpha\beta) = N(\alpha)$, both $\alpha$ and $\alpha\beta$ are solutions t
 Using the *element multiplication, we can write the product of $\alpha\beta$ as
 $$ (x + \sqrt D y) (\hat x + \sqrt D \hat y) = (\hat x x + D \hat y y) + \sqrt D (\hat x y + \hat y x) \,. $$
 
-From this we can read off the second solution as claimed.
+From this we can read off the second solution as claimed. ■
 
-■
+---
 
 We can apply this approach as many times as we want. This brings us to the recursion relation:
 
@@ -99,9 +99,9 @@ Let $\alpha$ be a solution to the generalized Pell equation with arbitrary $c$, 
 Alternatively we can go back to the *field norm multiplication* and see that
 $$ N(\alpha\beta^n) = N(\alpha) N(\beta^n) = N(\alpha) N(\beta)^n = N(\alpha) \cdot 1^n = N(\alpha) \,. $$
 
-This also proves the theorem.
+This also proves the theorem. ■
 
-■
+---
 
 This gives us the recursion relation to easily construct arbitrary many solutions to the generalized Pell equation.
 
