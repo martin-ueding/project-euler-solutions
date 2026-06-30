@@ -1,7 +1,10 @@
 # Continued Fractions
 
-A continued fraction is something that looks like
+::: definition Continued Fraction
+A continued fraction is has this shape:
 $$ a_0 + \frac 1 {a_1 + \frac 1 {a_2 + \frac 1 {a_3 + \dots}}} \,. $$
+The series $(a_i)_i$ are the expansion coefficients.
+:::
 
 These are useful for approximating irrational numbers by a rational one. One can just cut off the continued fraction at any point and simplify the fraction.
 

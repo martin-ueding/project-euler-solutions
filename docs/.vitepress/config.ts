@@ -26,6 +26,7 @@ export default withSidebar(
         }
         callout('theorem', 'Theorem')
         callout('definition', 'Definition')
+        callout('proof', 'Proof')
       },
     },
     themeConfig: {

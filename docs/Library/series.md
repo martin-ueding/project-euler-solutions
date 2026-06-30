@@ -21,7 +21,8 @@ The value of $S_n$ is given by
 $$ S_n = \frac{n (n+1)}{2} \,. $$
 :::
 
-**Proof:** Writing out the sum, we have
+::: proof
+Writing out the sum, we have
 $$ S_n = 1 + 2 + \cdots + (n-1) + n \,. $$
 
 As summation is commutative, we can also write this series out in reverse:
@@ -35,5 +36,4 @@ $$ 2 S_n = n (n+1) \,. $$
 
 We divide by $2$ to isolate $S_n$ to get the claimed result:
 $$ S_n = \frac{n (n+1)}{2} \,. $$
-
-■
+:::

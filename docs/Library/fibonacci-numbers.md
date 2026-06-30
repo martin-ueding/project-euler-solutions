@@ -50,7 +50,8 @@ $$
 together with [exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring).
 :::
 
-**Proof:** The above iterative algorithm can also be expressed in matrix form:
+::: proof
+The above iterative algorithm can also be expressed in matrix form:
 $$
 \begin{pmatrix} a \\ b \end{pmatrix}
 :=
@@ -66,7 +67,8 @@ $$
 \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 $$
 
-The exponentiation of the matrix would be $\mathcal O(n)$ naively, but with *exponentiation by squaring*, one can do this in $\mathcal O(\log n)$ steps. ■
+The exponentiation of the matrix would be $\mathcal O(n)$ naively, but with *exponentiation by squaring*, one can do this in $\mathcal O(\log n)$ steps.
+:::
 
 ### Eigenvalue trick for O(1)
 
@@ -84,7 +86,8 @@ F_n =
 $$
 :::
 
-**Proof:** We start with the closed-form expression from the other theorem:
+::: proof
+We start with the closed-form expression from the other theorem:
 $$
 \begin{pmatrix} F_n \\ F_{n+1} \end{pmatrix}
 =
@@ -156,8 +159,7 @@ $$
 \,.
 $$
 
-As we're only interested in $F_n$ and not $F_{n+1}$, it is sufficient to use the first row of $V$. Then we can introduce the shorthands $\alpha$ and $\beta$. After executing the matrix multiplications, we arrive at the claimed formula. ■
-
----
+As we're only interested in $F_n$ and not $F_{n+1}$, it is sufficient to use the first row of $V$. Then we can introduce the shorthands $\alpha$ and $\beta$. After executing the matrix multiplications, we arrive at the claimed formula.
+:::
 
 This expression doesn't work well numerically as one has to project high powers of an irrational number (the $\sqrt 5$) back onto an integer. Eventually, even 64-bit floating point will be insufficient and lead to rounding errors. Using a arbitrary precision library doesn't help either because one is dealing with irrational numbers here.

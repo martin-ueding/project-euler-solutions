@@ -19,13 +19,28 @@ html.dark main img {
 }
 
 .theorem,
-.definition {
-  border-left: 3px solid var(--vp-c-brand-1);
-  background-color: var(--vp-c-brand-soft);
+.definition,
+.proof {
   border-radius: 0 8px 8px 0;
-  padding: 1px 16px;
   margin: 16px 0;
+  padding: 1px 16px;
 }
+
+.theorem,
+.definition {
+  background-color: var(--vp-c-brand-soft);
+  border-left: 3px solid var(--vp-c-brand-1);
+}
+
+.proof {
+  border-left: 3px solid var(--vp-c-brand-2);
+}
+
+/* .proof::after {
+  content: "∎";
+  display: block;
+  text-align: right;
+} */
 
 .callout-title {
   font-weight: 600;

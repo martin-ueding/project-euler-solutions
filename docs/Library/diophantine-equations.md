@@ -47,12 +47,10 @@ Let $\alpha := (a + \sqrt D b)$ and $\beta := (c + \sqrt D d)$ be elements. The 
 $$ \gamma = (ac + D bd) + \sqrt D (bc + ad) \,. $$
 :::
 
-**Proof:** We write out the elements and regroup the terms with and without $\sqrt D$ to get the claimed result:
+::: proof
+We write out the elements and regroup the terms with and without $\sqrt D$ to get the claimed result:
 $$ \alpha \beta = (a + \sqrt D b) (c + \sqrt D d) = (ac + D bd) + \sqrt D (bc + ad) \,. $$
-
-■
-
----
+:::
 
 The field norm has a multiplicative property that will become useful to use later on:
 
@@ -61,10 +59,12 @@ Let $\alpha := (a + \sqrt D b)$ $\beta := (c + \sqrt D d)$ be such elements. The
 $$ N(\alpha \beta) = N(\alpha) N(\beta) \,. $$
 :::
 
-**Proof:** This can be shown by inserting everything on both sides of the claim and simplifying. As an intermediate step we get
+::: proof
+This can be shown by inserting everything on both sides of the claim and simplifying. As an intermediate step we get
 $$ (a^2 - D b^2) (c^2 - D d^2) = (ac + D bd)^2 - D (bc + ad)^2 \,. $$
 
-Further simplification shows that both sides are equal and hence the theorem is proven. ■
+Further simplification shows that both sides are equal and hence the theorem is proven.
+:::
 
 ### Recursion relation
 
@@ -74,7 +74,8 @@ We had reformulated finding a solution to the Diophantine equation by finding el
 Let (x, y) be a solution to $x^2 - D y^2 = c$. Let $(\hat x, \hat y)$ be a solution to $\hat x^2 - D \hat y^2 = 1$. Then $(\hat x x + D \hat y y, \hat y x + \hat x y)$ is also a solution to the first equation, $x^2 - D y^2 = c$.
 :::
 
-**Proof:** Let $\alpha := (x + \sqrt D y)$ be an element with $N_{\sqrt D}(\alpha) = c$, which is equivalent to being a solution to $x^2 - D y^2 = c$. Let $\beta := (\hat x + \sqrt D \hat y)$ be an element with $N_{\sqrt D}(\beta) = 1$ (a solution to Pell's equation with $c = 1$).
+::: proof
+Let $\alpha := (x + \sqrt D y)$ be an element with $N_{\sqrt D}(\alpha) = c$, which is equivalent to being a solution to $x^2 - D y^2 = c$. Let $\beta := (\hat x + \sqrt D \hat y)$ be an element with $N_{\sqrt D}(\beta) = 1$ (a solution to Pell's equation with $c = 1$).
 
 By the *field norm multiplication* and using $N(\beta) = 1$, we have
 $$ N(\alpha\beta) = N(\alpha) N(\beta) = N(\alpha) \,. $$
@@ -84,9 +85,8 @@ As $N(\alpha\beta) = N(\alpha)$, both $\alpha$ and $\alpha\beta$ are solutions t
 Using the *element multiplication, we can write the product of $\alpha\beta$ as
 $$ (x + \sqrt D y) (\hat x + \sqrt D \hat y) = (\hat x x + D \hat y y) + \sqrt D (\hat x y + \hat y x) \,. $$
 
-From this we can read off the second solution as claimed. ■
-
----
+From this we can read off the second solution as claimed.
+:::
 
 We can apply this approach as many times as we want. This brings us to the recursion relation:
 
@@ -94,12 +94,12 @@ We can apply this approach as many times as we want. This brings us to the recur
 Let $\alpha$ be a solution to the generalized Pell equation with arbitrary $c$, let $\beta$ be a solution to Pell's equation with $c = 1$. Then we can generate solutions from $\alpha \beta^n$.
 :::
 
-**Proof:** We have already shown that $\alpha\beta$ is a solution to the generalized Pell equation as well. We can redefine $\alpha := \alpha\beta$ as the new solution and apply the *next solution* theorem again.
+::: proof
+We have already shown that $\alpha\beta$ is a solution to the generalized Pell equation as well. We can redefine $\alpha := \alpha\beta$ as the new solution and apply the *next solution* theorem again.
 
 Alternatively we can go back to the *field norm multiplication* and see that
 $$ N(\alpha\beta^n) = N(\alpha) N(\beta^n) = N(\alpha) N(\beta)^n = N(\alpha) \cdot 1^n = N(\alpha) \,. $$
-
-This also proves the theorem. ■
+:::
 
 ---
 
