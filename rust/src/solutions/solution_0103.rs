@@ -113,7 +113,7 @@ fn get_possible_numbers(a: &[i32]) -> Vec<i32> {
     let mut disallowed: Vec<i32> = (1..a.len() + 1)
         .map(|k| {
             a.iter()
-                .permutations(k)
+                .combinations(k)
                 .map(|permutation| permutation.into_iter().copied().sum())
         })
         .flatten()
