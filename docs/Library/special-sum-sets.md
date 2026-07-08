@@ -110,18 +110,19 @@ Within the problem statement of [Problem 103](https://projecteuler.net/problem=1
 In an SSS with $2k$ or $2k+1$ elements, the pivot is the $k+1$ smallest element.
 :::
 
-They then suggest this theorem:
+They then suggest this theorem without proof.
 
 ::: theorem Next Larger Special Sum Set
 Given an SSS with $n$ elements $(a_i)_i$ sorted by size and a pivot element $b$, we can construct an SSS with $n+1$ elements as
-$$ \{ b, a_1 + b, \ldots, a_k + b \} \,. $$
+$$ \{ b, a_1 + b, \ldots, a_n + b \} \,. $$
 :::
 
-The problem statement doesn't contain a proof, though. It is made clear that this does provide an SSS, not necessarily an optimal SSS. Assuming that this theorem holds, we can use this as an upper bound for the sum of elements $S(A_n)$.
+We can prove this theorem:
 
-We can split the proof into two parts. We can prove that the set created using the prescription is size-monotone and also that it is sum-distinct. If we can prove both parts, the theorem is proven.
+::: proof
+Let $A_n$ be an SSS and $A_{n+1}$ a candidate SSS from the prescription.
 
-::: proof Size Monotonicity of Next Larger Special Sum Set
+**Size-monotonicity:**
 Let $(a_i)_i$ be the members of an SSS $A_n$. By construction we know that
 $$ \forall k \colon \sum_{i=1}^{k+1} a_i > \sum_{j=1}^k a_{n-j+1} \,. $$
 
@@ -134,7 +135,27 @@ $$ b + \sum_{i=1}^k a_i > \sum_{j=1}^k a_{n-j+1} \,. $$
 On both sides, we can add $kb$ by adding it to the summands in the sum:
 $$ b + \sum_{i=1}^k (a_i + b) > \sum_{j=1}^k (a_{n-j+1} + b) \,. $$
 
-And this is the definition for the size-monotone expression of set $A_{n+1}$. Therefore $A_{n+1}$ is size monotone as well.
+And this is the definition for the size-monotone expression of set $A_{n+1}$. Therefore $A_{n+1}$ is size-monotone as well.
+
+**Sum-distinctness:**
+As $A_{n+1}$ is size-monotone, we only need to look at the equal size subset case for the sum-distinctness. Let $B$ and $C$ be disjoint non-empty subsets of size $m$.
+
+*Pivot outside subsets:*
+If $b$ is in neither $B$ and $C$, we can subtract $b$ from each element to form the subtracted sets $B'$ and $C'$. With the sums, we know that
+$$ S(B) = S(B') + |B| b \,, \quad S(C) = S(C') + |C| b \,. $$
+
+As we only need to look at $|B| = |C|$, we can subtract the same multiple of $b$ from both sides and then use $S(B') \neq S(C')$ to show that also $S(B) \neq S(C)$.
+
+*Pivot in subset*:
+Let $b$ in $B$ without loss of generality. We define $B'$ to be the set without $b$ and with $b$ subtracted from the other elements. Let $C'$ be $C$ with $b$ subtracted from all elements. We then have
+$$ S(B) = b + S(B') + (m-1) b = S(B') + m b \,, \quad S(C) = S(C') + m b \,. $$
+
+We can write the difference between the set sums as
+$$ S(B) - S(C) = S(B') - S(C') \,. $$
+
+As $|C'| = m$ and $|B'| = m-1$, we can apply the size-monotonicity of $A_n$ and know that $S(B') - S(C') < 0$ due to $|B'| < |C'|. This proves the sum-distinctness.
 :::
 
-Proving the sum-distinctness seems difficult because it really depends on the choice of the pivot element.
+As we have used $b \geq a_{k+1}$, we learned that we could have taken a bigger $b$ and the prove would have still succeeded. The choice of the pivot element is the smallest element to generate a new SSS.
+
+In the problem statement, it is made clear that although this prescription provides an SSS, it does not necessarily yield an optimal SSS. Nevertheless, we can use this prescription as an upper bound for the sum of elements $S(A_n)$ an optimal $A_n$ would have.
