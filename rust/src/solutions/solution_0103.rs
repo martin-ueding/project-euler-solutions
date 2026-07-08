@@ -74,21 +74,21 @@ fn complete_sss(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> 
 }
 
 fn is_special_sum_set(a: &[i32]) -> bool {
-    satisfies_larger_constraint(a)
+    is_size_monotone(a)
         && a.iter()
             .copied()
             .permutations(a.len())
-            .all(|p| is_valid_permutation(&p))
+            .all(|p| is_sum_distinct(&p))
 }
 
 /// Checks for all B, C: |B| > |C| => S(B) > S(C).
-fn satisfies_larger_constraint(a: &[i32]) -> bool {
+fn is_size_monotone(a: &[i32]) -> bool {
     (1..(a.len() + 1) / 2)
         .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
 }
 
 /// Verifies all partitions in this permutation.
-fn is_valid_permutation(a: &[i32]) -> bool {
+fn is_sum_distinct(a: &[i32]) -> bool {
     for m in 1..a.len() - 1 {
         for n in 1..a.len() - m + 1 {
             let b = &a[..m];
@@ -204,18 +204,18 @@ mod tests {
     }
 
     #[test]
-    fn satisfies_larger_constraint_accepts_n4_solution() {
-        assert!(satisfies_larger_constraint(&vec![3, 5, 6, 7]));
+    fn is_size_monotone_accepts_n4_solution() {
+        assert!(is_size_monotone(&vec![3, 5, 6, 7]));
     }
 
     #[test]
-    fn satisfies_larger_constraint_accepts_n5_solution() {
-        assert!(satisfies_larger_constraint(&vec![6, 9, 11, 12, 13]));
+    fn is_size_monotone_accepts_n5_solution() {
+        assert!(is_size_monotone(&vec![6, 9, 11, 12, 13]));
     }
 
     #[test]
-    fn satisfies_larger_constraint_rejects_invalid_set() {
-        assert!(!satisfies_larger_constraint(&vec![1, 2, 3, 5]));
+    fn is_size_monotone_rejects_invalid_set() {
+        assert!(!is_size_monotone(&vec![1, 2, 3, 5]));
     }
 
     #[test]

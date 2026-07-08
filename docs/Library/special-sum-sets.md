@@ -101,3 +101,40 @@ The forward direction is trivial because the definition of SSS includes size-mon
 
 As either condition implies the other, the equivalence is proven.
 :::
+
+## Construction of larger special sum sets
+
+Within the problem statement of [Problem 103](https://projecteuler.net/problem=103), we are given a way to use a SSS with $k$ elements to construct a SSS with $k+1$ elements. There a rough definition of a “middle element” that we are going to make more explicit:
+
+::: definition Pivot Element
+In an SSS with $2k$ or $2k+1$ elements, the pivot is the $k+1$ smallest element.
+:::
+
+They then suggest this theorem:
+
+::: theorem Next Larger Special Sum Set
+Given an SSS with $n$ elements $(a_i)_i$ sorted by size and a pivot element $b$, we can construct an SSS with $n+1$ elements as
+$$ \{ b, a_1 + b, \ldots, a_k + b \} \,. $$
+:::
+
+The problem statement doesn't contain a proof, though. It is made clear that this does provide an SSS, not necessarily an optimal SSS. Assuming that this theorem holds, we can use this as an upper bound for the sum of elements $S(A_n)$.
+
+We can split the proof into two parts. We can prove that the set created using the prescription is size-monotone and also that it is sum-distinct. If we can prove both parts, the theorem is proven.
+
+::: proof Size Monotonicity of Next Larger Special Sum Set
+Let $(a_i)_i$ be the members of an SSS $A_n$. By construction we know that
+$$ \forall k \colon \sum_{i=1}^{k+1} a_i > \sum_{j=1}^k a_{n-j+1} \,. $$
+
+We can split off the largest summand from that sum and have
+$$ \sum_{i=1}^k a_i + a_{k+1} > \sum_{j=1}^k a_{n-j+1} \,. $$
+
+For a set $A_n$ with uneven $n$, when $k$ takes its largest possible value, $a_{k+1}$ is the pivot element. Otherwise it is smaller than the pivot element. As the left side is already bigger than the right, we can use $b \geq a_{k+1}$ and then write this like so:
+$$ b + \sum_{i=1}^k a_i > \sum_{j=1}^k a_{n-j+1} \,. $$
+
+On both sides, we can add $kb$ by adding it to the summands in the sum:
+$$ b + \sum_{i=1}^k (a_i + b) > \sum_{j=1}^k (a_{n-j+1} + b) \,. $$
+
+And this is the definition for the size-monotone expression of set $A_{n+1}$. Therefore $A_{n+1}$ is size monotone as well.
+:::
+
+Proving the sum-distinctness seems difficult because it really depends on the choice of the pivot element.
