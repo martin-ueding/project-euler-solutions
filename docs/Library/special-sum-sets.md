@@ -159,3 +159,24 @@ As $|C'| = m$ and $|B'| = m-1$, we can apply the size-monotonicity of $A_n$ and 
 As we have used $b \geq a_{k+1}$, we learned that we could have taken a bigger $b$ and the prove would have still succeeded. The choice of the pivot element is the smallest element to generate a new SSS.
 
 In the problem statement, it is made clear that although this prescription provides an SSS, it does not necessarily yield an optimal SSS. Nevertheless, we can use this prescription as an upper bound for the sum of elements $S(A_n)$ an optimal $A_n$ would have.
+
+## Conway-Guy sequence
+
+Through some AI interaction, I was informed about the Conway-Guy sequence that is also registered as [OEIS A005318](https://oeis.org/A005318):
+
+::: definition Conway-Guy Sequence
+Let $a_0 := 0$, $a_1 := 1$, and
+$$a_{n+1} := 2 a_n - a_t \,, \quad t := n - \left\lfloor \tfrac12 + \sqrt{2n} \right\rfloor \,. $$
+:::
+
+It starts with 0, 1, 2, 4, 7, 13, 24, 44, 84, 161, 309, 594.
+
+From this, for a target size $n$, we can build the set:
+
+::: theorem
+The prescription
+$$ A_n = \{ a_n - a_{n-i} | 1 \le i \le n \} $$
+builds an SSS $A_n$ which is *close to* optimal.
+:::
+
+However, this doesn't yield better results than the extension with the pivot element. It seems to be just a different way of constructing it.

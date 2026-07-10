@@ -7,3 +7,4 @@ pub mod primes;
 pub mod registry;
 pub mod series;
 pub mod solutions;
+pub mod special_sum_sets;
