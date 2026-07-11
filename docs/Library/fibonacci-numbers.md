@@ -162,4 +162,24 @@ $$
 As we're only interested in $F_n$ and not $F_{n+1}$, it is sufficient to use the first row of $V$. Then we can introduce the shorthands $\alpha$ and $\beta$. After executing the matrix multiplications, we arrive at the claimed formula.
 :::
 
-This expression doesn't work well numerically as one has to project high powers of an irrational number (the $\sqrt 5$) back onto an integer. Eventually, even 64-bit floating point will be insufficient and lead to rounding errors. Using a arbitrary precision library doesn't help either because one is dealing with irrational numbers here.
+This expression doesn't work well numerically as one has to project high powers of an irrational number (the $\sqrt 5$) back onto an integer. Eventually, even 64-bit floating point will be insufficient as they lack both the precision to faithfully represent the whole number. They will return `inf` results.
+
+## Numerical approximation
+
+We can work with the logarithm to make it more tractable.
+
+::: theorem
+The $n$-th Fibonacci number approximately is
+$$
+\log(F_n) \approx
+\log\left(- \frac{\beta}{\sqrt 5}\right)
++ (n+1) \log(\alpha) \,.
+\,, \quad \text{where} \quad
+\alpha := \frac{1 + \sqrt 5}{2} \,, \quad
+\beta := \frac{1 - \sqrt 5}{2} \,.
+$$
+:::
+
+::: proof
+We have $|\alpha| > 1$ and $|\beta| < 1$. For large $n$, $\beta^{n+1} \to 0$ and we can neglect this. Then we apply the logarithm to both sides and get the desired result.
+:::
