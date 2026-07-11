@@ -2,7 +2,7 @@
 
 use itertools::Itertools;
 use num_bigint::BigInt;
-use num_traits::{ToPrimitive, Zero};
+use num_traits::{Pow, ToPrimitive, Zero};
 
 /// Checks whether a number is a palindrome.
 pub fn is_palindrome(number: i64) -> bool {
@@ -72,13 +72,10 @@ pub fn first_9_digits_pandigital(mut number: BigInt) -> bool {
     first_digits.len() == 9 && first_digits.iter().all_unique() && first_digits[0] == 1
 }
 
-pub fn first_9_digits_pandigital_f64(number: f64) -> bool {
-    if number < 100_000_000_f64 {
-        return false;
-    }
-    let s = format!("{number}");
+pub fn first_9_digits_pandigital_log_mantissa(log_number: f64) -> bool {
+    let s = format!("{}", 10_f64.pow(log_number + 15_f64));
     let mut first_digits: Vec<char> = s.chars().take(9).collect();
-    println!("{first_digits:?}");
+    // println!("{first_digits:?}");
     first_digits.sort();
     first_digits.len() == 9 && first_digits.iter().all_unique() && first_digits[0] == '1'
 }

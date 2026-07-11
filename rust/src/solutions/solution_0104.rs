@@ -1,8 +1,8 @@
 use crate::digits::{
-    first_9_digits_pandigital, first_9_digits_pandigital_f64, last_9_digits_pandigital,
+    first_9_digits_pandigital, first_9_digits_pandigital_log_mantissa, last_9_digits_pandigital,
 };
 use crate::fibonacci::{BigFibonacciIterator, direct_fibonacci};
-use crate::fibonacci::{FibonacciSuffixIterator, approximate_fibonacci};
+use crate::fibonacci::{FibonacciSuffixIterator, approximate_fibonacci_log10};
 use indicatif::{ProgressBar, ProgressIterator, ProgressStyle};
 use num_traits::ToPrimitive;
 
@@ -27,7 +27,9 @@ fn solution_modulus() -> i64 {
         .progress_with(bar)
         .enumerate()
         .filter(|(_, f)| last_9_digits_pandigital(*f))
-        .filter(|(i, _f)| first_9_digits_pandigital_f64(approximate_fibonacci(*i as i64 + 1)))
+        .filter(|(i, _f)| {
+            first_9_digits_pandigital_log_mantissa(approximate_fibonacci_log10(*i as i64 + 1))
+        })
         .next()
         .unwrap()
         .0 as i64
