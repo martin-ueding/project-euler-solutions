@@ -127,10 +127,8 @@ pub fn direct_fibonacci(n: i64) -> BigInt {
 pub fn approximate_fibonacci_log10(n: i64) -> f64 {
     let alpha: f64 = (1.0 + 5.0_f64.sqrt()) / 2.0;
     let beta: f64 = (1.0 - 5.0_f64.sqrt()) / 2.0;
-    let n2 = ((n + 1) as f64) / 10_f64.pow(((n + 1) as f64).log10().floor());
-    let log10_f = (-beta / 5.0_f64.sqrt()).log10() + n2 * alpha.log10();
-    // println!("log10 F({n}) = {log10_f}");
-    if log10_f > 0.0 { log10_f - 1.0 } else { log10_f }
+    let log10_f = (-beta / 5.0_f64.sqrt()).log10() + ((n + 1) as f64) * alpha.log10();
+    log10_f.fract()
 }
 
 #[cfg(test)]
