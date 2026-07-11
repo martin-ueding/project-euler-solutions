@@ -1,6 +1,6 @@
 use num_bigint::BigInt;
+use num_traits::Pow;
 use num_traits::{One, Zero};
-
 pub struct FibonacciIterator {
     a: i64,
     b: i64,
@@ -122,6 +122,15 @@ pub fn direct_fibonacci(n: i64) -> BigInt {
         d: BigInt::one(),
     };
     m.pow(n).b
+}
+
+pub fn approximate_fibonacci(n: i64) -> f64 {
+    println!("{n}");
+    let alpha: f64 = (1.0 + 5.0_f64.sqrt()) / 2.0;
+    let beta: f64 = (1.0 - 5.0_f64.sqrt()) / 2.0;
+    let result = -beta / 5.0_f64.sqrt() * (alpha.pow((n + 1) as f64) + beta.pow((n + 1) as f64));
+    assert!(result.is_finite());
+    result
 }
 
 #[cfg(test)]

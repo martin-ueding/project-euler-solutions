@@ -72,6 +72,17 @@ pub fn first_9_digits_pandigital(mut number: BigInt) -> bool {
     first_digits.len() == 9 && first_digits.iter().all_unique() && first_digits[0] == 1
 }
 
+pub fn first_9_digits_pandigital_f64(number: f64) -> bool {
+    if number < 100_000_000_f64 {
+        return false;
+    }
+    let s = format!("{number}");
+    let mut first_digits: Vec<char> = s.chars().take(9).collect();
+    println!("{first_digits:?}");
+    first_digits.sort();
+    first_digits.len() == 9 && first_digits.iter().all_unique() && first_digits[0] == '1'
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
