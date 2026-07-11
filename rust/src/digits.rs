@@ -43,6 +43,19 @@ pub fn int_from_digits(digits: &[i64]) -> i64 {
     result
 }
 
+pub fn last_9_digits_pandigital(mut number: i64) -> bool {
+    if number < 100_000_000 {
+        return false;
+    }
+    let mut mask: u32 = 0;
+    for _ in 0..9 {
+        let last_digit = number % 10;
+        mask |= 1 << last_digit;
+        number /= 10;
+    }
+    mask & 0b11_1111_1110 == 0b11_1111_1110
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -65,5 +78,25 @@ mod tests {
     #[test]
     fn test_digit_sum_bigint() {
         assert_eq!(digit_sum_bigint(BigInt::from(1457)), 17);
+    }
+
+    #[test]
+    fn bit_shift() {
+        assert_eq!(1 << 1, 0b10);
+    }
+
+    #[test]
+    fn last_9_digits_pandigital_detects_pandigital() {
+        assert!(last_9_digits_pandigital(543123456789));
+    }
+
+    #[test]
+    fn last_9_digits_pandigital_detects_pandigital_2() {
+        assert!(last_9_digits_pandigital(6941749852924781635));
+    }
+
+    #[test]
+    fn last_9_digits_pandigital_rejects_non_pandigital() {
+        assert!(!last_9_digits_pandigital(5431234564789));
     }
 }

@@ -21,23 +21,23 @@ impl Iterator for FibonacciIterator {
     }
 }
 
-pub struct OverflowingFibonacciIterator {
-    a: u64,
-    b: u64,
+pub struct FibonacciSuffixIterator {
+    a: i64,
+    b: i64,
 }
 
-impl OverflowingFibonacciIterator {
+impl FibonacciSuffixIterator {
     pub fn new() -> Self {
-        OverflowingFibonacciIterator { a: 0, b: 1 }
+        FibonacciSuffixIterator { a: 0, b: 1 }
     }
 }
 
-impl Iterator for OverflowingFibonacciIterator {
-    type Item = u64;
+impl Iterator for FibonacciSuffixIterator {
+    type Item = i64;
 
     fn next(&mut self) -> Option<Self::Item> {
         let result = self.b;
-        let c = self.a.wrapping_add(self.b);
+        let c = (self.a + self.b) % 1_000_000_000;
         self.a = self.b;
         self.b = c;
         Some(result)
@@ -59,9 +59,9 @@ mod tests {
     #[test]
     fn overflowing_fibonacci_iterator_first_10() {
         assert_eq!(
-            OverflowingFibonacciIterator::new()
+            FibonacciSuffixIterator::new()
                 .take(10)
-                .collect::<Vec<u64>>(),
+                .collect::<Vec<i64>>(),
             vec![1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
         );
     }
