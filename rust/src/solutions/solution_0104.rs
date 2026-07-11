@@ -1,12 +1,14 @@
-use indicatif::ProgressIterator;
+use crate::digits::{first_9_digits_pandigital, last_9_digits_pandigital};
+use crate::fibonacci::FibonacciSuffixIterator;
+use crate::fibonacci::{BigFibonacciIterator, direct_fibonacci};
+use indicatif::{ProgressBar, ProgressIterator, ProgressStyle};
 use num_traits::ToPrimitive;
 
-use crate::digits::{first_9_digits_pandigital, last_9_digits_pandigital};
-use crate::fibonacci::BigFibonacciIterator;
-
 fn solution_big_iterator() -> i64 {
+    let bar = ProgressBar::no_length()
+        .with_style(ProgressStyle::with_template("{elapsed_precise} {pos} ({per_sec})").unwrap());
     BigFibonacciIterator::new()
-        .progress_count(1_000_000_000)
+        .progress_with(bar)
         .enumerate()
         .filter(|(_, f)| last_9_digits_pandigital((f % 1_000_000_000i64).to_i64().unwrap()))
         .filter(|(_, f)| first_9_digits_pandigital(f.clone()))
@@ -16,17 +18,33 @@ fn solution_big_iterator() -> i64 {
         + 1
 }
 
+fn solution_modulus() -> i64 {
+    let bar = ProgressBar::no_length()
+        .with_style(ProgressStyle::with_template("{elapsed_precise} {pos} ({per_sec})").unwrap());
+    FibonacciSuffixIterator::new()
+        .progress_with(bar)
+        .enumerate()
+        .filter(|(_, f)| last_9_digits_pandigital(*f ))
+        .filter(|(i, _f)| first_9_digits_pandigital(direct_fibonacci(*i as i64 + 1)))
+        .next()
+        .unwrap()
+        .0 as i64
+        + 1
+}
+
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 104,
-        implementations: &[("big iterator", solution_big_iterator)],
+        implementations: &[
+            ("modulus", solution_modulus),
+            // ("big iterator", solution_big_iterator),
+        ],
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::fibonacci::FibonacciSuffixIterator;
 
     #[test]
     fn f_541_is_pandigital() {
