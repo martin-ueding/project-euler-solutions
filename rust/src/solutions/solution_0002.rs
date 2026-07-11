@@ -1,3 +1,5 @@
+use crate::fibonacci::FibonacciIterator;
+
 fn solution() -> i64 {
     let mut sum = 0;
     let mut a = 1;
@@ -18,10 +20,17 @@ fn solution() -> i64 {
     sum
 }
 
+fn solution_iterator() -> i64 {
+    FibonacciIterator::new()
+        .take_while(|&f| f <= 4_000_000)
+        .filter(|&f| f % 2 == 0)
+        .sum()
+}
+
 inventory::submit! {
     crate::registry::SolutionEntry {
         id: 2,
-        implementations: &[("", solution)],
+        implementations: &[("loop", solution), ("iterator", solution_iterator)],
     }
 }
 
@@ -32,5 +41,10 @@ mod tests {
     #[test]
     fn test_solution() {
         assert_eq!(solution(), 4_613_732);
+    }
+
+    #[test]
+    fn solution_iterator_is_correct() {
+        assert_eq!(solution_iterator(), 4_613_732);
     }
 }

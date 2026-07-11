@@ -1,4 +1,4 @@
-struct FibonacciIterator {
+pub struct FibonacciIterator {
     a: i64,
     b: i64,
 }
