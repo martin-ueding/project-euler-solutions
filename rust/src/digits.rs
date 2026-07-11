@@ -1,7 +1,8 @@
 //! Working with numbers in their (usually base-10) representation.
 
+use itertools::Itertools;
 use num_bigint::BigInt;
-use num_traits::ToPrimitive;
+use num_traits::{ToPrimitive, Zero};
 
 /// Checks whether a number is a palindrome.
 pub fn is_palindrome(number: i64) -> bool {
@@ -56,6 +57,21 @@ pub fn last_9_digits_pandigital(mut number: i64) -> bool {
     mask & 0b11_1111_1110 == 0b11_1111_1110
 }
 
+pub fn first_9_digits_pandigital(mut number: BigInt) -> bool {
+    if number < BigInt::from(100_000_000) {
+        return false;
+    }
+    let mut digits: Vec<i32> = Vec::new();
+    while number > BigInt::zero() {
+        digits.push((&number % 10i32).to_i32().unwrap());
+        number /= 10;
+    }
+    let len = digits.len();
+    let first_digits = &mut digits[len - 9..];
+    first_digits.sort();
+    first_digits.len() == 9 && first_digits.iter().all_unique() && first_digits[0] == 1
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -98,5 +114,15 @@ mod tests {
     #[test]
     fn last_9_digits_pandigital_rejects_non_pandigital() {
         assert!(!last_9_digits_pandigital(5431234564789));
+    }
+
+    #[test]
+    fn first_9_digits_pandigital_detects_pandigital() {
+        assert!(first_9_digits_pandigital(BigInt::from(123456789000_i64)));
+    }
+
+    #[test]
+    fn first_9_digits_pandigital_rejects_non_pandigital() {
+        assert!(!first_9_digits_pandigital(BigInt::from(1234056789000_i64)));
     }
 }
