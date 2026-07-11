@@ -71,6 +71,59 @@ impl Iterator for BigFibonacciIterator {
     }
 }
 
+struct BigMatrix22 {
+    a: BigInt,
+    b: BigInt,
+    c: BigInt,
+    d: BigInt,
+}
+
+impl Clone for BigMatrix22 {
+    fn clone(&self) -> Self {
+        BigMatrix22 {
+            a: self.a.clone(),
+            b: self.b.clone(),
+            c: self.c.clone(),
+            d: self.d.clone(),
+        }
+    }
+}
+
+impl BigMatrix22 {
+    fn multiply(&self, other: &BigMatrix22) -> BigMatrix22 {
+        BigMatrix22 {
+            a: &self.a * &other.a + &self.b * &other.c,
+            b: &self.a * &other.b + &self.b * &other.d,
+            c: &self.c * &other.a + &self.d * &other.c,
+            d: &self.c * &other.b + &self.d * &other.d,
+        }
+    }
+
+    fn square(&self) -> BigMatrix22 {
+        self.multiply(self)
+    }
+
+    fn pow(&self, n: i64) -> BigMatrix22 {
+        if n == 1 {
+            self.clone()
+        } else if n % 2 == 0 {
+            self.square().pow(n / 2)
+        } else {
+            self.multiply(&self.square().pow((n - 1) / 2))
+        }
+    }
+}
+
+pub fn direct_fibonacci(n: i64) -> BigInt {
+    let m = BigMatrix22 {
+        a: BigInt::zero(),
+        b: BigInt::one(),
+        c: BigInt::one(),
+        d: BigInt::one(),
+    };
+    m.pow(n).b
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -103,6 +156,14 @@ mod tests {
                 .into_iter()
                 .map(BigInt::from)
                 .collect::<Vec<BigInt>>()
+        );
+    }
+
+    #[test]
+    fn direct_fibonacci_computes_f100() {
+        assert_eq!(
+            direct_fibonacci(100),
+            BigInt::from(354224848179261915075_i128)
         );
     }
 }
