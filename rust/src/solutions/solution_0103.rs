@@ -1,5 +1,7 @@
 use itertools::Itertools;
 
+use crate::special_sum_sets::is_special_sum_set;
+
 fn solution() -> i64 {
     let o = find_optimal_special_set(7);
     set_string(&o)
@@ -71,39 +73,6 @@ fn complete_sss(a: &mut Vec<i32>, n: i32, sum_ceiling: i32) -> Option<Vec<i32>> 
         }
     }
     best_set
-}
-
-fn is_special_sum_set(a: &[i32]) -> bool {
-    is_size_monotone(a)
-        && a.iter()
-            .copied()
-            .permutations(a.len())
-            .all(|p| is_sum_distinct(&p))
-}
-
-/// Checks for all B, C: |B| > |C| => S(B) > S(C).
-fn is_size_monotone(a: &[i32]) -> bool {
-    (1..(a.len() + 1) / 2)
-        .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
-}
-
-/// Verifies all partitions in this permutation.
-fn is_sum_distinct(a: &[i32]) -> bool {
-    for m in 1..a.len() - 1 {
-        for n in 1..a.len() - m + 1 {
-            let b = &a[..m];
-            let c = &a[m..m + n];
-            if !is_unequal_subsets(&b, &c) {
-                return false;
-            }
-        }
-    }
-    true
-}
-
-/// Checks sum(B) != sum(C).
-fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
-    b.iter().sum::<i32>() != c.iter().sum::<i32>()
 }
 
 /// Find numbers that can be appended to the given set.
@@ -192,40 +161,6 @@ mod tests {
             get_next_candidate(&vec![3, 5, 6, 7]),
             vec![6, 9, 11, 12, 13]
         );
-    }
-
-    #[test]
-    fn is_special_sum_set_accepts_n5_example() {
-        assert!(is_special_sum_set(&vec![6, 9, 11, 12, 13]));
-    }
-    #[test]
-    fn is_special_sum_set_rejects_consecutive() {
-        assert!(!is_special_sum_set(&vec![4, 5, 6, 7]));
-    }
-
-    #[test]
-    fn is_size_monotone_accepts_n4_solution() {
-        assert!(is_size_monotone(&vec![3, 5, 6, 7]));
-    }
-
-    #[test]
-    fn is_size_monotone_accepts_n5_solution() {
-        assert!(is_size_monotone(&vec![6, 9, 11, 12, 13]));
-    }
-
-    #[test]
-    fn is_size_monotone_rejects_invalid_set() {
-        assert!(!is_size_monotone(&vec![1, 2, 3, 5]));
-    }
-
-    #[test]
-    fn is_unequal_subsets_accepts_unequal_sums() {
-        assert!(is_unequal_subsets(&vec![1, 2], &vec![4, 5]));
-    }
-
-    #[test]
-    fn is_unequal_subsets_rejects_equal_sums() {
-        assert!(!is_unequal_subsets(&vec![1, 4], &vec![2, 3]));
     }
 
     #[test]

@@ -1,5 +1,4 @@
 use num_bigint::BigInt;
-use num_traits::Pow;
 use num_traits::{One, Zero};
 pub struct FibonacciIterator {
     a: i64,

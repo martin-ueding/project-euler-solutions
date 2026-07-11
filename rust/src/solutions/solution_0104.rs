@@ -1,7 +1,7 @@
 use crate::digits::{
     first_9_digits_pandigital, first_9_digits_pandigital_log_mantissa, last_9_digits_pandigital,
 };
-use crate::fibonacci::{BigFibonacciIterator, direct_fibonacci};
+use crate::fibonacci::BigFibonacciIterator;
 use crate::fibonacci::{FibonacciSuffixIterator, approximate_fibonacci_log10};
 use indicatif::{ProgressBar, ProgressIterator, ProgressStyle};
 use num_traits::ToPrimitive;
