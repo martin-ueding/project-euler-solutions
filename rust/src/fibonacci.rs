@@ -14,7 +14,7 @@ impl Iterator for FibonacciIterator {
 
     fn next(&mut self) -> Option<Self::Item> {
         let result = self.b;
-        let c = self.a + self.b;
+        let c = self.a.overflowing_add(self.b).0;
         self.a = self.b;
         self.b = c;
         Some(result)
