@@ -122,7 +122,7 @@ mod tests {
 
     #[test]
     fn solution_matches() {
-        assert_eq!(solution(), 20_313_839_404_245);
+        assert_eq!(solution(), 20313839404245);
     }
 
     #[test]
