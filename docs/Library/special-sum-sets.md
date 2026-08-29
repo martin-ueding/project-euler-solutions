@@ -102,6 +102,8 @@ The forward direction is trivial because the definition of SSS includes size-mon
 As either condition implies the other, the equivalence is proven.
 :::
 
+This theorem allows us to check for an SSS much quicker as we only need to check for size-monotonicity first and then for sum-distinctness only on equal size subsets.
+
 ## Construction of larger special sum sets
 
 Within the problem statement of [Problem 103](https://projecteuler.net/problem=103), we are given a way to use a SSS with $k$ elements to construct a SSS with $k+1$ elements. There a rough definition of a “middle element” that we are going to make more explicit:
