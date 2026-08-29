@@ -1,24 +1,6 @@
-use crate::digits::{
-    first_9_digits_pandigital, first_9_digits_pandigital_log_mantissa, last_9_digits_pandigital,
-};
-use crate::fibonacci::BigFibonacciIterator;
+use crate::digits::{first_9_digits_pandigital_log_mantissa, last_9_digits_pandigital};
 use crate::fibonacci::{FibonacciSuffixIterator, approximate_fibonacci_log10};
 use indicatif::{ProgressBar, ProgressIterator, ProgressStyle};
-use num_traits::ToPrimitive;
-
-fn solution_big_iterator() -> i64 {
-    let bar = ProgressBar::no_length()
-        .with_style(ProgressStyle::with_template("{elapsed_precise} {pos} ({per_sec})").unwrap());
-    BigFibonacciIterator::new()
-        .progress_with(bar)
-        .enumerate()
-        .filter(|(_, f)| last_9_digits_pandigital((f % 1_000_000_000i64).to_i64().unwrap()))
-        .filter(|(_, f)| first_9_digits_pandigital(f.clone()))
-        .next()
-        .unwrap()
-        .0 as i64
-        + 1
-}
 
 fn solution_modulus() -> i64 {
     let bar = ProgressBar::no_length()
@@ -41,7 +23,6 @@ inventory::submit! {
         id: 104,
         implementations: &[
             ("modulus", solution_modulus),
-            // ("big iterator", solution_big_iterator),
         ],
     }
 }
