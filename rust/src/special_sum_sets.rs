@@ -18,21 +18,33 @@ fn conway_guy_series(n: i64) -> i64 {
 }
 
 pub fn is_special_sum_set(a: &[i32]) -> bool {
-    is_size_monotone(a)
-        && a.iter()
-            .copied()
-            .permutations(a.len())
-            .all(|p| is_sum_distinct(&p))
+    if is_size_monotone(a) {
+        let t1 = is_sum_distinct(a);
+        let t2 = is_equal_size_sum_distinct(a);
+        if t1 != t2 {
+            println!("Mismatch with {a:?}, {t1} vs. {t2}");
+        }
+        t1
+    } else {
+        false
+    }
 }
 
 /// Checks for all B, C: |B| > |C| => S(B) > S(C).
 fn is_size_monotone(a: &[i32]) -> bool {
     (1..(a.len() + 1) / 2)
-        .all(|k| a[..k + 1].iter().sum::<i32>() >= a[a.len() - k..].iter().sum::<i32>())
+        .all(|k| a[..k + 1].iter().sum::<i32>() > a[a.len() - k..].iter().sum::<i32>())
+}
+
+fn is_sum_distinct(a: &[i32]) -> bool {
+    a.iter()
+        .copied()
+        .permutations(a.len())
+        .all(|p| is_permutation_sum_distinct(&p))
 }
 
 /// Verifies all partitions in this permutation.
-fn is_sum_distinct(a: &[i32]) -> bool {
+fn is_permutation_sum_distinct(a: &[i32]) -> bool {
     for m in 1..a.len() - 1 {
         for n in 1..a.len() - m + 1 {
             let b = &a[..m];
@@ -48,6 +60,19 @@ fn is_sum_distinct(a: &[i32]) -> bool {
 /// Checks sum(B) != sum(C).
 fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
     b.iter().sum::<i32>() != c.iter().sum::<i32>()
+}
+
+fn is_equal_size_sum_distinct(a: &[i32]) -> bool {
+    (1..a.len() / 2 + 1).all(|k| {
+        a.iter().copied().combinations(k).all(|set_1| {
+            let sum_1: i32 = set_1.iter().sum();
+            a.iter()
+                .copied()
+                .filter(|elem| !set_1.contains(elem))
+                .combinations(k)
+                .all(|set_2| set_2.iter().sum::<i32>() != sum_1)
+        })
+    })
 }
 
 #[cfg(test)]
@@ -96,15 +121,17 @@ mod tests {
     #[test]
     fn is_size_monotone_rejects_invalid_set() {
         assert!(!is_size_monotone(&vec![1, 2, 3, 5]));
+        assert!(!is_size_monotone(&vec![2, 4, 5, 6]));
+        assert!(!is_size_monotone(&vec![2, 12, 13, 14]));
     }
 
     #[test]
-    fn is_unequal_subsets_accepts_unequal_sums() {
-        assert!(is_unequal_subsets(&vec![1, 2], &vec![4, 5]));
+    fn is_equal_size_sum_distinct_accepts() {
+        assert!(is_equal_size_sum_distinct(&vec![6, 9, 11, 12, 13]));
     }
 
     #[test]
-    fn is_unequal_subsets_rejects_equal_sums() {
-        assert!(!is_unequal_subsets(&vec![1, 4], &vec![2, 3]));
+    fn is_equal_size_sum_distinct_rejects() {
+        assert!(!is_equal_size_sum_distinct(&vec![1, 2, 3, 4]));
     }
 }
