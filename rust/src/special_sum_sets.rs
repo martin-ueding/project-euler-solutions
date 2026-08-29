@@ -18,48 +18,13 @@ fn conway_guy_series(n: i64) -> i64 {
 }
 
 pub fn is_special_sum_set(a: &[i32]) -> bool {
-    if is_size_monotone(a) {
-        let t1 = is_sum_distinct(a);
-        let t2 = is_equal_size_sum_distinct(a);
-        if t1 != t2 {
-            println!("Mismatch with {a:?}, {t1} vs. {t2}");
-        }
-        t1
-    } else {
-        false
-    }
+    is_size_monotone(a) && is_equal_size_sum_distinct(a)
 }
 
 /// Checks for all B, C: |B| > |C| => S(B) > S(C).
 fn is_size_monotone(a: &[i32]) -> bool {
     (1..(a.len() + 1) / 2)
         .all(|k| a[..k + 1].iter().sum::<i32>() > a[a.len() - k..].iter().sum::<i32>())
-}
-
-fn is_sum_distinct(a: &[i32]) -> bool {
-    a.iter()
-        .copied()
-        .permutations(a.len())
-        .all(|p| is_permutation_sum_distinct(&p))
-}
-
-/// Verifies all partitions in this permutation.
-fn is_permutation_sum_distinct(a: &[i32]) -> bool {
-    for m in 1..a.len() - 1 {
-        for n in 1..a.len() - m + 1 {
-            let b = &a[..m];
-            let c = &a[m..m + n];
-            if !is_unequal_subsets(&b, &c) {
-                return false;
-            }
-        }
-    }
-    true
-}
-
-/// Checks sum(B) != sum(C).
-fn is_unequal_subsets(b: &[i32], c: &[i32]) -> bool {
-    b.iter().sum::<i32>() != c.iter().sum::<i32>()
 }
 
 fn is_equal_size_sum_distinct(a: &[i32]) -> bool {
