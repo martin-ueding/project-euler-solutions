@@ -108,7 +108,7 @@ impl Graph for ExplicitGraph {
         *self
             .vertices
             .get(&id)
-            .expect("Given vertex id must be contained in graph.")
+            .expect("vertex should be contained in graph")
     }
 }
 
