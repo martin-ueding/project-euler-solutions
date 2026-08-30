@@ -3,23 +3,23 @@ use std::{
     collections::{BinaryHeap, HashMap},
 };
 
-type VertexID = i32;
-type Weight = i32;
+pub type VertexID = usize;
+pub type Weight = i32;
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct Edge {
-    from: i32,
-    to: i32,
+    from: VertexID,
+    to: VertexID,
     weight: Weight,
 }
 
 impl Edge {
-    pub fn new(from: i32, to: i32, weight: Weight) -> Self {
+    pub fn new(from: VertexID, to: VertexID, weight: Weight) -> Self {
         Edge { from, to, weight }
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct Vertex {
     id: VertexID,
     weight: Weight,
@@ -32,8 +32,8 @@ impl Vertex {
 }
 
 pub trait Graph {
-    fn edges(&self, v: &VertexID) -> &[Edge];
-    fn vertex(&self, id: &VertexID) -> &Vertex;
+    fn edges(&self, v: &VertexID) -> Vec<Edge>;
+    fn vertex(&self, id: &VertexID) -> Vertex;
 }
 
 #[derive(PartialEq, Eq, PartialOrd, Ord)]
@@ -105,12 +105,13 @@ impl ExplicitGraph {
 }
 
 impl Graph for ExplicitGraph {
-    fn edges(&self, v: &VertexID) -> &[Edge] {
-        self.edges.get(v).map(Vec::as_slice).unwrap_or(&[])
+    fn edges(&self, v: &VertexID) -> Vec<Edge> {
+        self.edges.get(v).cloned().unwrap_or_default()
     }
 
-    fn vertex(&self, id: &VertexID) -> &Vertex {
-        self.vertices
+    fn vertex(&self, id: &VertexID) -> Vertex {
+        *self
+            .vertices
             .get(id)
             .expect("Given vertex id must be contained in graph.")
     }
@@ -138,6 +139,9 @@ mod tests {
             ],
         );
 
-        assert_eq!(min_distance(&graph, graph.vertex(&1), graph.vertex(&4)), 14)
+        assert_eq!(
+            min_distance(&graph, &graph.vertex(&1), &graph.vertex(&4)),
+            14
+        )
     }
 }

@@ -13,6 +13,7 @@ mod solution_0008;
 mod solution_0010;
 mod solution_0012;
 mod solution_0014;
+mod solution_0018;
 mod solution_0064;
 mod solution_0065;
 mod solution_0066;
