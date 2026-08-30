@@ -173,8 +173,8 @@ The $n$-th Fibonacci number approximately is
 $$
 \log(F_n) \approx
 \log\left(- \frac{\beta}{\sqrt 5}\right)
-+ (n+1) \log(\alpha) \,.
-\,, \quad \text{where} \quad
++ (n+1) \log(\alpha) \,,
+\quad \text{where} \quad
 \alpha := \frac{1 + \sqrt 5}{2} \,, \quad
 \beta := \frac{1 - \sqrt 5}{2} \,.
 $$
