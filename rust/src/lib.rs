@@ -3,6 +3,7 @@ pub mod digits;
 pub mod diophantine;
 pub mod fibonacci;
 pub mod fractions;
+pub mod graphs;
 pub mod integers;
 pub mod primes;
 pub mod registry;
