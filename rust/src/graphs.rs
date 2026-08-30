@@ -58,19 +58,11 @@ pub fn min_distance(g: &dyn Graph, start: &Vertex, target: &Vertex) -> Weight {
         for edge in g.edges(&cur.id) {
             let vertex = g.vertex(&edge.to);
             let distance = cur.total_distance + edge.weight + vertex.weight;
-            if total_distances.contains_key(&vertex.id) {
-                if distance
-                    < *total_distances
-                        .get(&vertex.id)
-                        .expect("We've just checked.")
-                {
-                    total_distances.insert(vertex.id, distance);
-                    unvisited_vertices.push(Reverse(UnvisitedVertex {
-                        total_distance: distance,
-                        id: vertex.id,
-                    }))
-                }
-            } else {
+            // Unless a smaller distance to that vertex is already known, insert the computed distance and update the unvisited heap.
+            if !total_distances
+                .get(&vertex.id)
+                .is_some_and(|d| *d < distance)
+            {
                 total_distances.insert(vertex.id, distance);
                 unvisited_vertices.push(Reverse(UnvisitedVertex {
                     total_distance: distance,
