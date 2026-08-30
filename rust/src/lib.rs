@@ -5,6 +5,7 @@ pub mod fibonacci;
 pub mod fractions;
 pub mod graphs;
 pub mod integers;
+pub mod matrix_graphs;
 pub mod primes;
 pub mod registry;
 pub mod series;

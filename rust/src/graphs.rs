@@ -54,7 +54,7 @@ pub fn min_path_sum(g: &dyn Graph, start: VertexID, target: VertexID) -> Weight 
     while !unvisited_vertices.is_empty() {
         let cur = unvisited_vertices
             .pop()
-            .expect("We ran out of reachable unvisited vertices.")
+            .expect("non-empty due to above check")
             .0;
         for edge in g.edges(cur.id) {
             let vertex = g.vertex(edge.to);
@@ -74,7 +74,7 @@ pub fn min_path_sum(g: &dyn Graph, start: VertexID, target: VertexID) -> Weight 
     }
     *total_distances
         .get(&target)
-        .expect("We ran until we reached the target.")
+        .expect("target should be reachable from start")
 }
 
 pub struct ExplicitGraph {
