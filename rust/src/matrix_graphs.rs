@@ -36,6 +36,14 @@ impl MatrixGraph {
     fn num_cols(&self) -> usize {
         self.numbers[0].len()
     }
+
+    fn row(&self, id: VertexID) -> usize {
+        id / self.num_cols()
+    }
+
+    fn col(&self, id: VertexID) -> usize {
+        id % self.num_cols()
+    }
 }
 
 fn read_matrix_file(path: &str) -> Vec<Vec<i32>> {
@@ -59,23 +67,23 @@ impl Graph for MatrixGraph {
     fn edges(&self, id: VertexID) -> Vec<Edge> {
         let mut edges: Vec<Edge> = Vec::new();
         if id == LEFT_EDGE_ID {
-            for row in 0..self.numbers.len() {
-                edges.push(Edge::new(id, row * self.numbers.len(), 0));
+            for row in 0..self.num_rows() {
+                edges.push(Edge::new(id, row * self.num_cols(), 0));
             }
         } else if id == RIGHT_EDGE_ID {
         } else {
-            if id / self.numbers.len() < self.numbers.len() - 1 {
-                edges.push(Edge::new(id, id + self.numbers.len(), 0));
+            if self.row(id) < self.num_rows() - 1 {
+                edges.push(Edge::new(id, id + self.num_cols(), 0));
             }
-            if id % self.numbers.len() < self.numbers.len() - 1 {
+            if self.col(id) < self.num_cols() - 1 {
                 edges.push(Edge::new(id, id + 1, 0));
             } else {
                 edges.push(Edge::new(id, RIGHT_EDGE_ID, 0));
             }
-            if self.allowed_directions != RightDown && id / self.numbers.len() > 0 {
-                edges.push(Edge::new(id, id - self.numbers.len(), 0));
+            if self.allowed_directions != RightDown && self.row(id) > 0 {
+                edges.push(Edge::new(id, id - self.num_cols(), 0));
             }
-            if self.allowed_directions == AllDirections && id % self.numbers.len() > 0 {
+            if self.allowed_directions == AllDirections && self.col(id) > 0 {
                 edges.push(Edge::new(id, id - 1, 0));
             }
         }
@@ -86,10 +94,7 @@ impl Graph for MatrixGraph {
         match id {
             LEFT_EDGE_ID => Vertex::new(LEFT_EDGE_ID, 0),
             RIGHT_EDGE_ID => Vertex::new(RIGHT_EDGE_ID, 0),
-            _ => Vertex::new(
-                id,
-                self.numbers[id / self.numbers.len()][id % self.numbers.len()],
-            ),
+            _ => Vertex::new(id, self.numbers[self.row(id)][self.col(id)]),
         }
     }
 }
