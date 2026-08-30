@@ -54,5 +54,7 @@ export default withSidebar(
     sortMenusByName: false,
     sortFolderTo: 'bottom',
     collapsed: false,
+    useFolderLinkFromIndexFile: true,
+    useFolderTitleFromIndexFile: true,
   },
 )

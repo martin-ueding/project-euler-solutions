@@ -1,6 +1,6 @@
 # Special Subset Sums: Optimum (103)
 
-In [Problem 103](https://projecteuler.net/problem=103), we're asked to find a an [optimal special sum set](../Library/special-sum-sets.md) (SSS).
+In [Problem 103](https://projecteuler.net/problem=103), we're asked to find a an [optimal special sum set](../library/special-sum-sets.md) (SSS).
 
 I use the pivot element construction to find an SSS with given size $n$. The sum of the elements there serves as an upper bound, no optimal set can exceed that sum.
 

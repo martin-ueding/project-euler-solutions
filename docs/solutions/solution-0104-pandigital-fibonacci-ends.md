@@ -11,7 +11,7 @@ We only need to store the low part of the Fibonacci numbers and discard the high
 
 Iterating through the low part means that we can check the pandigital property there. This already makes the list of candidates much shorter. For these candidates, we need to check the high part.
 
-Using the [logarithmic approximation to the Fibonacci numbers](../Library/fibonacci-numbers.md#numerical-approximation), we do the following:
+Using the [logarithmic approximation to the Fibonacci numbers](../library/fibonacci-numbers.md#numerical-approximation), we do the following:
 
 - Compute $f_n := \log_{10}(F_n)$ using the approximation.
 - Isolate the fractional part, $b := f_n - \lfloor f_n \rfloor$ as we don't care about the absolute magnitude of the number, only the digits.

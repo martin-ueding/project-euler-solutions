@@ -45,7 +45,7 @@ $$ (3a \mp 1)^2 - 3y^2 = 4 \,. $$
 We introduce $x := 3a \mp 1$ and then end up with
 $$ x^2 - 3y^2 = 4 \,. $$
 
-This type of equation has occurred multiple times in these problems and it is the Diophantine equation that has it's own [library page](../Library/diophantine-equations.md). In this case we have $D = 3$ and $c = 4$.
+This type of equation has occurred multiple times in these problems and it is the Diophantine equation that has it's own [library page](../library/diophantine-equations.md). In this case we have $D = 3$ and $c = 4$.
 
 ## Solutions of the Diophantine equation
 

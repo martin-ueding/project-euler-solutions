@@ -14,7 +14,7 @@ $$ (3 + 6 + \ldots + 999) + (5 + 10 + \ldots + 995) - (15 + 30 + \ldots + 990) \
 From each parentheses, we can factor out the common multiple and we get
 $$ 3 (1 + 2 + \ldots + 333) + 5 (1 + 2 + \ldots + 199) - 5 (1 + 2 + \ldots + 66) \,. $$
 
-We can take [Gauss's formula](../Library/series.md#natural-numbers) to write this more concise as
+We can take [Gauss's formula](../library/series.md#natural-numbers) to write this more concise as
 $$ 3 S_{333} + 5 S_{199} - 15 S_{66} \,. $$
 
 That then solves the problem in closed form.

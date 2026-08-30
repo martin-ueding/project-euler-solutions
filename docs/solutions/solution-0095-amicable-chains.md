@@ -2,7 +2,7 @@
 
 In [Problem 95](https://projecteuler.net/problem=95), we look into the numbers that arise when we sum the proper divisors of another number.
 
-Getting the sum of the proper divisors is easy as we already have the [functionality for divisors](../Library/primes.md#divisors). We omit the number itself and sum them up.
+Getting the sum of the proper divisors is easy as we already have the [functionality for divisors](../library/primes.md#divisors). We omit the number itself and sum them up.
 
 ## Tracking chains
 

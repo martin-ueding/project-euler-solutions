@@ -26,7 +26,7 @@ This approach is very elegant because it doesn't need additional memory for inte
 
 The number triangle can also be interpreted as a graph with edges going downward. We need a virtual terminal node with weight zero that can be reached from all the bottom-row nodes such that we have a clear target node that we want to reach.
 
-Then we just need to apply Dijkstra's algorithm from the [graph library](../Library/graphs.md) to find the maximum path from root node to the virtual terminal node. Dijkstra's algorithm usually finds the minimum path length from the edges, but we just count the node values towards the incoming edges and flip the signs to get the maximum path sum.
+Then we just need to apply Dijkstra's algorithm from the [graph library](../library/graphs.md) to find the maximum path from root node to the virtual terminal node. Dijkstra's algorithm usually finds the minimum path length from the edges, but we just count the node values towards the incoming edges and flip the signs to get the maximum path sum.
 
 The algorithm will start at the root node, but it will keep track of the maximum path sum toward every visited node. This way we don't have to re-sum every path but can do this level by level.
 
