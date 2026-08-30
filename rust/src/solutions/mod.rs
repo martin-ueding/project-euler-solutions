@@ -20,6 +20,7 @@ mod solution_0066;
 mod solution_0067;
 mod solution_0081;
 mod solution_0082;
+mod solution_0083;
 mod solution_0088;
 mod solution_0090;
 mod solution_0091;
