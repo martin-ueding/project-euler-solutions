@@ -42,7 +42,8 @@ struct UnvisitedVertex {
     id: VertexID,
 }
 
-pub fn min_path_sum(g: &dyn Graph, start: &Vertex, target: &Vertex) -> Weight {
+pub fn min_path_sum(g: &dyn Graph, start: VertexID, target: VertexID) -> Weight {
+    let start = g.vertex(start);
     let mut unvisited_vertices: BinaryHeap<Reverse<UnvisitedVertex>> = BinaryHeap::new();
     unvisited_vertices.push(Reverse(UnvisitedVertex {
         total_distance: start.weight,
@@ -72,7 +73,7 @@ pub fn min_path_sum(g: &dyn Graph, start: &Vertex, target: &Vertex) -> Weight {
         }
     }
     *total_distances
-        .get(&target.id)
+        .get(&target)
         .expect("We ran until we reached the target.")
 }
 
@@ -133,9 +134,6 @@ mod tests {
             ],
         );
 
-        assert_eq!(
-            min_path_sum(&graph, &graph.vertex(1), &graph.vertex(4)),
-            14
-        )
+        assert_eq!(min_path_sum(&graph, 1, 4), 14)
     }
 }

@@ -53,11 +53,7 @@ impl Graph for TriangleGraph {
 pub fn triangle_max_path(path: &str) -> i64 {
     let numbers = load_triangle_numbers(path);
     let graph = TriangleGraph { lines: numbers };
-    -min_path_sum(
-        &graph,
-        &graph.vertex(0),
-        &graph.vertex(VIRTUAL_END_VERTEX_ID),
-    ) as i64
+    -min_path_sum(&graph, 0, VIRTUAL_END_VERTEX_ID) as i64
 }
 
 #[cfg(test)]
