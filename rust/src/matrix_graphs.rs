@@ -52,8 +52,8 @@ fn line_to_integers(line: &str) -> Vec<i32> {
         .collect()
 }
 
-const LEFT_EDGE_ID: VertexID = 1_000_001;
-const RIGHT_EDGE_ID: VertexID = 1_000_002;
+pub const LEFT_EDGE_ID: VertexID = 1_000_001;
+pub const RIGHT_EDGE_ID: VertexID = 1_000_002;
 
 impl Graph for MatrixGraph {
     fn edges(&self, id: VertexID) -> Vec<Edge> {
