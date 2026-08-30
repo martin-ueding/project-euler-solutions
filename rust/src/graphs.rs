@@ -118,7 +118,6 @@ impl Graph for ExplicitGraph {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[test]
