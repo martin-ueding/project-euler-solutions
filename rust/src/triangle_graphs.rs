@@ -1,6 +1,6 @@
 use std::fs;
 
-use crate::graphs::{Edge, Graph, Vertex, VertexID, min_distance};
+use crate::graphs::{Edge, Graph, Vertex, VertexID, min_path_sum};
 
 pub fn load_triangle_numbers(path: &str) -> Vec<Vec<i32>> {
     fs::read_to_string(path)
@@ -23,29 +23,29 @@ pub struct TriangleGraph {
 pub const VIRTUAL_END_VERTEX_ID: VertexID = 1000000;
 
 impl Graph for TriangleGraph {
-    fn edges(&self, v: &VertexID) -> Vec<Edge> {
-        if *v == VIRTUAL_END_VERTEX_ID {
+    fn edges(&self, v: VertexID) -> Vec<Edge> {
+        if v == VIRTUAL_END_VERTEX_ID {
             vec![]
         } else {
             let row = v / self.lines.len();
             if row == self.lines.len() - 1 {
-                vec![Edge::new(*v, VIRTUAL_END_VERTEX_ID, 0)]
+                vec![Edge::new(v, VIRTUAL_END_VERTEX_ID, 0)]
             } else {
                 vec![
-                    Edge::new(*v, v + self.lines.len(), 0),
-                    Edge::new(*v, v + self.lines.len() + 1, 0),
+                    Edge::new(v, v + self.lines.len(), 0),
+                    Edge::new(v, v + self.lines.len() + 1, 0),
                 ]
             }
         }
     }
 
-    fn vertex(&self, id: &VertexID) -> Vertex {
-        if *id == VIRTUAL_END_VERTEX_ID {
-            Vertex::new(*id, 0)
+    fn vertex(&self, id: VertexID) -> Vertex {
+        if id == VIRTUAL_END_VERTEX_ID {
+            Vertex::new(id, 0)
         } else {
             let row = id / self.lines.len();
             let col = id % self.lines.len();
-            Vertex::new(*id, -self.lines[row][col])
+            Vertex::new(id, -self.lines[row][col])
         }
     }
 }
@@ -53,10 +53,10 @@ impl Graph for TriangleGraph {
 pub fn triangle_max_path(path: &str) -> i64 {
     let numbers = load_triangle_numbers(path);
     let graph = TriangleGraph { lines: numbers };
-    -min_distance(
+    -min_path_sum(
         &graph,
-        &graph.vertex(&0),
-        &graph.vertex(&VIRTUAL_END_VERTEX_ID),
+        &graph.vertex(0),
+        &graph.vertex(VIRTUAL_END_VERTEX_ID),
     ) as i64
 }
 

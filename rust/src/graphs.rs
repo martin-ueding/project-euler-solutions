@@ -32,8 +32,8 @@ impl Vertex {
 }
 
 pub trait Graph {
-    fn edges(&self, v: &VertexID) -> Vec<Edge>;
-    fn vertex(&self, id: &VertexID) -> Vertex;
+    fn edges(&self, id: VertexID) -> Vec<Edge>;
+    fn vertex(&self, id: VertexID) -> Vertex;
 }
 
 #[derive(PartialEq, Eq, PartialOrd, Ord)]
@@ -42,7 +42,7 @@ struct UnvisitedVertex {
     id: VertexID,
 }
 
-pub fn min_distance(g: &dyn Graph, start: &Vertex, target: &Vertex) -> Weight {
+pub fn min_path_sum(g: &dyn Graph, start: &Vertex, target: &Vertex) -> Weight {
     let mut unvisited_vertices: BinaryHeap<Reverse<UnvisitedVertex>> = BinaryHeap::new();
     unvisited_vertices.push(Reverse(UnvisitedVertex {
         total_distance: start.weight,
@@ -55,8 +55,8 @@ pub fn min_distance(g: &dyn Graph, start: &Vertex, target: &Vertex) -> Weight {
             .pop()
             .expect("We ran out of reachable unvisited vertices.")
             .0;
-        for edge in g.edges(&cur.id) {
-            let vertex = g.vertex(&edge.to);
+        for edge in g.edges(cur.id) {
+            let vertex = g.vertex(edge.to);
             let distance = cur.total_distance + edge.weight + vertex.weight;
             // Unless a smaller distance to that vertex is already known, insert the computed distance and update the unvisited heap.
             if !total_distances
@@ -89,13 +89,7 @@ impl ExplicitGraph {
             vertex_map.insert(vertex.id, vertex.clone());
         }
         for edge in edges {
-            if !edge_map.contains_key(&edge.from) {
-                edge_map.insert(edge.from, vec![]);
-            }
-            edge_map
-                .get_mut(&edge.from)
-                .expect("We've just inserted this array.")
-                .push(edge.clone());
+            edge_map.entry(edge.from).or_default().push(*edge);
         }
         ExplicitGraph {
             vertices: vertex_map,
@@ -105,14 +99,14 @@ impl ExplicitGraph {
 }
 
 impl Graph for ExplicitGraph {
-    fn edges(&self, v: &VertexID) -> Vec<Edge> {
-        self.edges.get(v).cloned().unwrap_or_default()
+    fn edges(&self, v: VertexID) -> Vec<Edge> {
+        self.edges.get(&v).cloned().unwrap_or_default()
     }
 
-    fn vertex(&self, id: &VertexID) -> Vertex {
+    fn vertex(&self, id: VertexID) -> Vertex {
         *self
             .vertices
-            .get(id)
+            .get(&id)
             .expect("Given vertex id must be contained in graph.")
     }
 }
@@ -140,7 +134,7 @@ mod tests {
         );
 
         assert_eq!(
-            min_distance(&graph, &graph.vertex(&1), &graph.vertex(&4)),
+            min_path_sum(&graph, &graph.vertex(1), &graph.vertex(4)),
             14
         )
     }
