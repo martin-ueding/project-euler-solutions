@@ -1,6 +1,6 @@
 use std::fs;
 
-use crate::graphs::{Edge, Graph, Vertex, VertexID};
+use crate::graphs::{Edge, Graph, Vertex, VertexID, min_distance};
 
 pub fn load_triangle_numbers(path: &str) -> Vec<Vec<i32>> {
     fs::read_to_string(path)
@@ -48,6 +48,16 @@ impl Graph for TriangleGraph {
             Vertex::new(*id, -self.lines[row][col])
         }
     }
+}
+
+pub fn triangle_max_path(path: &str) -> i64 {
+    let numbers = load_triangle_numbers(path);
+    let graph = TriangleGraph { lines: numbers };
+    -min_distance(
+        &graph,
+        &graph.vertex(&0),
+        &graph.vertex(&VIRTUAL_END_VERTEX_ID),
+    ) as i64
 }
 
 #[cfg(test)]
